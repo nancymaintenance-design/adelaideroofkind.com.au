@@ -1,0 +1,4 @@
+{
+  "buildCommand": "unzip -q ellis-services-group-site.zip -d dist",
+  "outputDirectory": "dist"
+}
