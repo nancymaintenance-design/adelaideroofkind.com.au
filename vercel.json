@@ -1,5 +1,5 @@
 {
-  "buildCommand": "unzip -q ellis-services-group-site.zip -d dist",
+  "buildCommand": "node build.mjs --docs",
   "outputDirectory": "dist",
   "headers": [
     {
