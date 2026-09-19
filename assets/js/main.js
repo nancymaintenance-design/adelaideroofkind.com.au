@@ -1,0 +1,3 @@
+document.querySelector('.menu-toggle')?.addEventListener('click',()=>{const nav=document.querySelector('.nav');const open=nav.classList.toggle('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded',String(open));});
+document.querySelectorAll('.faq-question').forEach(button=>button.addEventListener('click',()=>{const item=button.closest('.faq-item');const isOpen=item.classList.toggle('open');button.setAttribute('aria-expanded',String(isOpen));}));
+document.querySelectorAll('[data-demo-form]').forEach(form=>form.addEventListener('submit',(event)=>{event.preventDefault();const status=form.querySelector('.form-status');if(status)status.textContent='Local candidate only — connect this form to your approved enquiry workflow before publishing.';}));
