@@ -20,5 +20,72 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/roof-repairs-burnside.html",
+      "permanent": true,
+      "destination": "/roof-repairs-burnside-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-campbelltown.html",
+      "permanent": true,
+      "destination": "/roof-repairs-campbelltown-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-glen-osmond.html",
+      "permanent": true,
+      "destination": "/roof-repairs-glen-osmond-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-glenelg.html",
+      "permanent": true,
+      "destination": "/roof-repairs-glenelg-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-goodwood.html",
+      "permanent": true,
+      "destination": "/roof-repairs-goodwood-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-henley-beach.html",
+      "permanent": true,
+      "destination": "/roof-repairs-henley-beach-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-kensington.html",
+      "permanent": true,
+      "destination": "/roof-repairs-kensington-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-modbury.html",
+      "permanent": true,
+      "destination": "/roof-repairs-modbury-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-norwood.html",
+      "permanent": true,
+      "destination": "/roof-repairs-norwood-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-prospect.html",
+      "permanent": true,
+      "destination": "/roof-repairs-prospect-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-salisbury.html",
+      "permanent": true,
+      "destination": "/roof-repairs-salisbury-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-unley.html",
+      "permanent": true,
+      "destination": "/roof-repairs-unley-adelaide.html"
+    },
+    {
+      "source": "/roof-repairs-port-adelaide-adelaide.html",
+      "permanent": true,
+      "destination": "/roof-repairs-port-adelaide.html"
+    }
   ]
 }
