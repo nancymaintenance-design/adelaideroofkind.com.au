@@ -2,8 +2,7 @@
   "name": "Ellis Services Group Adelaide",
   "short_name": "Ellis Adelaide",
   "icons": [
-    { "src": "favicon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "favicon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/favicon-ellis-services.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ],
   "theme_color": "#071e49",
   "background_color": "#071e49",

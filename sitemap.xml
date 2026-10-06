@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.adelaideroofkind.com.au/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.adelaideroofkind.com.au/roof-repairs-adelaide.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.adelaideroofkind.com.au/roof-restoration-adelaide.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.adelaideroofkind.com.au/services.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -50,9 +50,45 @@
   </url>
   <url>
     <loc>https://www.adelaideroofkind.com.au/industry-answers.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-adelaide-guide.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/tile-roof-repairs-adelaide-guide.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repointing-ridge-capping-adelaide-guide.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide-guide.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-restoration-adelaide-guide.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.adelaideroofkind.com.au/faq.html</loc>
@@ -66,4 +102,81 @@
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
+  <!-- LOCALITY-SERVICE-PAGES:START -->
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-adelaide-cbd.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-north-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-norwood-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-kensington-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-burnside-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-unley-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-goodwood-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-glen-osmond-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-prospect-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-salisbury-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-modbury-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-campbelltown-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-henley-beach-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-glenelg-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adelaideroofkind.com.au/roof-repairs-port-adelaide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- LOCALITY-SERVICE-PAGES:END -->
 </urlset>
