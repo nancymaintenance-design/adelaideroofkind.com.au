@@ -3,10 +3,10 @@ const path = require('node:path');
 
 const html = fs.readFileSync(path.join(__dirname, '..', 'gutter-downpipe-repairs-adelaide.html'), 'utf8');
 const required = [
-  'Gutter Repairs Adelaide | Downpipe Repairs & Price Guide',
-  'What happens when you request a gutter assessment',
-  'Overflow or pooling',
-  'Water near electrical fittings'
+  'Gutter and Downpipe Repairs Adelaide',
+  'How gutter and downpipe faults are assessed',
+  'What Ellis repairs in a drainage system',
+  'Plan a drainage assessment'
 ];
 
 const missing = required.filter((value) => !html.includes(value));
