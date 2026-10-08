@@ -1,1 +1,55 @@
-{"version":"https://jsonfeed.org/version/1.1","title":"Ellis Services Group Roofing Advice","home_page_url":"https://www.adelaideroofkind.com.au/industry-answers.html","feed_url":"https://www.adelaideroofkind.com.au/feed.json","description":"Practical Adelaide roofing advice from Ellis Services Group.","language":"en-AU","items":[{"id":"https://www.adelaideroofkind.com.au/roof-repairs-adelaide-guide.html","url":"https://www.adelaideroofkind.com.au/roof-repairs-adelaide-guide.html","title":"Roof Repair Warning Signs Adelaide: When to Act","date_published":"2026-09-27T00:00:00+09:30","summary":"Which visible roof defects should be checked before they become wider water-entry problems."},{"id":"https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html","url":"https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html","title":"Roof Leak Detection Adelaide: How to Trace the Source","date_published":"2026-09-27T00:00:00+09:30","summary":"How to record leak symptoms and trace likely water paths before repair work is scoped."},{"id":"https://www.adelaideroofkind.com.au/tile-roof-repairs-adelaide-guide.html","url":"https://www.adelaideroofkind.com.au/tile-roof-repairs-adelaide-guide.html","title":"Tile Roof Repairs Adelaide: Broken, Cracked and Slipped Tile Solutions","date_published":"2026-09-27T00:00:00+09:30","summary":"Practical considerations for local tiled-roof repairs."},{"id":"https://www.adelaideroofkind.com.au/roof-repointing-ridge-capping-adelaide-guide.html","url":"https://www.adelaideroofkind.com.au/roof-repointing-ridge-capping-adelaide-guide.html","title":"Roof Repointing and Ridge Capping Repairs Adelaide: Warning Signs to Watch","date_published":"2026-09-27T00:00:00+09:30","summary":"What loose ridge caps and deteriorated pointing can indicate."},{"id":"https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide-guide.html","url":"https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide-guide.html","title":"Gutter Cleaning and Downpipe Repairs Adelaide: Preventing Overflow and Water Damage","date_published":"2026-09-27T00:00:00+09:30","summary":"How gutters and downpipes can affect roof-edge drainage."},{"id":"https://www.adelaideroofkind.com.au/roof-restoration-adelaide-guide.html","url":"https://www.adelaideroofkind.com.au/roof-restoration-adelaide-guide.html","title":"Roof Restoration vs Replacement Adelaide: What to Compare","date_published":"2026-09-27T00:00:00+09:30","summary":"A practical comparison of roof repair, restoration and replacement decisions."}]}
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Ellis Services Group Roofing Advice",
+  "home_page_url": "https://www.adelaideroofkind.com.au/industry-answers.html",
+  "feed_url": "https://www.adelaideroofkind.com.au/feed.json",
+  "description": "Practical Adelaide roofing advice from Ellis Services Group.",
+  "language": "en-AU",
+  "items": [
+    {
+      "id": "https://www.adelaideroofkind.com.au/roof-repairs-adelaide-guide.html",
+      "url": "https://www.adelaideroofkind.com.au/roof-repairs-adelaide-guide.html",
+      "title": "Roof Repair Warning Signs Adelaide: When to Act",
+      "date_published": "2026-09-27T00:00:00+09:30",
+      "summary": "Which visible roof defects should be checked before they become wider water-entry problems."
+    },
+    {
+      "id": "https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html",
+      "url": "https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html",
+      "title": "Roof Leak Detection Adelaide: How to Trace the Source",
+      "date_published": "2026-09-27T00:00:00+09:30",
+      "summary": "How to record leak symptoms and trace likely water paths before repair work is scoped."
+    },
+    {
+      "id": "https://www.adelaideroofkind.com.au/tile-roof-repairs-adelaide-guide.html",
+      "url": "https://www.adelaideroofkind.com.au/tile-roof-repairs-adelaide-guide.html",
+      "title": "Broken Roof Tiles: Signs, Causes and Repair Options",
+      "date_published": "2026-09-27T00:00:00+09:30",
+      "summary": "Learn how cracked and slipped tiles are assessed, what a local repair includes and how to prevent repeat damage.",
+      "date_modified": "2026-10-08T12:00:00+08:00"
+    },
+    {
+      "id": "https://www.adelaideroofkind.com.au/roof-repointing-ridge-capping-adelaide-guide.html",
+      "url": "https://www.adelaideroofkind.com.au/roof-repointing-ridge-capping-adelaide-guide.html",
+      "title": "Ridge Capping: When to Repoint or Re-bed",
+      "date_published": "2026-09-27T00:00:00+09:30",
+      "summary": "Understand the difference between ridge bedding and pointing, signs of movement and how Ellis selects the right repair.",
+      "date_modified": "2026-10-08T12:00:00+08:00"
+    },
+    {
+      "id": "https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide-guide.html",
+      "url": "https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide-guide.html",
+      "title": "Why Gutters Overflow: Causes, Checks and Maintenance",
+      "date_published": "2026-09-27T00:00:00+09:30",
+      "summary": "Follow gutter overflow symptoms, distinguish blockages from component faults and plan cleaning or drainage repairs.",
+      "date_modified": "2026-10-08T12:00:00+08:00"
+    },
+    {
+      "id": "https://www.adelaideroofkind.com.au/roof-restoration-adelaide-guide.html",
+      "url": "https://www.adelaideroofkind.com.au/roof-restoration-adelaide-guide.html",
+      "title": "Roof Restoration vs Replacement Adelaide: What to Compare",
+      "date_published": "2026-09-27T00:00:00+09:30",
+      "summary": "A practical comparison of roof repair, restoration and replacement decisions."
+    }
+  ]
+}

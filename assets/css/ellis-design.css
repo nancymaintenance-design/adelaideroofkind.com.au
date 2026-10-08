@@ -14,6 +14,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .industry-article header{border-radius:var(--card-radius) var(--card-radius) 0 0}
 .contact-panel{border-radius:var(--card-radius) 0 0 var(--card-radius)}.contact-form{border-radius:0 var(--card-radius) var(--card-radius) 0}
 .case-study--four-up .case-study-card{border-radius:var(--card-radius-small)}
+.case-study:not(.case-study--four-up) .case-study-card img{height:auto;aspect-ratio:auto}
 .about-story-visual,.visual-split,.evidence-photos figure,.office-location__map{border-radius:var(--card-radius);overflow:hidden}
 .related-paths a,.locality-road-list a,.area-list a,.industry-jump-links a,.footer-instagram,.industry-search__clear,.evidence-photos figcaption{border-radius:var(--card-radius-small)}
 .button{border-radius:var(--card-radius-small)}
