@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Need roof repairs in Adelaide? Ellis Services Group helps with leaks, broken tiles, ridge capping, flashing and gutters. Request a quote today.">
 <title>Roof Repairs Adelaide | Ellis Services Group</title>
-<link rel="stylesheet" href="assets/css/global.css?v=homepage-article-cards-20260927">
+<link rel="stylesheet" href="assets/css/global.css"><link rel="stylesheet" href="assets/css/ellis-design.css?v=ellis-20261008">
 <link rel="canonical" href="https://www.adelaideroofkind.com.au/">
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-ellis-services.png">
   <link rel="icon" href="/favicon-ellis-services.png" sizes="any">
@@ -18,11 +18,11 @@
 <meta property="og:title" content="Roof Repairs Adelaide | Ellis Services Group">
 <meta property="og:description" content="Need roof repairs in Adelaide? Ellis Services Group helps with leaks, broken tiles, ridge capping, flashing and gutters. Request a quote today.">
 <meta property="og:url" content="https://www.adelaideroofkind.com.au/">
-<meta property="og:image" content="https://www.adelaideroofkind.com.au/assets/images/ellis-roof-restoration-concept.jpg">
+<meta property="og:image" content="https://www.adelaideroofkind.com.au/assets/images/roof-leak-during-gallery.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Roof Repairs Adelaide | Ellis Services Group">
 <meta name="twitter:description" content="Need roof repairs in Adelaide? Ellis Services Group helps with leaks, broken tiles, ridge capping, flashing and gutters. Request a quote today.">
-<meta name="twitter:image" content="https://www.adelaideroofkind.com.au/assets/images/ellis-roof-restoration-concept.jpg">
+<meta name="twitter:image" content="https://www.adelaideroofkind.com.au/assets/images/roof-leak-during-gallery.webp">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Ellis Services Group","description":"Adelaide roof repair services including leak repairs, tile and ridge capping repairs, gutter and downpipe repairs, and roof restoration.","url":"https://www.adelaideroofkind.com.au/","telephone":"+61434276883","email":"ellisservicesgroup9@outlook.com","address":{"@type":"PostalAddress","streetAddress":"63 Pirie St","addressLocality":"Adelaide","addressRegion":"SA","postalCode":"5000","addressCountry":"AU"},"areaServed":{"@type":"City","name":"Adelaide"},"knowsAbout":["Roof repairs","Roof leak repairs","Ridge capping repair","Gutter repairs","Roof restoration"]}
 </script>
@@ -42,8 +42,8 @@
 <span>ELLIS<br>SERVICES GROUP<small>ROOF REPAIRS · ADELAIDE</small>
 </span>
 </a>
-<button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-<nav class="nav" aria-label="Primary">
+<button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+<nav class="nav" id="primary-navigation" aria-label="Primary">
 <a aria-current="page" href="index.html">Home</a>
 <a href="services.html">Services</a>
 <a href="service-areas.html">Service areas</a>
@@ -56,53 +56,32 @@
 </div>
 </header>
 <main id="main">
-<section class="hero">
-<div class="hero-grid">
-<div>
-<p class="eyebrow">Adelaide roof repairs</p>
-<h1>
-<span>Fix the leak.</span>
-<span>Protect the home.</span>
-</h1>
-<p class="hero-copy">Ellis Services Group repairs roof leaks, broken tiles, ridge capping, flashing and gutter faults across Adelaide. We inspect the roof on site, identify the cause and provide the repair plan and written quote.</p>
-<div class="hero-actions">
-<a class="button" href="contact.html">Request a quote</a>
-<a class="button button--ghost" href="services.html">Explore services</a>
+<section class="home-hero">
+<div class="home-hero__grid">
+<div class="home-hero__copy">
+<p class="eyebrow">Ellis Services Group · Adelaide</p>
+<h1><span>Roof repairs</span><span>Adelaide.</span></h1>
+<p class="home-hero__promise">Find the cause. Repair it properly.</p><p class="home-hero__workflow">Inspect → Repair → Protect</p>
+<p class="hero-copy">Leaks, damaged tiles, ridge capping and gutters. Our experienced team inspects your roof, identifies the damage and completes professional repairs with a clear written quote.</p>
+<div class="hero-actions"><a class="button" href="#request-quote">Request a quote ↗</a><a class="button button--ghost" href="tel:+61434276883">Call 0434 276 883</a></div>
 </div>
-</div>
-<aside class="quote-panel">
-<h2>Start with the problem.</h2>
-<p>Tell us what you can see and the suburb where the roof needs attention.</p>
+<aside class="quote-panel" id="request-quote"><h2>Request a quote</h2><p>Share a few details and our team will contact you.</p>
 <form class="mini-form" data-contact-form>
-<input required name="name" aria-label="Name" placeholder="Name" autocomplete="name">
-<input required name="email" type="email" aria-label="Email" placeholder="Email" autocomplete="email">
-<input required name="phone" type="tel" aria-label="Phone" placeholder="Phone" autocomplete="tel">
-<input required name="suburb" aria-label="Suburb" placeholder="Suburb" autocomplete="address-level2">
-<select required name="service" aria-label="Roof issue">
-<option value="" selected>What do you need help with?</option>
-<option>Roof leak</option>
-<option>Broken tiles or ridge capping</option>
-<option>Gutters or downpipes</option>
-<option>Roof restoration</option>
-</select>
+<label>Your name<input required name="name" autocomplete="name" placeholder="Full name"></label>
+<label>Email address<input required name="email" type="email" autocomplete="email" placeholder="you@example.com"></label>
+<label>Phone number<input required name="phone" type="tel" autocomplete="tel" placeholder="Your contact number"></label>
+<label>Suburb<input required name="suburb" autocomplete="address-level2" placeholder="Your Adelaide suburb"></label>
+<label>Roof issue<select required name="service"><option value="">Select a service</option><option>Roof leak</option><option>Broken tiles or ridge capping</option><option>Gutters or downpipes</option><option>Roof restoration</option></select></label>
 <input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-<button class="button" type="submit">Request a quote</button>
-<p class="form-status" data-contact-status aria-live="polite">
-</p>
-</form>
-</aside>
+<button class="button" type="submit">Request a quote</button><p class="form-status" data-contact-status aria-live="polite"></p>
+</form></aside>
 </div>
 </section>
-<section class="process-strip" aria-label="How we help">
+<section class="proof-strip" aria-label="Why Adelaide homeowners choose Ellis">
 <div class="shell">
-<div class="process-step">
-<strong>01 / NOTICE</strong>Describe what you have seen</div>
-<div class="process-step">
-<strong>02 / ASSESS</strong>Identify the likely area to inspect</div>
-<div class="process-step">
-<strong>03 / SCOPE</strong>Compare repair or restoration options</div>
-<div class="process-step">
-<strong>04 / NEXT STEP</strong>Request a clear written scope</div>
+<article><strong>10+</strong><p><b>Years of roofing experience</b><span>A standardised repair team</span></p></article>
+<article><strong>30 min</strong><p><b>Enquiry response target</b><span>Quick contact and appointments</span></p></article>
+<article><strong>1,000+</strong><p><b>Customers served</b><span>Trusted by returning clients</span></p></article>
 </div>
 </section>
 <section class="section">
@@ -118,37 +97,37 @@
 </div>
 <div class="services-grid">
 <article class="service-card">
-<span class="service-icon">01 / ACTIVE WATER</span>
+<span class="service-icon">LEAKS / WATER ENTRY</span>
 <h3>Roof leak repairs</h3>
 <p>We trace the water-entry path, check the surrounding roof and drainage, and repair the identified defects.</p>
 <a href="roof-leak-repairs-adelaide.html">Explore leak repairs</a>
 </article>
 <article class="service-card">
-<span class="service-icon">02 / LOCAL DEFECTS</span>
-<h3>Roof repairs</h3>
+<span class="service-icon">TILES / RIDGES / FLASHING</span>
+<h3>Tile &amp; ridge repairs</h3>
 <p>For broken tiles, loose ridge capping, tired flashing, valleys and roof-edge issues.</p>
 <a href="roof-repairs-adelaide.html">Explore roof repairs</a>
 </article>
 <article class="service-card">
-<span class="service-icon">03 / DRAINAGE</span>
+<span class="service-icon">DRAINAGE / OVERFLOW</span>
 <h3>Gutters & downpipes</h3>
 <p>Overflow and blocked drainage can direct water where it should not go.</p>
 <a href="gutter-downpipe-repairs-adelaide.html">Explore drainage repairs</a>
 </article>
 <article class="service-card">
-<span class="service-icon">04 / WHOLE ROOF</span>
+<span class="service-icon">PREPARATION / PROTECTION</span>
 <h3>Roof restoration</h3>
 <p>Explore a broader restoration scope for a weathered roof.</p>
 <a href="roof-restoration-adelaide.html">Explore restoration</a>
 </article>
 <article class="service-card">
-<span class="service-icon">05 / LOCAL CONTEXT</span>
+<span class="service-icon">ADELAIDE / LOCAL COVERAGE</span>
 <h3>Service areas</h3>
 <p>Explore Adelaide service areas and roof repair support.</p>
 <a href="service-areas.html">View service areas</a>
 </article>
 <article class="service-card">
-<span class="service-icon">06 / CLEAR ANSWERS</span>
+<span class="service-icon">INSPECTION / MAINTENANCE</span>
 <h3>Industry answers</h3>
 <p>Practical articles for homeowners comparing repairs, restoration and maintenance.</p>
 <a href="industry-answers.html">Read industry answers</a>
@@ -156,19 +135,15 @@
 </div>
 </div>
 </section>
-<section class="feature">
-<div class="feature-media" role="img" aria-label="Roof tile repair">
+<section class="section evidence-section">
+<div class="shell evidence-layout">
+<div class="evidence-copy"><p class="eyebrow">Inside an Ellis repair</p><h2>The work behind a sound roof.</h2><p>See the deteriorated ridge, the repair in progress and the finished roof. Our team checks the affected components, prepares the repair area and restores the ridge line.</p><ul class="checklist"><li><strong>Inspect:</strong> identify damaged bedding and ridge details.</li><li><strong>Repair:</strong> prepare and repair the affected components.</li><li><strong>Protect:</strong> complete and check the finished work.</li></ul><a class="button button--dark" href="roof-leak-repairs-adelaide.html#roof-leak-case-study">View this repair case ↗</a></div>
+<div class="evidence-photos">
+<figure><img src="assets/images/roof-leak-before-gallery.webp" width="1448" height="1086" alt="Deteriorated bedding and loose ridge caps before repair" loading="lazy" decoding="async"><figcaption>Before / ridge damage</figcaption></figure>
+<figure><img src="assets/images/roof-leak-during-gallery.webp" width="1448" height="1086" alt="Technician preparing ridge capping during the repair" loading="lazy" decoding="async"><figcaption>During / preparation</figcaption></figure>
+<figure><img src="assets/images/roof-leak-after-gallery.webp" width="1448" height="1086" alt="Repaired ridge capping and finished pointing detail" loading="lazy" decoding="async"><figcaption>After / ridge detail</figcaption></figure>
+<figure><img src="assets/images/roof-leak-overview-gallery.webp" width="1672" height="941" alt="Overview of the tiled roof after ridge repair" loading="lazy" decoding="async"><figcaption>Completed / roof overview</figcaption></figure>
 </div>
-<div class="feature-copy">
-<p class="eyebrow">Repair before replacement</p>
-<h2>A small defect can become a bigger water path.</h2>
-<p>Cracked tiles, loose ridge capping, failed flashing and blocked drainage each need a different inspection approach. A useful quote should explain the observed issue and the work proposed—not just the final number.</p>
-<ul class="checklist">
-<li>On-site assessment and written repair quotes</li>
-<li>Repair vs restoration guidance</li>
-<li>Roof repair, restoration and maintenance services</li>
-</ul>
-<a class="button button--ghost" href="faq.html">Read the FAQ</a>
 </div>
 </section>
 <section class="section section--sand">
@@ -178,10 +153,12 @@
 <h2 style="font:700 clamp(2.5rem,4vw,4.4rem)/.9 var(--serif);text-transform:uppercase;margin:.6rem 0 1.5rem">Local support across Adelaide.</h2>
 <p>We provide roof repairs and maintenance across Adelaide. Select your area to arrange an assessment at the property.</p>
 <div class="area-list">
-<a href="service-areas.html">Adelaide metro</a>
-<a href="service-areas.html">Inner east</a>
-<a href="service-areas.html">Inner south</a>
-<a href="service-areas.html">North & north-east</a>
+<a href="roof-repairs-adelaide-cbd.html">Adelaide CBD</a>
+<a href="roof-repairs-norwood-adelaide.html">Norwood</a>
+<a href="roof-repairs-unley-adelaide.html">Unley</a>
+<a href="roof-repairs-prospect-adelaide.html">Prospect</a>
+<a href="roof-repairs-glenelg-adelaide.html">Glenelg</a>
+<a href="service-areas.html">All service areas</a>
 </div>
 </div>
 <aside class="proof-card">
@@ -222,16 +199,10 @@
 </div>
 </div>
 </section>
-<section class="section">
+<section class="section home-booking">
 <div class="shell cta-panel">
-<div>
-<p class="eyebrow" style="color:#20150d">Make the next step clear</p>
-<h2>Arrange a roof assessment.</h2>
-</div>
-<div>
-<p>Call, email or send the form to arrange an on-site assessment. We check the roof condition and explain the repair or restoration scope in a written quote.</p>
-<a class="button" href="contact.html">Request a quote</a>
-</div>
+<div><p class="eyebrow">Your roof. Our repair team.</p><h2>Arrange your roof assessment.</h2><p>Tell us your suburb and the roof issue. Ellis will arrange an on-site inspection, identify the damaged components and explain the repair plan and written quote.</p><a class="home-booking__call" href="tel:+61434276883">0434 276 883 ↗</a><p>Office: 63 Pirie St, Adelaide SA 5000<br><a class="text-link" href="about.html">Meet Ellis Services Group ↗</a></p></div>
+<div><p>Call, email or use the quote form above to arrange your inspection.</p><a class="button" href="#request-quote">Request a quote ↗</a></div>
 </div>
 </section>
 <section class="section office-location">
@@ -257,7 +228,7 @@
 </span>
 </a>
 <p>Roof repairs and maintenance for Adelaide homes.</p>
-</div>
+<div class="footer-social" id="follow-ellis"><div class="footer-social__inner"><div class="footer-social__links"><a href="https://www.instagram.com/elliservices_group/" target="_blank" rel="noopener noreferrer" aria-label="Follow Ellis Services Group on Instagram"><img src="assets/images/instagram-elliservices.png" alt="" aria-hidden="true" width="20" height="20"><span>Instagram</span></a><a href="https://share.google/Z4tImXHToPi9H4LmH" target="_blank" rel="noopener noreferrer" aria-label="Follow Ellis Services Group on LinkedIn"><img src="assets/images/linkedin.svg" alt="" aria-hidden="true" width="20" height="20"><span>LinkedIn</span></a><a href="https://www.facebook.com/p/Ellis-Services-Group-100082926022259/" target="_blank" rel="noopener noreferrer" aria-label="Follow Ellis Services Group on Facebook"><img src="assets/images/facebook.svg" alt="" aria-hidden="true" width="20" height="20"><span>Facebook</span></a></div></div></div></div>
 <div>
 <h3>Explore</h3>
 <a href="services.html">Services</a>
@@ -270,10 +241,6 @@
 <a href="tel:+61434276883">0434 276 883</a>
 <a href="mailto:ellisservicesgroup9@outlook.com">ellisservicesgroup9@outlook.com</a>
 <a href="https://www.google.com/maps/search/?api=1&amp;query=63+Pirie+St%2C+Adelaide+SA+5000">63 Pirie St, Adelaide SA 5000</a>
-<a class="footer-instagram" href="https://www.instagram.com/elliservices_group/" target="_blank" rel="noopener noreferrer" aria-label="Follow Ellis Services Group on Instagram">
-<img src="assets/images/instagram-elliservices.png" alt="" aria-hidden="true">
-<span>Instagram</span>
-</a>
 </div>
 </div>
 <div class="shell fineprint">© 2026 Ellis Services Group</div>
@@ -282,7 +249,7 @@
 <a class="button button--ghost" href="services.html">Services</a>
 <a class="button" href="contact.html">Request a quote</a>
 </div>
-<script src="assets/js/main.js">
+<script src="assets/js/main.js?v=ellis-20261008">
 </script>
 <script src="assets/js/contact-form.js"></script>
 </body>
