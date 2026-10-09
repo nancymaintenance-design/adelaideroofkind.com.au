@@ -1,3 +1,4 @@
+
 /* Original Ellis palette and typography remain owned by global.css.
    This layer rounds cards and styles the retained content additions. */
 :root{--card-radius:16px;--card-radius-small:10px}
@@ -54,3 +55,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .site-footer .footer-social__links a:hover{text-decoration:underline;text-underline-offset:.25em}
 .site-footer .footer-social__links img{display:block;width:1em;height:1em;min-height:0;max-width:none;object-fit:contain;flex:0 0 1em}
 @media(max-width:650px){.footer-social__links{gap:.65rem 1.25rem}}
+/* Explicit service split layout, after the original responsive rules. */
+.services-grid.services-page-grid--five{grid-template-columns:repeat(2,minmax(0,1fr))}
+.services-grid.services-page-grid--five>.service-card:last-child{grid-column:1/-1}
+@media(max-width:650px){.services-grid.services-page-grid--five{grid-template-columns:1fr}}
+/* Project photographs retain their intrinsic 4:3 proportions in a compact 2x2 grid. */
+.service-project{padding:2rem 0;background:var(--chalk)}
+.service-project__inner{max-width:860px}
+.service-project__heading{margin-bottom:1rem}.service-project__heading .eyebrow{margin:0 0 .5rem}
+.service-project__heading h2{font:700 clamp(1.65rem,3vw,2.25rem)/1 var(--serif);text-transform:uppercase;margin:0 0 .6rem}
+.service-project__heading>p:last-child{font-size:.88rem;line-height:1.5;margin:0}
+.service-project-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.service-project__card{margin:0;min-width:0;overflow:hidden;border-radius:var(--card-radius-small);background:var(--sand)}
+.service-project__card a{display:block;line-height:0}.service-project__card img{display:block;width:100%;height:auto;aspect-ratio:auto;max-width:100%}
+.service-project__card figcaption{padding:.55rem .7rem;font-size:.72rem;line-height:1.4}.service-project__card figcaption span{font-weight:800;margin-right:.6rem;color:var(--ink)}
+.service-card .service-card__photo{display:block;width:100%;height:auto;aspect-ratio:auto;margin:0 0 1.2rem;border-radius:var(--card-radius-small)}
+.services-page-grid--five>.service-card:last-child{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:2rem;align-content:start}
+.services-page-grid--five>.service-card:last-child>.service-card__photo{grid-column:1;grid-row:1/span 5;margin:0}
+.services-page-grid--five>.service-card:last-child>:not(.service-card__photo){grid-column:2}
+@media(max-width:650px){.services-page-grid--five>.service-card:last-child{display:block}.services-page-grid--five>.service-card:last-child>.service-card__photo{margin-bottom:1.2rem}}
+@media(max-width:650px){.service-project{padding:1.4rem 0}.service-project-gallery{gap:8px}.service-project__card figcaption{font-size:.64rem;padding:.45rem}.service-project__card figcaption span{display:block;margin:0}.service-project__heading h2{font-size:1.65rem}}
