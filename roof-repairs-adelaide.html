@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Expert tile, ridge capping and flashing repairs in Adelaide. Ellis inspects damaged roof components, repairs the cause and provides a clear written quote.">
 <title>Tile, Ridge &amp; Flashing Repairs Adelaide | Ellis</title>
-<link rel="stylesheet" href="assets/css/global.css"><link rel="stylesheet" href="assets/css/ellis-design.css?v=ellis-20261009-projects">
+<link rel="stylesheet" href="assets/css/global.css"><link rel="stylesheet" href="assets/css/ellis-design.css?v=ellis-20261009-contact">
 <link rel="canonical" href="https://www.adelaideroofkind.com.au/roof-repairs-adelaide.html">
   <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
@@ -64,7 +64,7 @@
 <figure class="service-project__card"><a href="assets/images/projects/ridge-repair-overview.webp" target="_blank" rel="noopener" aria-label="View full-size photograph: Completed ridge overview"><img src="assets/images/projects/ridge-repair-overview.webp" srcset="assets/images/projects/ridge-repair-overview-720.webp 720w, assets/images/projects/ridge-repair-overview.webp 1448w" sizes="(max-width: 960px) 44vw, 424px" width="1448" height="1086" alt="Overview of the ridge line within the tiled roof" loading="lazy" decoding="async"></a><figcaption><span>Overview</span>Completed ridge overview</figcaption></figure></div></div></section>
 
 <section class="section">
-<div class="shell content-grid">
+<div class="shell content-grid content-grid--contact">
 <article class="prose">
 <h2>What a targeted repair can address</h2>
 <p>A roof repair focuses on the observed problem area and related parts of the roof that affect water shedding. Ellis confirms the repair scope from roof condition, access, material matching and the findings of our inspection.</p>
@@ -95,10 +95,21 @@
 <p>If water entry is the main concern, read about <a href="roof-leak-repairs-adelaide.html">roof leak repairs in Adelaide</a>. For broader wear, see <a href="roof-restoration-adelaide.html">roof restoration information</a>. Where roof-edge drainage is involved, review <a href="gutter-downpipe-repairs-adelaide.html">gutter and downpipe repairs</a>.</p>
 <div class="notice">This guidance explains the issue; Ellis confirms the roof condition, safe access and repair scope during the on-site inspection.</div>
 </article>
-<aside class="aside-card">
-<h3>Request a repair quote</h3>
-<p>Tell Ellis the suburb, roof type and the problem you have noticed.</p>
-<a class="button button--dark" href="contact.html">Request a quote</a>
+<aside class="aside-card service-contact-card" aria-labelledby="service-contact-title">
+<h3 id="service-contact-title">Request a quote</h3>
+<p class="service-contact-card__intro">Tell us about your property. Our team will contact you to arrange an inspection.</p>
+<form data-contact-form class="service-contact-form" action="/api/contact" method="post" novalidate>
+<input type="hidden" name="service" value="Tile, ridge and flashing repairs">
+<label>Name<input required name="name" autocomplete="name" maxlength="120"></label>
+<label>Email<input required name="email" type="email" autocomplete="email" maxlength="254"></label>
+<label>Phone<input required name="phone" type="tel" autocomplete="tel" maxlength="80"></label>
+<label>Suburb<input required name="suburb" autocomplete="address-level2" maxlength="160"></label>
+<label>What have you noticed?<textarea required name="message" rows="3" maxlength="5000" placeholder="Briefly describe the problem."></textarea></label>
+<label class="service-contact-form__trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+<button class="button button--dark" type="submit">Request a quote</button>
+<p class="form-status" data-contact-status role="status" aria-live="polite"></p>
+</form>
+<p class="service-contact-card__call">Prefer to call? <a href="tel:+61434276883">0434 276 883</a></p>
 </aside>
 </div>
 </section>
@@ -173,5 +184,6 @@
 </footer>
 <script src="assets/js/main.js?v=ellis-20261008">
 </script>
+<script src="assets/js/contact-form.js?v=ellis-20261009-contact"></script>
 </body>
 </html>

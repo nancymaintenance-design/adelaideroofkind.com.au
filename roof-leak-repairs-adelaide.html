@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Roof leak repairs in Adelaide. Ellis traces the water-entry path on site, repairs the identified defects and confirms the work plan and written quote.">
 <title>Roof Leak Repairs Adelaide | Ellis Services Group</title>
-<link rel="stylesheet" href="assets/css/global.css"><link rel="stylesheet" href="assets/css/ellis-design.css?v=ellis-20261009-projects">
+<link rel="stylesheet" href="assets/css/global.css"><link rel="stylesheet" href="assets/css/ellis-design.css?v=ellis-20261009-contact">
 <link rel="canonical" href="https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide.html">
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -60,7 +60,7 @@
 <figure class="service-project__card"><a href="assets/images/projects/roof-leak-overview.webp" target="_blank" rel="noopener" aria-label="View full-size photograph: Roof and drainage overview"><img src="assets/images/projects/roof-leak-overview.webp" srcset="assets/images/projects/roof-leak-overview-720.webp 720w, assets/images/projects/roof-leak-overview.webp 1448w" sizes="(max-width: 960px) 44vw, 424px" width="1448" height="1086" alt="Overview of the roof valley, tiles and roof-edge drainage" loading="lazy" decoding="async"></a><figcaption><span>Overview</span>Roof and drainage overview</figcaption></figure></div></div></section>
 
 <section class="section">
-<div class="shell content-grid">
+<div class="shell content-grid content-grid--contact">
 <article class="prose">
 <h2>Common roof-leak paths</h2>
 <p>Water can enter through cracked or displaced tiles, roof penetrations, failed flashing, deteriorated ridge capping, valleys, roof sheets, gutters or drainage paths. It may travel along roof structure before showing inside.</p>
@@ -95,10 +95,21 @@
 <p>Arrange an assessment when a leak repeats, staining grows, roof materials are visibly displaced, or drainage overflows during rain.</p>
 <div class="notice">Do not treat a visible stain as a confirmed entry point. The source requires inspection.</div>
 </article>
-<aside class="aside-card">
-<h3>Describe the leak</h3>
-<p>Tell us the suburb, recent weather and what you can see.</p>
-<a class="button button--dark" href="contact.html">Request assessment</a>
+<aside class="aside-card service-contact-card" aria-labelledby="service-contact-title">
+<h3 id="service-contact-title">Request a quote</h3>
+<p class="service-contact-card__intro">Tell us about your property. Our team will contact you to arrange an inspection.</p>
+<form data-contact-form class="service-contact-form" action="/api/contact" method="post" novalidate>
+<input type="hidden" name="service" value="Roof leak repairs">
+<label>Name<input required name="name" autocomplete="name" maxlength="120"></label>
+<label>Email<input required name="email" type="email" autocomplete="email" maxlength="254"></label>
+<label>Phone<input required name="phone" type="tel" autocomplete="tel" maxlength="80"></label>
+<label>Suburb<input required name="suburb" autocomplete="address-level2" maxlength="160"></label>
+<label>What have you noticed?<textarea required name="message" rows="3" maxlength="5000" placeholder="Briefly describe the problem."></textarea></label>
+<label class="service-contact-form__trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+<button class="button button--dark" type="submit">Request a quote</button>
+<p class="form-status" data-contact-status role="status" aria-live="polite"></p>
+</form>
+<p class="service-contact-card__call">Prefer to call? <a href="tel:+61434276883">0434 276 883</a></p>
 </aside>
 </div>
 </section>
@@ -148,5 +159,6 @@
 </footer>
 <script src="assets/js/main.js?v=ellis-20261008">
 </script>
+<script src="assets/js/contact-form.js?v=ellis-20261009-contact"></script>
 </body>
 </html>
