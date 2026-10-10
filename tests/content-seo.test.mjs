@@ -48,4 +48,30 @@ for (const question of faq.mainEntity) {
 const warranty = 'Written warranty information sets out coverage, duration and exclusions for the repair work.';
 check(() => assert.equal(pairs.find(([name]) => name === 'Do roof repairs come with a warranty?')?.[1], warranty, 'Visible warranty uses the agreed statement'));
 check(() => assert.equal(faq.mainEntity.find(({ name }) => name === 'Do roof repairs come with a warranty?')?.acceptedAnswer.text, warranty, 'Schema warranty uses the agreed statement'));
-console.log(`PASS: ${assertions} assertions across ${destinations.length} sitemap pages and ${globals.length} global trust/conversion destinations.`);
+// Commercial contracts catch lost assessment, evidence and next-step paths in
+// visible main content; header/footer navigation cannot satisfy these links.
+const commercial = [
+  ['roof-repairs-adelaide.html', 'tile-roof-repairs-adelaide-guide.html', 'roof-leak-repairs-adelaide.html', /tiles?[\s\S]*ridge[\s\S]*flashing[\s\S]*valley/i],
+  ['roof-leak-repairs-adelaide.html', 'roof-leak-repairs-adelaide-guide.html', 'roof-repairs-adelaide.html', /water[\s\S]*(?:entry|path)/i],
+  ['roof-restoration-adelaide.html', 'roof-restoration-adelaide-guide.html', 'roof-repairs-adelaide.html', /repair-first/i],
+  ['gutter-downpipe-repairs-adelaide.html', 'gutter-downpipe-repairs-adelaide-guide.html', 'gutter-cleaning-adelaide.html', /joints?[\s\S]*outlets?[\s\S]*downpipes?/i],
+  ['gutter-cleaning-adelaide.html', 'gutter-downpipe-repairs-adelaide-guide.html', 'gutter-downpipe-repairs-adelaide.html', /debris[\s\S]*accessible/i],
+];
+for (const [file, guide, adjacent, intent] of commercial) {
+  const main = read(file).match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? '';
+  const text = normalise(main);
+  const links = [...main.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)];
+  check(() => assert.match(text, /project photographs/i, `${file}: visible project evidence label`));
+  check(() => assert.match(main, /<h2\b[^>]*>[^<]*(?:assess|scope|condition|includes)/i, `${file}: assessment or scope section`));
+  check(() => assert.match(text, /on-site assessment/i, `${file}: confirms scope on site`));
+  check(() => assert.match(text, /ground[ -]level/i, `${file}: safe enquiry observations`));
+  check(() => assert.match(text, intent, `${file}: relevant commercial intent`));
+  for (const target of [guide, adjacent, 'about.html']) {
+    check(() => assert.ok(links.some(([, href, label]) => href.split('#')[0] === target && normalise(label).length > 10 && !/^read more/i.test(normalise(label))), `${file}: descriptive main-content path to ${target}`));
+    check(() => assert.ok(read(target), `${file}: linked destination ${target} exists`));
+  }
+  check(() => assert.match(main, /href="(?:contact\.html(?:#[^"]*)?|tel:[^"]+|mailto:[^"]+)"|<form\b/, `${file}: enquiry route in main content`));
+  check(() => assert.doesNotMatch(text, /roof[ -]cleaning/i, `${file}: no standalone roof-cleaning service claim`));
+}
+check(() => assert.match(normalise(read('gutter-cleaning-adelaide.html')), /cleaning and repairs (?:are )?quoted separately/i, 'Gutter cleaning and repair quoting stay distinct'));
+console.log(`PASS: ${assertions} assertions across ${destinations.length} sitemap pages, ${globals.length} global trust/conversion destinations and ${commercial.length} commercial service contracts.`);
