@@ -23,6 +23,11 @@
   ],
   "redirects": [
     {
+      "source": "/index.html",
+      "permanent": true,
+      "destination": "/"
+    },
+    {
       "source": "/roof-repairs-burnside.html",
       "permanent": true,
       "destination": "/roof-repairs-burnside-adelaide.html"
