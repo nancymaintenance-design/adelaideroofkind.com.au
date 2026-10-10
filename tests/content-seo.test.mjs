@@ -117,4 +117,46 @@ for (const [query, target] of [
 ]) {
   check(() => assert.ok(adviceCards.some((card) => card.html.includes(`href="${target}"`) && searchMatches(card, query)), `Industry Answers: suggested search "${query}" reveals ${target}`));
 }
-console.log(`PASS: ${assertions} assertions across ${destinations.length} sitemap pages, ${globals.length} global trust/conversion destinations, ${commercial.length} commercial service contracts and ${guides.length} advice guides.`);
+// A locality reader needs safe enquiry prompts and a relevant next step in
+// visible content. Header navigation and links on duplicate pages cannot pass.
+const localities = [
+  ['roof-repairs-adelaide-cbd.html', 'Adelaide CBD', 'Pirie Street', 'roof-leak-repairs-adelaide.html', 'roof-leak-repairs-adelaide-guide.html'],
+  ['roof-repairs-north-adelaide.html', 'North Adelaide', 'O’Connell Street', 'roof-repairs-adelaide.html', 'roof-repointing-ridge-capping-adelaide-guide.html'],
+  ['roof-repairs-norwood-adelaide.html', 'Norwood', 'The Parade', 'roof-restoration-adelaide.html', 'roof-restoration-adelaide-guide.html'],
+  ['roof-repairs-kensington-adelaide.html', 'Kensington', 'Kensington Road', 'roof-leak-repairs-adelaide.html', 'roof-leak-repairs-adelaide-guide.html'],
+  ['roof-repairs-burnside-adelaide.html', 'Burnside', 'Glynburn Road', 'roof-restoration-adelaide.html', 'roof-restoration-adelaide-guide.html'],
+  ['roof-repairs-unley-adelaide.html', 'Unley', 'Unley Road', 'gutter-downpipe-repairs-adelaide.html', 'gutter-downpipe-repairs-adelaide-guide.html'],
+  ['roof-repairs-goodwood-adelaide.html', 'Goodwood', 'Goodwood Road', 'roof-leak-repairs-adelaide.html', 'roof-leak-repairs-adelaide-guide.html'],
+  ['roof-repairs-glen-osmond-adelaide.html', 'Glen Osmond', 'Glen Osmond Road', 'roof-repairs-adelaide.html', 'roof-repointing-ridge-capping-adelaide-guide.html'],
+  ['roof-repairs-prospect-adelaide.html', 'Prospect', 'Prospect Road', 'roof-repairs-adelaide.html', 'tile-roof-repairs-adelaide-guide.html'],
+  ['roof-repairs-salisbury-adelaide.html', 'Salisbury', 'Main North Road', 'gutter-downpipe-repairs-adelaide.html', 'gutter-downpipe-repairs-adelaide-guide.html'],
+  ['roof-repairs-modbury-adelaide.html', 'Modbury', 'North East Road', 'gutter-cleaning-adelaide.html', 'gutter-downpipe-repairs-adelaide-guide.html'],
+  ['roof-repairs-campbelltown-adelaide.html', 'Campbelltown', 'Lower North East Road', 'roof-leak-repairs-adelaide.html', 'tile-roof-repairs-adelaide-guide.html'],
+  ['roof-repairs-henley-beach-adelaide.html', 'Henley Beach', 'Henley Beach Road', 'gutter-cleaning-adelaide.html', 'gutter-downpipe-repairs-adelaide-guide.html'],
+  ['roof-repairs-glenelg-adelaide.html', 'Glenelg', 'Anzac Highway', 'roof-repairs-adelaide.html', 'roof-repairs-adelaide-guide.html'],
+  ['roof-repairs-port-adelaide.html', 'Port Adelaide', 'Port Road', 'gutter-downpipe-repairs-adelaide.html', 'gutter-downpipe-repairs-adelaide-guide.html'],
+];
+for (const [file, locality, road, service, guide] of localities) {
+  const main = mainContent(file);
+  const text = normalise(main);
+  const enquiry = main.match(/<section\b[^>]*class="[^"]*\blocality-enquiry\b[^"]*"[^>]*>([\s\S]*?)<\/section>/i)?.[1] ?? '';
+  const enquiryText = normalise(enquiry);
+  check(() => assert.ok(destinations.includes(file), `${file}: named canonical sitemap locality`));
+  check(() => assert.equal([...main.matchAll(/<h1\b[^>]*>/gi)].length, 1, `${file}: one locality H1`));
+  check(() => assert.ok(text.includes(locality) && text.includes(road), `${file}: locality and existing road retained`));
+  check(() => assert.match(text, /on-site (?:roof )?assessment/i, `${file}: on-site assessment language`));
+  check(() => assert.match(enquiryText, /ground[ -]level/i, `${file}: ground-level enquiry guidance`));
+  check(() => assert.match(enquiryText, /do not climb onto the roof/i, `${file}: no roof-access request to the visitor`));
+  check(() => assert.ok(enquiryText.includes(locality) && /road|cross street/i.test(enquiryText), `${file}: locality and road enquiry prompt`));
+  check(() => assert.match(enquiryText, /roof material[^.]*if (?:known|you know)/i, `${file}: asks for roof material only if known`));
+  check(() => assert.match(enquiryText, /access (?:constraints|restrictions|details)/i, `${file}: access enquiry prompt`));
+  check(() => assert.match(enquiryText, /symptom|leak|overflow|tile|ridge|flashing|debris|corrosion/i, `${file}: useful symptom enquiry context`));
+  for (const target of [service, guide, 'service-areas.html', 'about.html']) {
+    check(() => assert.ok(descriptivePath(enquiry, target), `${file}: descriptive enquiry path to ${target}`));
+    check(() => assert.ok(read(target), `${file}: enquiry destination ${target} exists`));
+  }
+  check(() => assert.match(enquiry, /href="faq\.html#warranty"/, `${file}: visible written-warranty path`));
+  check(() => assert.match(enquiry, /href="#contact"|href="contact\.html"|href="tel:[^"]+"|href="mailto:[^"]+"/, `${file}: enquiry contact route`));
+  check(() => assert.doesNotMatch(text, /24[ -]hour|free inspection|insurance[ -]approved|guaranteed to stop all leaks|\b\d+(?:\.\d+)?[ -]*(?:year|month|week|day)s?[ -]+(?:written[ -]+)?warrant(?:y|ies)|warrant(?:y|ies)[^.]*\b\d+(?:\.\d+)?[ -]*(?:year|month|week|day)s?\b/i, `${file}: no prohibited availability, credential, outcome or numeric warranty claim`));
+}
+console.log(`PASS: ${assertions} assertions across ${destinations.length} sitemap pages, ${globals.length} global trust/conversion destinations, ${commercial.length} commercial service contracts, ${guides.length} advice guides and ${localities.length} canonical localities.`);
