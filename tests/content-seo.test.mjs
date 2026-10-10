@@ -74,4 +74,31 @@ for (const [file, guide, adjacent, intent] of commercial) {
   check(() => assert.doesNotMatch(text, /roof[ -]cleaning/i, `${file}: no standalone roof-cleaning service claim`));
 }
 check(() => assert.match(normalise(read('gutter-cleaning-adelaide.html')), /cleaning and repairs (?:are )?quoted separately/i, 'Gutter cleaning and repair quoting stay distinct'));
-console.log(`PASS: ${assertions} assertions across ${destinations.length} sitemap pages, ${globals.length} global trust/conversion destinations and ${commercial.length} commercial service contracts.`);
+// Missing or generic advice links strand readers before the relevant service.
+const guides = [
+  ['roof-repairs-adelaide-guide.html', 'roof-repairs-adelaide.html'],
+  ['roof-leak-repairs-adelaide-guide.html', 'roof-leak-repairs-adelaide.html'],
+  ['tile-roof-repairs-adelaide-guide.html', 'roof-repairs-adelaide.html'],
+  ['roof-repointing-ridge-capping-adelaide-guide.html', 'roof-repairs-adelaide.html'],
+  ['gutter-downpipe-repairs-adelaide-guide.html', 'gutter-downpipe-repairs-adelaide.html'],
+  ['roof-restoration-adelaide-guide.html', 'roof-restoration-adelaide.html'],
+];
+const mainContent = (file) => read(file).match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? '';
+const descriptivePath = (html, target) => [...html.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)]
+  .some(([, href, label]) => href.split('#')[0] === target && normalise(label).length > 10 && !/^(?:read (?:more|article)|click here)/i.test(normalise(label)));
+for (const [file, service] of guides) {
+  const main = mainContent(file);
+  const intro = main.match(/<div class="prose">\s*<p\b[^>]*>([\s\S]*?)<\/p>/i)?.[1] ?? '';
+  check(() => assert.equal([...main.matchAll(/<h1\b[^>]*>/gi)].length, 1, `${file}: one guide H1`));
+  check(() => assert.ok([...main.matchAll(/<h2\b[^>]*>/gi)].length >= 3, `${file}: at least three guidance sections`));
+  check(() => assert.ok(normalise(intro).length > 80 && !normalise(intro).endsWith('?'), `${file}: answer-first introduction before guidance sections`));
+  check(() => assert.ok(descriptivePath(main, service), `${file}: descriptive matching commercial path to ${service}`));
+  check(() => assert.match(main, /href="(?:contact\.html(?:#[^"]*)?|tel:[^"]+|mailto:[^"]+)"/, `${file}: contact route`));
+  check(() => assert.match(normalise(main), /ground[ -]level/i, `${file}: ground-level safety boundary`));
+}
+const adviceHub = mainContent('industry-answers.html');
+for (const target of [...guides.map(([file]) => file), ...commercial.map(([file]) => file)]) {
+  check(() => assert.ok(descriptivePath(adviceHub, target), `Industry Answers: descriptive path to ${target}`));
+}
+check(() => assert.match(adviceHub, /href="contact\.html"/, 'Industry Answers: contact route'));
+console.log(`PASS: ${assertions} assertions across ${destinations.length} sitemap pages, ${globals.length} global trust/conversion destinations, ${commercial.length} commercial service contracts and ${guides.length} advice guides.`);
