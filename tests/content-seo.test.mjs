@@ -101,4 +101,20 @@ for (const target of [...guides.map(([file]) => file), ...commercial.map(([file]
   check(() => assert.ok(descriptivePath(adviceHub, target), `Industry Answers: descriptive path to ${target}`));
 }
 check(() => assert.match(adviceHub, /href="contact\.html"/, 'Industry Answers: contact route'));
+// Exercise the production substring predicate against real article text so
+// suggested searches continue to reveal the relevant guide after copy edits.
+const searchExpression = read('assets/js/main.js').match(/const matches = ([^;]+);/)?.[1];
+assert.ok(searchExpression, 'Industry Answers search predicate exists');
+const searchMatches = new Function('article', 'query', `return ${searchExpression};`);
+const adviceCards = [...adviceHub.matchAll(/<article class="article-card">([\s\S]*?)<\/article>/g)]
+  .map(([, card]) => ({ textContent: card.replace(/<[^>]*>/g, ''), html: card }));
+for (const [query, target] of [
+  ['roof leak', 'roof-leak-repairs-adelaide-guide.html'],
+  ['tiles', 'tile-roof-repairs-adelaide-guide.html'],
+  ['roof leaks', 'roof-leak-repairs-adelaide-guide.html'],
+  ['gutters', 'gutter-downpipe-repairs-adelaide-guide.html'],
+  ['restoration', 'roof-restoration-adelaide-guide.html'],
+]) {
+  check(() => assert.ok(adviceCards.some((card) => card.html.includes(`href="${target}"`) && searchMatches(card, query)), `Industry Answers: suggested search "${query}" reveals ${target}`));
+}
 console.log(`PASS: ${assertions} assertions across ${destinations.length} sitemap pages, ${globals.length} global trust/conversion destinations, ${commercial.length} commercial service contracts and ${guides.length} advice guides.`);
