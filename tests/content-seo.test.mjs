@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -8,6 +8,20 @@ const read = (file) => readFileSync(path.join(root, file), 'utf8');
 const normalise = (html) => html.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 let assertions = 0;
 const check = (callback) => { callback(); assertions += 1; };
+// Catch accidental publication of local evidence and incomplete cache records.
+check(() => assert.match(read('.gitignore'), /^\.seo-cache\/$/m, 'Local SEO evidence directory is ignored'));
+const contentCachePath = '.seo-cache/pages/homepage/content.json';
+// Cache evidence stays local and optional: clean clones must still run the suite.
+if (existsSync(path.join(root, contentCachePath))) {
+  const contentCache = JSON.parse(read(contentCachePath));
+  for (const key of ['cache_type', 'analyzed_at', 'url', 'score', 'findings', 'issues', 'recommendations', 'limitations']) {
+    check(() => assert.ok(Object.hasOwn(contentCache, key), `Homepage content cache has ${key}`));
+  }
+  check(() => assert.equal(contentCache.cache_type, 'content', 'Homepage cache uses content schema'));
+  check(() => assert.ok(Number.isFinite(Date.parse(contentCache.analyzed_at)), 'Content cache has a parseable analysis timestamp'));
+  check(() => assert.equal(contentCache.url, 'https://www.adelaideroofkind.com.au/', 'Content cache identifies the canonical homepage'));
+  check(() => assert.ok(Array.isArray(contentCache.limitations) && contentCache.limitations.length >= 3, 'Content cache records evidence limitations'));
+}
 const destinations = [...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)]
   .map(([, url]) => new URL(url).pathname.slice(1) || 'index.html');
 check(() => assert.equal(destinations.length, 33, 'Canonical sitemap contains 33 pages'));
