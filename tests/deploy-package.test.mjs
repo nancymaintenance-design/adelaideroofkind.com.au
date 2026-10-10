@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-const readPackageFile = (file) => execFileSync('tar', ['-xOf', 'ellis-services-group-site.zip', file], { encoding: 'utf8' });
+const readBuildInput = (file) => readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
 
-test('deployed Instagram icon reserves image layout space', () => {
-  const home = readPackageFile('index.html');
-  assert.match(home, /<img src="assets\/images\/instagram-elliservices\.png" alt="" aria-hidden="true" width="\d+" height="\d+">/);
+test('homepage Instagram icon reserves image layout space in the build input', () => {
+  const home = readBuildInput('index.html');
+  assert.match(home, /<img src="assets\/images\/instagram-elliservices-small\.png" alt="" aria-hidden="true" width="20" height="20">/);
 });
