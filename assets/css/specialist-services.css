@@ -1,0 +1,8 @@
+/* Each gallery thumbnail links to the unmodified full-size photograph. */
+.specialist-project .service-project__card img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.condition-project .service-project__card img {
+  aspect-ratio: 4 / 3;
+}

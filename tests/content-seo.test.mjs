@@ -24,7 +24,7 @@ if (existsSync(path.join(root, contentCachePath))) {
 }
 const destinations = [...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)]
   .map(([, url]) => new URL(url).pathname.slice(1) || 'index.html');
-check(() => assert.equal(destinations.length, 33, 'Canonical sitemap contains 33 pages'));
+check(() => assert.equal(destinations.length, 37, 'Canonical sitemap contains 37 pages after the four specialist service additions'));
 
 // Catch missing/duplicate page headings and empty search-result metadata.
 for (const file of destinations) {
@@ -85,7 +85,14 @@ for (const [file, guide, adjacent, intent] of commercial) {
     check(() => assert.ok(read(target), `${file}: linked destination ${target} exists`));
   }
   check(() => assert.match(main, /href="(?:contact\.html(?:#[^"]*)?|tel:[^"]+|mailto:[^"]+)"|<form\b/, `${file}: enquiry route in main content`));
-  check(() => assert.doesNotMatch(text, /roof[ -]cleaning/i, `${file}: no standalone roof-cleaning service claim`));
+  // Standalone cleaning was confirmed by the owner after the original audit.
+  // Mentions now need a real, distinct cleaning destination rather than a ban.
+  if (/roof[ -]cleaning/i.test(text)) {
+    check(() => assert.ok(descriptivePathForCleaning(main), `${file}: roof cleaning has a distinct commercial destination`));
+  }
+}
+function descriptivePathForCleaning(main) {
+  return /href="roof-cleaning-adelaide\.html"/.test(main) && existsSync(path.join(root, 'roof-cleaning-adelaide.html'));
 }
 check(() => assert.match(normalise(read('gutter-cleaning-adelaide.html')), /cleaning and repairs (?:are )?quoted separately/i, 'Gutter cleaning and repair quoting stay distinct'));
 // Missing or generic advice links strand readers before the relevant service.

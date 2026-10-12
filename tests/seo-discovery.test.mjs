@@ -43,7 +43,8 @@ test('sitemap dates only the materially revised core pages', () => {
   const entries = [...sitemap.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*(?:<lastmod>([^<]+)<\/lastmod>)?/g)];
   const dates = new Map(entries.map(([, url, date]) => [url, date]));
   for (const path of ['/', '/services.html', '/service-areas.html', '/faq.html']) {
-    assert.equal(dates.get(`${origin}${path}`), '2026-10-10', path);
+    const expected = ['/services.html', '/faq.html'].includes(path) ? '2026-10-12' : '2026-10-10';
+    assert.equal(dates.get(`${origin}${path}`), expected, path);
   }
   for (const [url, date] of dates) {
     if (/\/roof-repairs-(?:adelaide-cbd|north-adelaide|norwood-adelaide)\.html$/.test(url)) {
