@@ -3,17 +3,43 @@
 Run with the bundled Python runtime that includes Pillow. Originals are read only.
 """
 from pathlib import Path
+from io import BytesIO
+import hashlib
+import json
 import re
 import xml.etree.ElementTree as ET
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
-PROJECTS = ROOT / "assets/images/projects"
+STATE_FILE = ROOT / "tools/responsive-image-state.json"
+SOURCE_STATE = {}
+NEXT_SOURCE_STATE = {}
+ORIGINAL_PATHS = set()
 GALLERY = "(max-width: 650px) calc((90vw - 8px)/2), (max-width: 960px) calc((90vw - 12px)/2), 424px"
 HOME = "(max-width: 650px) calc((90vw - 8px)/2), (max-width: 850px) calc((90vw - 10px)/2), 350px"
 HERO = "(max-width: 850px) 100vw, 64vw"
 CARD = "(max-width: 650px) 90vw, (max-width: 1000px) 44vw, 350px"
 OTHER = "(max-width: 850px) 90vw, 50vw"
+
+
+def write_if_changed(output, data):
+    if not output.exists() or output.read_bytes() != data:
+        output.write_bytes(data)
+
+
+def save_derivative(source, output, image):
+    root = ROOT.resolve()
+    source = source.resolve()
+    output = output.resolve()
+    if not source.is_relative_to(root) or not output.is_relative_to(root):
+        raise ValueError("image path outside site source")
+    if output.parent != source.parent or output == source or output in ORIGINAL_PATHS:
+        raise ValueError(f"refusing to overwrite original image: {output}")
+    if output.suffix.lower() != ".webp" or not (output.stem == source.stem or output.stem.startswith(source.stem + "-")):
+        raise ValueError(f"unexpected derivative path: {output}")
+    buffer = BytesIO()
+    image.save(buffer, "WEBP", quality=80, method=6)
+    write_if_changed(output, buffer.getvalue())
 
 
 def variants(source):
@@ -24,6 +50,10 @@ def variants(source):
             return [item for item in smaller if item[1] == 360] + [(source.relative_to(ROOT).as_posix(), 720)]
     with Image.open(source) as original:
         width, _ = original.size
+        relative = source.relative_to(ROOT).as_posix()
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        prior_digest = SOURCE_STATE.get(relative)
+        NEXT_SOURCE_STATE[relative] = digest
         candidates = []
         for target in (360, 720, 1440):
             if target == 1440 and width <= 1600:
@@ -31,24 +61,27 @@ def variants(source):
             if target >= width:
                 continue
             output = source.with_name(f"{source.stem}-{target}.webp")
-            if output.exists():
-                candidates.append((output.relative_to(ROOT).as_posix(), target))
-                continue
-            image = original.convert("RGB")
-            image.thumbnail((target, 10000), Image.Resampling.LANCZOS)
-            image.save(output, "WEBP", quality=80, method=6)
-            candidates.append((output.relative_to(ROOT).as_posix(), image.width))
+            # Existing WebP 720s predate this tool. Keep them on first adoption
+            # and while the original fingerprint is unchanged; rebuild on change.
+            preserve_legacy_720 = source.suffix.lower() == ".webp" and target == 720 and output.exists() and (prior_digest is None or prior_digest == digest)
+            if not preserve_legacy_720:
+                image = original.convert("RGB")
+                image.thumbnail((target, 10000), Image.Resampling.LANCZOS)
+                save_derivative(source, output, image)
+            candidates.append((output.relative_to(ROOT).as_posix(), target))
         if source.suffix.lower() == ".webp":
             candidates.append((source.relative_to(ROOT).as_posix(), width))
         else:
             output = source.with_suffix(".webp")
-            if not output.exists():
-                original.convert("RGB").save(output, "WEBP", quality=80, method=6)
+            save_derivative(source, output, original.convert("RGB"))
             candidates.append((output.relative_to(ROOT).as_posix(), width))
         return sorted(candidates, key=lambda item: item[1])
 
 
 def main():
+    global SOURCE_STATE, NEXT_SOURCE_STATE, ORIGINAL_PATHS
+    SOURCE_STATE = json.loads(STATE_FILE.read_text(encoding="utf-8")) if STATE_FILE.exists() else {}
+    NEXT_SOURCE_STATE = {}
     sitemap = ET.parse(ROOT / "sitemap.xml")
     pages = set()
     for item in sitemap.iter():
@@ -58,6 +91,15 @@ def main():
                 pages.add(name)
     # The root URL has no filename in its sitemap location.
     pages.add("index.html")
+    ORIGINAL_PATHS = set()
+    for page_name in pages:
+        page = ROOT / page_name
+        if not page.is_file():
+            continue
+        html = page.read_text(encoding="utf-8")
+        for src in re.findall(r'<img\b[^>]*\bsrc="(assets/images/[^"]+\.(?:jpg|webp))"', html):
+            if not Path(src).stem.endswith("-720"):
+                ORIGINAL_PATHS.add((ROOT / src).resolve())
     built = {}
     touched = []
     for page_name in sorted(pages):
@@ -108,11 +150,16 @@ def main():
             touched.append(page_name)
 
     with Image.open(ROOT / "favicon-ellis-services.png") as icon:
-        icon.convert("RGBA").resize((32, 32), Image.Resampling.LANCZOS).save(ROOT / "favicon-32.png", optimize=True)
+        buffer = BytesIO()
+        icon.convert("RGBA").resize((32, 32), Image.Resampling.LANCZOS).save(buffer, "PNG", optimize=True)
+        write_if_changed(ROOT / "favicon-32.png", buffer.getvalue())
     index = ROOT / "index.html"
     html = index.read_text(encoding="utf-8")
     html = html.replace('<link rel="icon" type="image/png" sizes="512x512" href="/favicon-ellis-services.png">\n  <link rel="icon" href="/favicon-ellis-services.png" sizes="any">\n  <link rel="apple-touch-icon" href="/favicon-ellis-services.png">', '<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">\n  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">\n  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">')
-    index.write_text(html, encoding="utf-8", newline="")
+    if html != index.read_text(encoding="utf-8"):
+        index.write_text(html, encoding="utf-8", newline="")
+    state = json.dumps({**SOURCE_STATE, **NEXT_SOURCE_STATE}, sort_keys=True, indent=2) + "\n"
+    write_if_changed(STATE_FILE, state.encode("utf-8"))
     print(f"generated variants for {len(built)} originals; updated {len(touched)} pages: {', '.join(touched)}")
 
 
