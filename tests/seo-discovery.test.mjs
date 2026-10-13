@@ -11,7 +11,7 @@ test('AI-readable summary identifies the business and current public contact det
   assert.match(summary, /Ellis Services Group/);
   assert.match(summary, /0434 276 883/);
   assert.match(summary, /ellisservicesgroup9@outlook\.com/);
-  assert.match(summary, /Updated: 2026-10-10/);
+  assert.match(summary, /Updated: 2026-10-13/);
 });
 
 test('AI-readable summary links to existing canonical site pages', () => {
