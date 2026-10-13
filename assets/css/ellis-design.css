@@ -2,6 +2,11 @@
 /* Original Ellis palette and typography remain owned by global.css.
    This layer rounds cards and styles the retained content additions. */
 :root{--card-radius:16px;--card-radius-small:10px}
+:root{--serif:'Roboto Condensed','Roboto Condensed Fallback',Arial Narrow,sans-serif;--sans:Manrope,'Manrope Fallback',Arial,sans-serif;--mono:'DM Mono','DM Mono Fallback',monospace}
+.utility{line-height:1.4}
+.service-hero-actions{margin-top:1.25rem}
+.service-hero-actions .button{min-height:44px}
+@media(max-width:850px){.page-hero:has(.service-hero-actions){padding-top:145px;padding-bottom:2rem}.page-hero:has(.service-hero-actions) h1{font-size:clamp(2.65rem,10.5vw,4rem)}.service-hero-actions{gap:.6rem}.service-hero-actions .button{padding:.85rem 1rem;letter-spacing:.06em}}
 html{scroll-padding-top:6rem;scrollbar-color:#817b70 var(--sand);scrollbar-width:thin}
 ::-webkit-scrollbar{width:12px;height:12px}::-webkit-scrollbar-track{background:var(--sand)}::-webkit-scrollbar-thumb{background:#817b70;border:3px solid var(--sand);border-radius:8px}
 body{overflow-wrap:break-word}a,button{touch-action:manipulation}
