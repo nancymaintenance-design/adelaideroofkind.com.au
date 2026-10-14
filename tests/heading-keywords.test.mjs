@@ -30,6 +30,25 @@ test('non-FAQ main headings use declarative service and advice wording', () => {
   }
 });
 // Catches keyword stuffing or loss of the local coverage action behind near-me wording.
+test('locality advice headings identify the actual linked service and guide topics', () => {
+  const topics = [
+    ['adelaide-cbd', /leak/i], ['burnside-adelaide', /restoration/i],
+    ['campbelltown-adelaide', /leak.*tile|tile.*leak/i], ['glen-osmond-adelaide', /ridge/i],
+    ['glenelg-adelaide', /roof repair/i], ['goodwood-adelaide', /leak/i],
+    ['henley-beach-adelaide', /gutter cleaning/i], ['kensington-adelaide', /leak/i],
+    ['modbury-adelaide', /gutter cleaning/i], ['north-adelaide', /ridge/i],
+    ['norwood-adelaide', /restoration/i], ['port-adelaide', /gutter.*downpipe|drainage/i],
+    ['prospect-adelaide', /tile/i], ['salisbury-adelaide', /gutter.*downpipe|drainage/i],
+    ['unley-adelaide', /gutter.*downpipe|drainage/i],
+  ];
+  for (const [area, topic] of topics) {
+    const file = `roof-repairs-${area}.html`;
+    const section = main(file).match(/<h2\b[^>]*>([^<]+)<\/h2><p><a href="([^"]+)">([^<]+)<\/a> explains the service scope[\s\S]*?For background before you enquire, see <a href="([^"]+)">([^<]+)<\/a>/i);
+    assert.ok(section, `${file}: service and guide advice section exists`);
+    assert.match(section[1], topic, `${file}: heading names the linked advice topic`);
+    assert.match(section[3] + ' ' + section[5], topic, `${file}: service/guide text supports the topic`);
+  }
+});
 test('near-me wording connects the reader to existing coverage and a suburb enquiry', () => {
   const html = main('index.html');
   assert.match(html, /roof repairs near me/i);
