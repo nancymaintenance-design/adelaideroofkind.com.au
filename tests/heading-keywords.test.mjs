@@ -38,6 +38,17 @@ test('near-me wording connects the reader to existing coverage and a suburb enqu
   assert.match(html, /suburb.*(?:appointment|assessment)/i);
   assert.doesNotMatch(html, /we (?:provide|repair).*near me/i);
 });
+// Catches a service H1 losing the original city while its title remains locally targeted.
+for (const [file, service] of [
+  ['roof-leak-repairs-adelaide.html', /roof leak.*repair/i],
+  ['roof-restoration-adelaide.html', /roof restoration/i],
+]) {
+  test(`${file} H1 retains service and Adelaide targeting`, () => {
+    const h1 = main(file).match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+    assert.match(h1, service, `${file}: H1 identifies the service`);
+    assert.match(h1, /\bAdelaide\b/, `${file}: H1 retains the service city`);
+  });
+}
 // Catches local identity, accessible anchors and search identity being removed during copy edits.
 test('core pages retain local identity, canonical metadata and semantic anchors', () => {
   for (const file of ['index.html', 'about.html', 'contact.html']) {
