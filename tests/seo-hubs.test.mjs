@@ -19,10 +19,10 @@ function localLinks(content) {
 }
 
 for (const [heading, destinations] of [
-  ['Leak investigation', ['roof-leak-repairs-adelaide.html']],
+  ['Roof Leak Detection and Repairs', ['roof-leak-repairs-adelaide.html']],
   ['Tile, ridge and flashing repairs', ['roof-repairs-adelaide.html']],
   ['Roof restoration', ['roof-restoration-adelaide.html']],
-  ['Drainage and cleaning', ['gutter-downpipe-repairs-adelaide.html', 'gutter-cleaning-adelaide.html']],
+  ['Gutter Repairs, Cleaning and Outlet Checks', ['gutter-downpipe-repairs-adelaide.html', 'gutter-cleaning-adelaide.html']],
 ]) {
   test(`Services ${heading} group leads to a matching service page`, () => {
     const group = h2Groups(main('services.html')).find((item) => item.heading === heading);
