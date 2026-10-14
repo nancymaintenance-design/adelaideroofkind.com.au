@@ -47,7 +47,7 @@ test('specialist metadata channels stay concise and synchronized with WebPage sc
   assert.match(metalTitle, /Metal.*Colorbond.*Adelaide/i);
 });
 
-test('guide Article dates, visible update labels and sitemap lastmod agree', () => {
+test('guide Article dates and sitemap lastmod agree without visible update boilerplate', () => {
   const sitemap = read('sitemap.xml');
   const entries = new Map([...sitemap.matchAll(/<url>\s*<loc>https:\/\/www\.adelaideroofkind\.com\.au\/([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)]
     .map(([, file, date]) => [file, date]));
@@ -61,10 +61,7 @@ test('guide Article dates, visible update labels and sitemap lastmod agree', () 
     const html = read(file);
     const article = graph(html).find((node) => node['@type'] === 'Article');
     assert.equal(article.dateModified, entries.get(file), `${file}: Article and sitemap dates match`);
-    const visible = new Date(`${article.dateModified}T00:00:00Z`).toLocaleDateString('en-AU', {
-      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-    });
-    assert.match(html, new RegExp(`Content updated ${visible.replaceAll(' ', '\\s+')}`), `${file}: visible update matches`);
+    assert.doesNotMatch(html, /Content updated\s+\d/i, `${file}: no customer-facing update boilerplate`);
     assert.equal(article.datePublished, undefined, `${file}: unknown publication date is not invented`);
   }
 });
