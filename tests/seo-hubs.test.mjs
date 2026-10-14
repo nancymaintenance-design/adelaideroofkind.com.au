@@ -52,18 +52,18 @@ for (const [heading, destination] of [
 test('FAQ topics group the existing questions and retain their FAQPage schema answers', () => {
   const html = read('faq.html');
   const groups = h2Groups(main('faq.html'));
-  for (const heading of ['Leaks', 'Roof components', 'Drainage', 'Process and quotes']) {
+  for (const heading of ['Roof Leaks & Rainwater Entry', 'Tiles, Ridges & Flashing', 'Metal & Colorbond Roofs', 'Roof Cleaning & Moss', 'Gutters, Downpipes & Drainage', 'Roof Maintenance, Painting & Restoration', 'Inspections, Booking & Quotes']) {
     const group = groups.find((item) => item.heading === heading);
     assert.ok(group, `${heading} H2 section exists`);
-    assert.match(group.content, /class="faq-question"/, `${heading} contains a question`);
+    assert.match(group.content, /<summary>/, `${heading} contains direct questions`);
   }
   const jsonLd = [...html.matchAll(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
     .flatMap(([, json]) => JSON.parse(json)['@graph'] ?? []);
   const faq = jsonLd.find((node) => node['@type'] === 'FAQPage');
   assert.ok(faq, 'FAQPage structured data remains present');
-  assert.equal(faq.mainEntity.length, 13);
-  const visibleQuestions = [...main('faq.html').matchAll(/<button class="faq-question"[^>]*>([\s\S]*?)<span>/g)]
-    .map(([, question]) => textContent(question));
+  assert.equal(faq.mainEntity.length, 42);
+  const visibleQuestions = [...main('faq.html').matchAll(/<summary>([\s\S]*?)<\/summary>|<button class="faq-question"[^>]*>([\s\S]*?)<span>/g)]
+    .map(([, summary, button]) => textContent(summary ?? button));
   for (const question of faq.mainEntity) {
     assert.ok(question.acceptedAnswer?.text, `${question.name} keeps its answer`);
     assert.ok(visibleQuestions.includes(question.name), `${question.name} remains visible`);

@@ -53,7 +53,10 @@ const nodes = [...faqHtml.matchAll(/<script\b[^>]*type="application\/ld\+json"[^
   .flatMap(([, json]) => { const data = JSON.parse(json); return data['@graph'] ?? [data]; });
 const faq = nodes.find((node) => node['@type'] === 'FAQPage');
 check(() => assert.ok(faq, 'FAQPage structured data exists'));
-const pairs = [...faqHtml.matchAll(/<button class="faq-question"[^>]*>([\s\S]*?)<span>[\s\S]*?<div class="faq-answer">\s*<div>\s*<p>([\s\S]*?)<\/p>/g)]
+const pairs = [
+  ...faqHtml.matchAll(/<button class="faq-question"[^>]*>([\s\S]*?)<span>[\s\S]*?<div class="faq-answer">\s*<div>\s*<p>([\s\S]*?)<\/p>/g),
+  ...faqHtml.matchAll(/<details\b[^>]*>\s*<summary>([\s\S]*?)<\/summary>\s*<div class="faq-response">\s*<p>([\s\S]*?)<\/p>/g),
+]
   .map(([, question, answer]) => [normalise(question), normalise(answer)]);
 check(() => assert.equal(pairs.length, faq.mainEntity.length, 'Every schema FAQ has a visible question and answer'));
 for (const question of faq.mainEntity) {

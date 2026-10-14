@@ -1,0 +1,51 @@
+/* Content pages only. Palette and fonts remain owned by global.css. */
+.faq-hub-page .faq-hub-intro{background:var(--ink);color:var(--chalk);padding:130px 0 1.75rem}
+.faq-hub-page .faq-hub-intro h1{font:700 clamp(2.2rem,4.3vw,3.8rem)/1.02 var(--serif);text-transform:uppercase;letter-spacing:-.025em;max-width:960px;margin:.5rem 0 1rem}
+.faq-hub-page .faq-hub-intro p:last-child{max-width:760px;margin:0;line-height:1.6}
+.faq-hub-page .faq-category-nav{position:sticky;top:0;z-index:4;display:flex;gap:.5rem;align-items:center;overflow-x:auto;white-space:nowrap;padding:12px 0;background:var(--chalk);border-bottom:2px solid var(--mineral);scrollbar-width:thin;scrollbar-color:var(--slate) var(--sand)}
+.faq-hub-page .faq-category-nav a{display:inline-flex;flex:none;align-items:center;justify-content:center;min-height:44px;padding:.65rem .8rem;border:1px solid var(--line);border-radius:var(--card-radius-small);font-size:.84rem;font-weight:800;line-height:1.25;color:var(--ink);text-decoration:none;cursor:pointer}
+.faq-hub-page .faq-category-nav a:hover,.faq-hub-page .faq-category-nav a:active{background:var(--ink);color:var(--chalk)}
+.faq-hub-page .faq-category-nav a:focus-visible{outline:3px solid var(--mineral);outline-offset:-3px;background:var(--sand)}
+.faq-hub-page .faq-hub-content{padding-block:1.25rem 0}
+.faq-hub-page .faq-category{padding-block:1.25rem 1.5rem;scroll-margin-top:24px;border-bottom:1px solid var(--line)}
+.faq-hub-page .faq-category h2{font:700 clamp(1.8rem,3vw,2.5rem)/1.1 var(--serif);margin:0 0 1rem;letter-spacing:-.015em}
+.faq-hub-page .faq-disclosure{border-top:1px solid var(--line)}
+.faq-hub-page .faq-disclosure summary{position:relative;list-style:none;min-height:56px;display:flex;align-items:center;padding:.9rem 2.5rem .9rem .5rem;font-weight:800;line-height:1.5;cursor:pointer;scroll-margin-top:100px}
+.faq-hub-page .faq-disclosure summary::-webkit-details-marker{display:none}
+.faq-hub-page .faq-disclosure summary::after{content:'+';position:absolute;right:.75rem;color:var(--mineral);font-size:1.5rem;font-weight:500}
+.faq-hub-page .faq-disclosure[open] summary::after{content:'−'}
+.faq-hub-page .faq-disclosure summary:hover,.faq-hub-page .faq-disclosure summary:active{background:var(--sand)}
+.faq-hub-page .faq-disclosure summary:focus-visible{outline-offset:-3px}
+.faq-hub-page .faq-response{padding:0 .5rem 1rem;max-width:900px;line-height:1.7}
+.faq-hub-page .faq-response p{margin:0}
+.faq-hub-page #warranty{scroll-margin-top:100px}
+.faq-hub-page .faq-category-link{margin:.75rem 0 0}
+.faq-hub-page .faq-category-link a{display:inline-flex;align-items:center;min-height:44px;font-size:.9rem;font-weight:800;text-decoration:underline;text-underline-offset:.2em}
+.guide-directory-page .industry-articles>.shell>section{padding-block:1.25rem;border-top:1px solid var(--line)}
+.guide-directory-page .industry-articles>.shell>section>h2{margin:.25rem 0 .65rem;font:700 clamp(1.7rem,3vw,2.3rem)/1.1 var(--serif)}
+.guide-directory-page .article-card-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-block:1rem}
+.guide-directory-page .article-card-grid:has(>.article-card:only-child){grid-template-columns:minmax(0,1fr)}
+.guide-directory-page .article-card-grid>.article-card:only-child{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,.65fr);column-gap:2rem;align-items:start;min-height:0;padding:1.25rem 1.5rem}
+.guide-directory-page .article-card-grid>.article-card:only-child .article-kicker,.guide-directory-page .article-card-grid>.article-card:only-child h3,.guide-directory-page .article-card-grid>.article-card:only-child p:not(.article-kicker){grid-column:1}
+.guide-directory-page .article-card-grid>.article-card:only-child .text-link{grid-column:2;grid-row:1/4;align-self:center;justify-self:end;margin:0}
+.guide-directory-page .article-card .text-link{display:inline-flex;align-items:center;justify-content:space-between;gap:.7rem;min-height:44px;padding:.65rem .85rem;border:1px solid var(--mineral);border-radius:var(--card-radius-small);background:var(--chalk);color:var(--ink);font-size:.85rem;line-height:1.4;text-decoration:none;cursor:pointer}
+.guide-directory-page .article-card .text-link:hover,.guide-directory-page .article-card .text-link:active{background:var(--ink);border-color:var(--ink);color:var(--chalk)}
+.guide-directory-page .industry-search button{min-height:44px}
+@media(max-width:850px){
+  .faq-hub-page .faq-hub-intro{padding-top:115px;padding-bottom:1.25rem}
+  .faq-hub-page .faq-hub-intro h1{font-size:clamp(2rem,7.7vw,3rem)}
+  .faq-hub-page .faq-category-nav{gap:.4rem}
+  .guide-directory-page .article-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px){
+  .faq-hub-page .faq-hub-intro p:last-child{font-size:.9rem}
+  .faq-hub-page .faq-category-nav a{font-size:.8rem}
+  .faq-hub-page .faq-disclosure summary{font-size:.95rem}
+  .guide-directory-page .article-card-grid{grid-template-columns:minmax(0,1fr)}
+  .guide-directory-page .article-card-grid>.article-card:only-child{display:flex;padding:1.2rem}
+  .guide-directory-page .article-card-grid>.article-card:only-child .text-link{align-self:flex-start;margin-top:.5rem}
+}
+@media(prefers-reduced-motion:reduce){.faq-hub-page .faq-category-nav{scroll-behavior:auto}}
+@media(forced-colors:active){.faq-hub-page .faq-category-nav{scrollbar-color:auto}.faq-hub-page .faq-category-nav a,.guide-directory-page .article-card .text-link{border-color:ButtonText}}
+/* Search visibility must win over the single-card responsive presentation. */
+.guide-directory-page .article-card-grid>.article-card.article-card--hidden{display:none}
