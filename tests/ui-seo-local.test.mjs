@@ -233,25 +233,35 @@ test('homepage stays stable when font responses arrive late', async () => {
   const browser = await chromium.launch();
   const samples = [];
   try {
-    for (const width of [390,1440]) for(let i=0;i<5;i++) {
+    // local() faces can be unavailable on Linux or privacy-restricted browsers.
+    // Exercise the generic fallback as well as the host's installed fonts.
+    for (const fallback of ['system-local','generic']) for (const width of [390,1440]) for(let i=0;i<5;i++) {
       const context = await browser.newContext({ viewport:{width,height:width===390?844:1000} });
       const page = await context.newPage();
+      if (fallback === 'generic') {
+        const session = await context.newCDPSession(page);
+        await session.send('DOM.enable');
+        await session.send('CSS.enable');
+        await session.send('CSS.setLocalFontsEnabled',{enabled:false});
+      }
       await page.route('**/*', async route => {
         if (/\.(woff2?|ttf)(\?|$)|fonts\.googleapis/.test(route.request().url())) await new Promise(r=>setTimeout(r,600));
         await route.continue();
       });
       await page.addInitScript(() => {
         window.shifts=[];
-        new PerformanceObserver(list=>{for(const e of list.getEntries()) if(!e.hadRecentInput) window.shifts.push({value:e.value,time:e.startTime,sources:e.sources.map(s=>({node:s.node?.className,previous:s.previousRect,current:s.currentRect}))});}).observe({type:'layout-shift',buffered:true});
+        new PerformanceObserver(list=>{for(const e of list.getEntries()) if(!e.hadRecentInput) window.shifts.push({value:e.value,time:e.startTime,sources:e.sources.map(s=>{const node=s.node?.nodeType===Node.TEXT_NODE?s.node.parentElement:s.node;return {node:node?`${node.tagName}.${node.className}`:null,previous:s.previousRect,current:s.currentRect};})});}).observe({type:'layout-shift',buffered:true});
       });
       await page.goto(base, {waitUntil:'networkidle'});
       await page.evaluate(()=>document.fonts.ready);
       await page.waitForTimeout(300);
-      samples.push(await page.evaluate(width=>({width,cls:window.shifts.reduce((s,e)=>s+e.value,0),shifts:window.shifts,overflow:document.documentElement.scrollWidth>innerWidth,fontStatus:document.fonts.status}),width));
+      samples.push(await page.evaluate(({width,fallback})=>({width,fallback,cls:window.shifts.reduce((s,e)=>s+e.value,0),shifts:window.shifts,overflow:document.documentElement.scrollWidth>innerWidth,fontStatus:document.fonts.status}),{width,fallback}));
       await context.close();
     }
     if(process.env.UI_EVIDENCE) await writeFile(process.env.UI_EVIDENCE,JSON.stringify(samples,null,2));
-    console.log('CLS samples',samples.map(s=>`${s.width}:${s.cls.toFixed(4)}`).join(', '));
+    console.log('CLS samples',samples.map(s=>`${s.fallback}/${s.width}:${s.cls.toFixed(4)}`).join(', '));
+    const failures=samples.filter(s=>s.cls>.1 || s.overflow);
+    if(failures.length) console.error('Delayed-font layout failures',JSON.stringify(failures,null,2));
     assert.ok(samples.every(s=>s.cls<=.1 && !s.overflow), 'cold loads must have CLS <= 0.1 and no horizontal overflow');
   } finally { await browser.close(); }
 });

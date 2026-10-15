@@ -45,6 +45,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .home-hero h1 span{display:block}.home-hero h1 span:last-child{color:#efb98d}
 .home-hero__promise{font-weight:700;font-size:1.1rem;margin:0 0 .9rem}
 .home-hero__workflow{color:#efb98d;font:500 .74rem var(--mono);letter-spacing:.06em;margin:1.5rem 0 0}
+/* Keep the mobile CTA row intact while wider system fallback fonts are visible. */
+@media(max-width:850px){.home-hero .hero-actions .button{padding-inline:.8rem}}
 .home-hero .quote-panel{transform:none;padding:1.5rem;min-width:0;max-height:calc(100svh - 210px);overflow-y:auto;scrollbar-gutter:stable;scroll-padding-block:1rem}
 .home-hero .quote-panel h2{font-size:1.85rem;line-height:1.05}
 .home-hero .quote-panel p{line-height:1.5;margin:.6rem 0 1rem}
