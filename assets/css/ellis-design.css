@@ -42,6 +42,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .home-hero::after{content:"";position:absolute;right:-4vw;bottom:8vh;width:min(52vw,780px);height:min(52vw,780px);border:1px solid rgba(255,255,255,.56);clip-path:polygon(50% 0,100% 100%,88% 100%,50% 23%,12% 100%,0 100%);opacity:.75}
 .home-hero__grid{position:relative;z-index:1;width:min(1320px,90vw);margin:auto;padding:150px 0 4rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(440px,500px);gap:clamp(2rem,3.5vw,4rem);align-items:center}
 .home-hero h1{font:700 clamp(3.2rem,7.5vw,7.2rem)/.88 var(--serif);letter-spacing:-.045em;text-transform:uppercase;margin:1.1rem 0 1.55rem;max-width:800px}
+/* Roboto Condensed 700 zero advance: 1035/2048 em. Keep wide fallbacks to its pitch. */
+.home-hero h1{font-size-adjust:ch-width .50537109375}
 .home-hero h1 span{display:block}.home-hero h1 span:last-child{color:#efb98d}
 .home-hero__promise{font-weight:700;font-size:1.1rem;margin:0 0 .9rem}
 .home-hero__workflow{color:#efb98d;font:500 .74rem var(--mono);letter-spacing:.06em;margin:1.5rem 0 0}

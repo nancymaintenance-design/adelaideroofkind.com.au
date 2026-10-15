@@ -229,22 +229,29 @@ test('shared page families fit narrow short screens without stretched empty pane
     }
   }finally{await browser.close();}
 });
-test('homepage stays stable when font responses arrive late', async () => {
+async function verifyDelayedFontStability(fallbacks) {
   const browser = await chromium.launch();
   const samples = [];
   try {
     // local() faces can be unavailable on Linux or privacy-restricted browsers.
     // Exercise the generic fallback as well as the host's installed fonts.
-    for (const fallback of ['system-local','generic']) for (const width of [390,1440]) for(let i=0;i<5;i++) {
+    for (const fallback of fallbacks) for (const width of [390,1440]) for(let i=0;i<5;i++) {
       const context = await browser.newContext({ viewport:{width,height:width===390?844:1000} });
       const page = await context.newPage();
-      if (fallback === 'generic') {
+      if (fallback !== 'system-local') {
         const session = await context.newCDPSession(page);
         await session.send('DOM.enable');
         await session.send('CSS.enable');
         await session.send('CSS.setLocalFontsEnabled',{enabled:false});
       }
       await page.route('**/*', async route => {
+        if (fallback === 'wide-generic' && /\.css(\?|$)/.test(route.request().url())) {
+          // Emulate an unavailable platform family without changing page layout
+          // rules: Windows has Arial Narrow; Ubuntu normally falls through it.
+          const response=await route.fetch();
+          await route.fulfill({response,body:(await response.text()).replaceAll('Arial Narrow','Unavailable Platform Narrow')});
+          return;
+        }
         if (/\.(woff2?|ttf)(\?|$)|fonts\.googleapis/.test(route.request().url())) await new Promise(r=>setTimeout(r,600));
         await route.continue();
       });
@@ -252,18 +259,31 @@ test('homepage stays stable when font responses arrive late', async () => {
         window.shifts=[];
         new PerformanceObserver(list=>{for(const e of list.getEntries()) if(!e.hadRecentInput) window.shifts.push({value:e.value,time:e.startTime,sources:e.sources.map(s=>{const node=s.node?.nodeType===Node.TEXT_NODE?s.node.parentElement:s.node;return {node:node?`${node.tagName}.${node.className}`:null,previous:s.previousRect,current:s.currentRect};})});}).observe({type:'layout-shift',buffered:true});
       });
-      await page.goto(base, {waitUntil:'networkidle'});
+      await page.goto(base, {waitUntil:'domcontentloaded'});
+      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+      const pendingHeadingHeight=await page.locator('.home-hero h1').evaluate(e=>e.getBoundingClientRect().height);
+      await page.waitForLoadState('networkidle');
       await page.evaluate(()=>document.fonts.ready);
       await page.waitForTimeout(300);
-      samples.push(await page.evaluate(({width,fallback})=>({width,fallback,cls:window.shifts.reduce((s,e)=>s+e.value,0),shifts:window.shifts,overflow:document.documentElement.scrollWidth>innerWidth,fontStatus:document.fonts.status}),{width,fallback}));
+      samples.push(await page.evaluate(({width,fallback,pendingHeadingHeight})=>({width,fallback,pendingHeadingHeight,headingHeight:document.querySelector('.home-hero h1').getBoundingClientRect().height,cls:window.shifts.reduce((s,e)=>s+e.value,0),shifts:window.shifts,overflow:document.documentElement.scrollWidth>innerWidth,fontStatus:document.fonts.status}),{width,fallback,pendingHeadingHeight}));
       await context.close();
     }
-    if(process.env.UI_EVIDENCE) await writeFile(process.env.UI_EVIDENCE,JSON.stringify(samples,null,2));
+    if(process.env.UI_EVIDENCE) {
+      const evidencePath=fallbacks.includes('wide-generic')?process.env.UI_EVIDENCE.replace(/\.json$/,'')+'-wide-generic.json':process.env.UI_EVIDENCE;
+      await writeFile(evidencePath,JSON.stringify(samples,null,2));
+    }
     console.log('CLS samples',samples.map(s=>`${s.fallback}/${s.width}:${s.cls.toFixed(4)}`).join(', '));
-    const failures=samples.filter(s=>s.cls>.1 || s.overflow);
+    const failures=samples.filter(s=>s.cls>.1 || s.overflow || s.fallback==='wide-generic' && Math.abs(s.headingHeight-s.pendingHeadingHeight)>1);
     if(failures.length) console.error('Delayed-font layout failures',JSON.stringify(failures,null,2));
     assert.ok(samples.every(s=>s.cls<=.1 && !s.overflow), 'cold loads must have CLS <= 0.1 and no horizontal overflow');
+    assert.ok(samples.filter(s=>s.fallback==='wide-generic').every(s=>Math.abs(s.headingHeight-s.pendingHeadingHeight)<=1), 'heading line count must stay stable without platform narrow fonts');
   } finally { await browser.close(); }
+}
+test('homepage stays stable when font responses arrive late', async () => {
+  await verifyDelayedFontStability(['system-local','generic']);
+});
+test('homepage heading stays stable without platform narrow fallback fonts', async () => {
+  await verifyDelayedFontStability(['wide-generic']);
 });
 test('every service and contact offers visible accessible quote and call actions', async () => {
   const browser = await chromium.launch();
