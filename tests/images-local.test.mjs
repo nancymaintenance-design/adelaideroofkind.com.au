@@ -79,9 +79,9 @@ test('visual heroes remain eager, visible, and high priority where previously de
       const data=await page.locator('.page-hero__visual img').evaluate(async img=>{
         await img.decode();
         const bounds=img.getBoundingClientRect();
-        return {src:img.currentSrc,width:bounds.width,height:bounds.height,loading:img.loading,priority:img.fetchPriority,overflow:document.documentElement.scrollWidth>innerWidth};
+        return {src:img.currentSrc,width:bounds.width,height:bounds.height,heroHeight:img.closest('.page-hero').getBoundingClientRect().height,loading:img.loading,priority:img.fetchPriority,overflow:document.documentElement.scrollWidth>innerWidth};
       });
-      assert.ok(data.src.endsWith('.webp') && data.width>0 && data.height>=500,`${path}: ${JSON.stringify(data)}`);
+      assert.ok(data.src.endsWith('.webp') && data.width>0 && data.heroHeight>0 && Math.abs(data.height-data.heroHeight)<1,`${path}: photograph fills the natural-height hero ${JSON.stringify(data)}`);
       assert.equal(data.loading,'eager');
       assert.equal(data.priority,'high');
       assert.equal(data.overflow,false);

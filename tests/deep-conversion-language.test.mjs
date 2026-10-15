@@ -11,7 +11,7 @@ test('all published HTML avoids SEO instructions, conversation-only CTAs and off
 });
 test('contact and locality enquiry modules retain assessment and written quote details',()=>{
  for(const file of readdirSync('.').filter(p=>p==='contact.html'||/^roof-repairs-/.test(p)&&p!=='roof-repairs-adelaide.html'&&p!=='roof-repairs-adelaide-guide.html')){
-  const html=readFileSync(file,'utf8'), module=html.match(/<section class="section locality-enquiry">([\s\S]*?)<\/section>/)?.[1]||html.match(/<(?:aside class="contact-panel"|section class="page-hero")>([\s\S]*?)<\/(?:aside|section)>/)?.[1]||html;
+  const html=readFileSync(file,'utf8'), module=html.match(/<section class="section locality-enquiry">([\s\S]*?)<\/section>/)?.[1]||html.match(/<div class="shell contact-layout">([\s\S]*?)<\/section>/)?.[1]||html.match(/<(?:aside class="contact-panel"|section class="page-hero")>([\s\S]*?)<\/(?:aside|section)>/)?.[1]||html;
   const txt=visible(module);
   assert.match(txt,/on-site|on site/i,file); assert.match(txt,/written quote/i,file);
  }

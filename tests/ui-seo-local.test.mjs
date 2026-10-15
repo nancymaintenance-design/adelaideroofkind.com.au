@@ -52,7 +52,7 @@ test('service entry links are prominent keyboard-accessible buttons and update b
       await page.goto(base+'/services.html',{waitUntil:'networkidle'});
       await page.evaluate(()=>document.fonts.ready);
       const links=await page.locator('.services-page-grid .service-card>a').evaluateAll(es=>es.map(e=>({height:e.getBoundingClientRect().height,font:parseFloat(getComputedStyle(e).fontSize),background:getComputedStyle(e).backgroundColor,href:e.getAttribute('href'),tab:e.tabIndex})));
-      assert.equal(links.length,5,'all five primary service entries remain');
+      assert.equal(links.length,9,'all nine services appear in the primary directory');
       for(const link of links){
         assert.ok(link.height>=44,`service hit target: ${link.height}`);
         assert.ok(link.font>=14,`service label: ${link.font}`);
@@ -152,6 +152,82 @@ test('homepage quote overflow scrolls internally on short screens and stays reac
 test('local preview refuses form submissions', async () => {
   const response = await fetch(`${base}/api/contact`, { method:'POST' });
   assert.equal(response.status, 405);
+});
+test('utility height drives header placement and the menu remains operable', async () => {
+  const browser=await chromium.launch();
+  try {
+    for(const width of [320,390,768,1440]) {
+      const page=await browser.newPage({viewport:{width,height:600}});
+      await page.goto(base,{waitUntil:'networkidle'});
+      await page.evaluate(()=>document.fonts.ready);
+      for(const expanded of [false,true]) {
+        if(expanded) await page.locator('.utility').evaluate(e=>e.style.paddingBlock='2rem');
+        const rects=await page.evaluate(()=>({utility:document.querySelector('.utility').getBoundingClientRect().bottom,header:document.querySelector('.site-header').getBoundingClientRect().top,bg:getComputedStyle(document.querySelector('.site-header')).backgroundColor}));
+        assert.ok(Math.abs(rects.utility-rects.header)<1,`${width}: header follows actual utility height`);
+        assert.equal(rects.bg,'rgb(17, 22, 19)','navigation has an opaque ink background');
+      }
+      if(width<=768) {
+        const menu=page.locator('.menu-toggle');await menu.focus();await page.keyboard.press('Enter');
+        assert.equal(await menu.getAttribute('aria-expanded'),'true');
+        await page.locator('.nav a').last().focus();
+        assert.equal(await page.evaluate(()=>getComputedStyle(document.activeElement).outlineStyle),'solid');
+        await page.keyboard.press('Escape');assert.equal(await menu.getAttribute('aria-expanded'),'false');
+        assert.equal(await menu.evaluate(e=>e===document.activeElement),true);
+      }
+      await page.close();
+    }
+  }finally{await browser.close();}
+});
+test('service directory, guide groups and contact form follow compact introductions', async () => {
+  const browser=await chromium.launch();
+  try {
+    for(const width of [320,390,768,1440]) {
+      const page=await browser.newPage({viewport:{width,height:600}});
+      for(const [file,selector,limit] of [['services.html','.services-page-grid',650],['industry-answers.html','.industry-articles>.shell>section',900],['contact.html','#quote-form',650]]) {
+        await page.goto(`${base}/${file}`,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
+        const top=await page.locator(selector).first().evaluate(e=>e.getBoundingClientRect().top);
+        assert.ok(top<limit,`${file} ${width}: useful content starts at ${top}`);
+        if(file==='contact.html') {
+          assert.equal(await page.locator('.contact-layout>*').first().getAttribute('id'),'quote-form','visual and keyboard order put the form first');
+          await page.locator('#quote-form button[type=submit]').scrollIntoViewIfNeeded();
+          assert.ok(await page.locator('#quote-form button[type=submit]').evaluate(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}),'submit is reachable using document scrolling');
+        }
+      }
+      await page.close();
+    }
+  }finally{await browser.close();}
+});
+test('primary actions and pale-surface accent text have AA contrast', async () => {
+  const browser=await chromium.launch();
+  const luminance=rgb=>rgb.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0);
+  const contrast=(a,b)=>{const l=[luminance(a),luminance(b)].sort((a,b)=>b-a);return(l[0]+.05)/(l[1]+.05);};
+  try {
+    const page=await browser.newPage({viewport:{width:1440,height:900}});
+    for(const file of ['services.html','industry-answers.html','contact.html']) {
+      await page.goto(`${base}/${file}`,{waitUntil:'networkidle'});
+      const colors=await page.locator('.button:not(.button--ghost),.industry-search button,.service-card>a').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().height>0).map(e=>({height:e.getBoundingClientRect().height,fg:getComputedStyle(e).color.match(/[\d.]+/g).slice(0,3).map(Number),bg:getComputedStyle(e).backgroundColor.match(/[\d.]+/g).slice(0,3).map(Number)})));
+      for(const c of colors){assert.ok(c.height>=44);assert.ok(contrast(c.fg,c.bg)>=4.5,`${file}: primary contrast ${contrast(c.fg,c.bg)}`);}
+      const accent=await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--accent-text').trim());
+      const rgb=accent.slice(1).match(/../g).map(v=>parseInt(v,16));
+      assert.ok(contrast(rgb,[231,224,210])>=4.5);assert.ok(contrast(rgb,[252,251,247])>=4.5);
+    }
+    await page.close();
+  }finally{await browser.close();}
+});
+test('shared page families fit narrow short screens without stretched empty panels', async () => {
+  const browser=await chromium.launch();
+  try {
+    for(const width of [320,768,1440]) {
+      const page=await browser.newPage({viewport:{width,height:600}});
+      for(const file of ['index.html','services.html','industry-answers.html','contact.html','about.html','service-areas.html','roof-repairs-adelaide.html','roof-repairs-norwood-adelaide.html','roof-cleaning-adelaide.html','roof-repairs-adelaide-guide.html','faq.html']) {
+        await page.goto(`${base}/${file}`,{waitUntil:'load'});await page.evaluate(()=>document.fonts.ready);
+        assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`${file} ${width}: no overflow`);
+        const blank=await page.locator('.service-card,.contact-panel,.contact-form,.related-paths__grid>*').evaluateAll(es=>es.filter(e=>{const kids=[...e.children].filter(c=>getComputedStyle(c).position!=='absolute'&&c.getBoundingClientRect().height);return kids.length&&e.getBoundingClientRect().bottom-Math.max(...kids.map(c=>c.getBoundingClientRect().bottom))>120;}).map(e=>e.className));
+        assert.deepEqual(blank,[],`${file} ${width}: natural panel heights`);
+      }
+      await page.close();
+    }
+  }finally{await browser.close();}
 });
 test('homepage stays stable when font responses arrive late', async () => {
   const browser = await chromium.launch();

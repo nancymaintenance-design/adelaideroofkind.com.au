@@ -21,6 +21,11 @@
 .faq-hub-page #warranty{scroll-margin-top:100px}
 .faq-hub-page .faq-category-link{margin:.75rem 0 0}
 .faq-hub-page .faq-category-link a{display:inline-flex;align-items:center;min-height:44px;font-size:.9rem;font-weight:800;text-decoration:underline;text-underline-offset:.2em}
+.guide-directory-page .industry-hero{min-height:0;padding:130px 0 1.5rem}
+.guide-directory-page .industry-hero .shell{width:min(760px,90vw);padding:0}
+.guide-directory-page .industry-hero h1{font-size:clamp(2.4rem,4.5vw,4rem);line-height:1.02;margin:.6rem 0 1rem}
+.guide-directory-page .industry-hero p{font-size:1rem}
+.guide-directory-page .industry-articles .section-head h2,.guide-directory-page .industry-contact h2{font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.05}
 .guide-directory-page .industry-articles>.shell>section{padding-block:1.25rem;border-top:1px solid var(--line)}
 .guide-directory-page .industry-articles>.shell>section>h2{margin:.25rem 0 .65rem;font:700 clamp(1.7rem,3vw,2.3rem)/1.1 var(--serif)}
 .guide-directory-page .article-card-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-block:1rem}
@@ -32,6 +37,8 @@
 .guide-directory-page .article-card .text-link:hover,.guide-directory-page .article-card .text-link:active{background:var(--ink);border-color:var(--ink);color:var(--chalk)}
 .guide-directory-page .industry-search button{min-height:44px}
 @media(max-width:850px){
+  .guide-directory-page .industry-hero{padding-top:120px}
+  .guide-directory-page .industry-hero h1{font-size:clamp(2.4rem,7.5vw,3.5rem)}
   .faq-hub-page .faq-hub-intro{padding-top:115px;padding-bottom:1.25rem}
   .faq-hub-page .faq-hub-intro h1{font-size:clamp(2rem,7.7vw,3rem)}
   .faq-hub-page .faq-category-nav{gap:.4rem}

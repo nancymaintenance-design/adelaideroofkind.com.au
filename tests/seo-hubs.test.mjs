@@ -20,13 +20,20 @@ function localLinks(content) {
 
 for (const [heading, destinations] of [
   ['Roof Leak Detection and Repairs', ['roof-leak-repairs-adelaide.html']],
-  ['Tile, ridge and flashing repairs', ['roof-repairs-adelaide.html']],
-  ['Roof restoration', ['roof-restoration-adelaide.html']],
-  ['Gutter Repairs, Cleaning and Outlet Checks', ['gutter-downpipe-repairs-adelaide.html', 'gutter-cleaning-adelaide.html']],
+  ['Tile, ridge capping & flashing repairs', ['roof-repairs-adelaide.html']],
+  ['Roof Restoration and Repair-first Preparation', ['roof-restoration-adelaide.html']],
+  ['Gutter and Downpipe Leak Repairs', ['gutter-downpipe-repairs-adelaide.html']],
+  ['Blocked Gutter Cleaning and Outlet Clearing', ['gutter-cleaning-adelaide.html']],
+  ['Metal and Colorbond roof repairs', ['metal-roof-repairs-adelaide.html']],
+  ['Roof painting and maintenance', ['roof-painting-adelaide.html']],
+  ['Roof surface cleaning', ['roof-cleaning-adelaide.html']],
+  ['Roof condition inspections', ['roof-inspection-adelaide.html']],
 ]) {
   test(`Services ${heading} group leads to a matching service page`, () => {
-    const group = h2Groups(main('services.html')).find((item) => item.heading === heading);
-    assert.ok(group, `${heading} H2 section exists`);
+    const cards = [...main('services.html').matchAll(/<article class="service-card">[\s\S]*?<h3>([\s\S]*?)<\/h3>([\s\S]*?)<\/article>/g)].map(([, title,content])=>({heading:textContent(title),content}));
+    assert.equal(cards.length,9,'one coherent directory contains all nine service cards');
+    const group = cards.find((item) => item.heading === heading);
+    assert.ok(group, `${heading} service card exists`);
     assert.ok(localLinks(group.content).some(({ href, label }) =>
       destinations.includes(href) && label.length >= 18 && /roof|tile|gutter|drainage|leak|restoration/i.test(label)),
     `${heading} has a descriptive link to an existing relevant service page`);
