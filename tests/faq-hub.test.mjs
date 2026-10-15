@@ -24,12 +24,13 @@ before(async () => {
 });
 after(async () => { await browser?.close(); await new Promise(r => server.close(r)); });
 
-test('all thirteen existing questions, answers and protected inbound target are preserved', async () => {
-  // Frozen from the pre-change page; no dependency on local Git history in clean clones.
+test('thirteen existing questions retain eleven answers and the two corrected assessment answers', async () => {
+  // Eleven frozen answers plus the two expressly corrected assessment answers;
+  // no dependency on local Git history in clean clones.
   const baseline = [
-    ['How do I know if my roof needs repair or replacement?', 'Localised issues—such as a small leak, cracked tiles, damaged flashing, loose ridge capping or overflowing gutters—are addressed with targeted repairs. Wider defects, structural concerns and repeated repair failures call for a broader restoration scope.'],
+    ['How do I know if my roof needs repair or replacement?', 'A defined defect can suit a targeted repair when surrounding materials are sound. Broader defects may suit restoration if the underlying roof supports the work. Extensive deterioration, structural concerns or repeated repair failures need a wider assessment, including possible replacement or specialist investigation. Ellis checks the roof condition before recommending a scope.'],
     ['What are common causes of roof leaks in Adelaide?', 'Common causes include cracked or displaced tiles, deteriorated ridge capping, failed flashing, blocked gutters and downpipes, valleys and storm damage. Water can travel through the roof structure before it appears as a ceiling stain.'],
-    ['Can a leaking tiled roof be repaired without replacing the whole roof?', 'A leaking tiled roof is repaired through tile replacement, ridge-capping work, flashing repair and drainage clearance, with the repair scope focused on the water-entry path.'],
+    ['Can a leaking tiled roof be repaired without replacing the whole roof?', 'A leaking tiled roof may be repaired without full replacement when the water-entry path is identified and surrounding tiles, ridges and junctions are sound. The assessment may lead to tile replacement, ridge or flashing repairs, or drainage clearance. Widespread deterioration or structural concerns need broader assessment before repair, restoration or possible replacement is recommended.'],
     ['What is ridge capping and why does it matter?', 'Ridge capping protects and secures tiles along roof ridges and hips. Cracked or loose capping allows wind-driven rain beneath roof tiles. Repair work covers the existing bedding, pointing and roof condition.'],
     ['Can blocked gutters cause roof leaks?', 'Yes. Blocked gutters or downpipes direct overflow into roof edges, eaves and wall areas. Drainage maintenance works alongside roof-defect repairs.'],
     ['What is included in a roof restoration?', 'Roof restoration can include cleaning, tile and ridge repairs, flashing work and a suitable protective finish. We inspect the roof first and specify the necessary repairs, preparation and finishing system in the written quote.'],

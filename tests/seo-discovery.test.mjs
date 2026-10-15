@@ -38,17 +38,17 @@ test('robots preserves open crawling and the sitemap declaration', () => {
   assert.doesNotMatch(robots, /^Disallow:/m);
 });
 
-test('sitemap dates only the materially revised core pages', () => {
+test('sitemap dates the content and metadata refinement without losing canonical localities', () => {
   const sitemap = read('sitemap.xml');
   const entries = [...sitemap.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*(?:<lastmod>([^<]+)<\/lastmod>)?/g)];
   const dates = new Map(entries.map(([, url, date]) => [url, date]));
   for (const path of ['/', '/services.html', '/service-areas.html', '/faq.html']) {
-    const expected = ['/services.html', '/faq.html'].includes(path) ? '2026-10-12' : '2026-10-10';
+    const expected = '2026-10-15';
     assert.equal(dates.get(`${origin}${path}`), expected, path);
   }
   for (const [url, date] of dates) {
     if (/\/roof-repairs-(?:adelaide-cbd|north-adelaide|norwood-adelaide)\.html$/.test(url)) {
-      assert.equal(date, undefined, `${url} has no new lastmod`);
+      assert.equal(date, '2026-10-15', `${url} records the revised copy and metadata`);
     }
   }
 });
