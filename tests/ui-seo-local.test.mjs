@@ -269,7 +269,7 @@ test('every service and contact offers visible accessible quote and call actions
       assert.equal(result.overflow,false,`${path} ${width}: overflow`);
       assert.ok(result.h1<844,`${path}: H1 above fold`);
       assert.ok(result.actions.some(a=>a.href.startsWith('#')&&a.target&&a.visible&&a.height>=44),`${path} ${width}: visible quote link to existing form`);
-      assert.ok(result.actions.some(a=>a.href==='tel:+611300838722'&&a.visible&&a.height>=44),`${path} ${width}: visible call link`);
+      assert.ok(result.actions.some(a=>a.href==='tel:0434276883'&&a.visible&&a.height>=44),`${path} ${width}: visible call link`);
       for(const action of await page.locator('.page-hero a.button').all()) {
         await action.focus();
         assert.ok(await action.evaluate(a=>a===document.activeElement&&getComputedStyle(a).outlineStyle!=='none'),'CTA focus visible');
