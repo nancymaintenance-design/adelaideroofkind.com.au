@@ -110,3 +110,24 @@ test('unverified numeric proof and ambiguous social destination remain absent ac
   }
   assert.match(read('about.html'),/Established in November 2020/);
 });
+
+test('canonical locality enquiry instructions live in one section with concise form-panel copy', () => {
+  const localities=canonical.filter(file=>read(file).includes('class="section locality-enquiry"'));
+  assert.equal(localities.length,15);
+  for(const file of localities) {
+    const html=read(file);
+    assert.doesNotMatch(html,/Before you contact us|class="locality-checklist"/,file);
+    assert.equal((html.match(/class="section locality-enquiry"/g)||[]).length,1,file);
+    const enquiry=html.match(/<section class="section locality-enquiry">([\s\S]*?)<\/section>/)[1];
+    assert.match(enquiry,/ground level; do not climb onto the roof/);
+    assert.match(enquiry,/roof material if known/);
+    assert.match(enquiry,/access constraints/);
+    assert.match(enquiry,/on-site assessment[\s\S]*written quote/);
+    const contact=html.match(/<aside class="contact-panel">([\s\S]*?)<\/aside>/)[1];
+    assert.match(contact,/Ellis confirms appointment availability/);
+    assert.doesNotMatch(contact,/written quote|on-site assessment/);
+  }
+  assert.match(read('roof-repointing-ridge-capping-adelaide-guide.html'),/<h2>Safe Access for Ridge Capping Inspection<\/h2>/);
+  assert.match(read('roof-cleaning-adelaide.html'),/<h3>Roof Inspection and Service Options<\/h3>/);
+  assert.match(read('roof-inspection-adelaide.html'),/<h3>Roof Cleaning and Service Options<\/h3>/);
+});

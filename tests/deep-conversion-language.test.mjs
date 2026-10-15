@@ -9,9 +9,9 @@ test('all published HTML avoids SEO instructions, conversation-only CTAs and off
  const bad=/local search intent|problem-first service pages|FAQ written for|Clearing or referring|begin (?:a (?:clear )?repair(?: or restoration)? conversation|the right (?:repair )?conversation)|talk through the next step|The aim is to make the next step clear|junction,\s*\.|It can be discussed where cleaning|takes roof repair and maintenance enquiries/i;
  assert.deepEqual(readdirSync('.').filter(p=>p.endsWith('.html')).filter(p=>bad.test(visible(readFileSync(p,'utf8')))),[]);
 });
-test('contact and locality contact modules arrange assessment and written quote',()=>{
+test('contact and locality enquiry modules retain assessment and written quote details',()=>{
  for(const file of readdirSync('.').filter(p=>p==='contact.html'||/^roof-repairs-/.test(p)&&p!=='roof-repairs-adelaide.html'&&p!=='roof-repairs-adelaide-guide.html')){
-  const html=readFileSync(file,'utf8'), module=html.match(/<(?:aside class="contact-panel"|section class="page-hero")>([\s\S]*?)<\/(?:aside|section)>/)?.[1]||html;
+  const html=readFileSync(file,'utf8'), module=html.match(/<section class="section locality-enquiry">([\s\S]*?)<\/section>/)?.[1]||html.match(/<(?:aside class="contact-panel"|section class="page-hero")>([\s\S]*?)<\/(?:aside|section)>/)?.[1]||html;
   const txt=visible(module);
   assert.match(txt,/on-site|on site/i,file); assert.match(txt,/written quote/i,file);
  }
