@@ -17,5 +17,5 @@ test('ground-level safety and technical structured data survive', () => {
   const html = readFileSync('roof-leak-repairs-adelaide-guide.html', 'utf8');
   assert.match(visible(html), /ground level|ground-level/i);
   assert.match(html, /application\/ld\+json/);
-  assert.match(html, /tel:\+61434276883/);
+  assert.match(html, /tel:\+611300838722/);
 });
