@@ -28,7 +28,14 @@ test('AI-readable summary links to existing canonical site pages', () => {
     // Chinese pages are generated build artifacts, not duplicate editable source.
     const location = new URL(url.pathname.startsWith('/zh/') ? `dist/${file}` : file, root);
     assert.ok(existsSync(location), `${href} resolves to a source or generated public file`);
-    assert.match(readFileSync(location, 'utf8'), new RegExp(`<link rel="canonical" href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), href);
+    const content = readFileSync(location, 'utf8');
+    if (url.pathname === '/zh/llms.txt') {
+      assert.match(content, /^# Ellis Services Group/m);
+      assert.match(content, /屋顶维修/);
+      assert.ok([...content.matchAll(/\]\((https?:\/\/[^)]+)\)/g)].length >= 37, 'Chinese directory lists the full canonical page set');
+    } else {
+      assert.match(content, new RegExp(`<link rel="canonical" href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), href);
+    }
   }
 });
 
