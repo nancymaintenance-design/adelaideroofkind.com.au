@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { injectSiteOutput, injectHtml } from "../clarity-install.mjs";
 
 const fixtureRoot = fileURLToPath(new URL("../.cache/clarity-fixture-temp/", import.meta.url));
-const runtimeDirectory = fileURLToPath(new URL("../public/", import.meta.url));
+const runtimeDirectory = fileURLToPath(new URL("../clarity-assets/", import.meta.url));
 const config = {
   projectId: "yy15u4fmm6",
   hostname: "business.example.com",

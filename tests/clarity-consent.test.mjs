@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
 const source = readFileSync(
-  new URL("../public/clarity-consent.js", import.meta.url),
+  new URL("../clarity-assets/clarity-consent.js", import.meta.url),
   "utf8",
 );
 const config = {
