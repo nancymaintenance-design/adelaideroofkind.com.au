@@ -2,8 +2,16 @@ const fs=require('node:fs/promises');
 const path=require('node:path');
 const {createServer}=require('node:http');
 const root=path.resolve(__dirname,'../dist');
+// Applied by the local server only; production artifacts retain their policies.
+const previewCsp="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; media-src 'self'; worker-src 'none'; form-action 'none'; base-uri 'self'; frame-ancestors 'none'";
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.xml':'application/xml; charset=utf-8','.webmanifest':'application/manifest+json','.txt':'text/plain; charset=utf-8','.woff2':'font/woff2','.svg':'image/svg+xml','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.ico':'image/x-icon'};
 function previewHtml(html,chinese) {
+  html=html.replace(/<link\b[^>]*rel=["'](?:preconnect|dns-prefetch|prefetch|prerender)["'][^>]*>/gi,'');
+  html=html.replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi,frame=>{
+    const src=frame.match(/\bsrc\s*=\s*(["'])(.*?)\1/i)?.[2];
+    if(!src||!/^https?:|^\/\//i.test(src))return frame;
+    return `<div data-preview-frame role="note" style="min-height:180px;display:grid;place-items:center;background:#eef2ef;padding:20px">${chinese?'本地预览：外部地图已禁用。':'Local preview: external map disabled.'}</div>`;
+  });
   html=html.replace(/<!-- mel-one-clarity:start -->[\s\S]*?<!-- mel-one-clarity:end -->/g,'');
   html=html.replace(/<script\b[^>]*src=["']https:\/\/www\.googletagmanager\.com[^"']*["'][^>]*>[\s\S]*?<\/script>/gi,'').replace(/<script\b[^>]*>\s*(?:window\.dataLayer[\s\S]*?|function gtag[\s\S]*?)<\/script>/gi,'');
   const label=chinese?'本地预览 · 表单提交已禁用':'LOCAL PREVIEW · Enquiry submission disabled';
@@ -25,7 +33,7 @@ function createPreviewServer() {
       try{body=await fs.readFile(path.join(root,relative));}catch{response.writeHead(503).end('Run npm run build first.');return;}
     }
     if(path.extname(relative)==='.html')body=Buffer.from(previewHtml(body.toString('utf8'),pathname.startsWith('/zh/')));
-    response.writeHead(status,{'Content-Type':types[path.extname(relative)]||'application/octet-stream','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});
+    response.writeHead(status,{'Content-Type':types[path.extname(relative)]||'application/octet-stream','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Content-Security-Policy':previewCsp,'Referrer-Policy':'no-referrer','X-DNS-Prefetch-Control':'off'});
     response.end(request.method==='HEAD'?undefined:body);
   });
 }

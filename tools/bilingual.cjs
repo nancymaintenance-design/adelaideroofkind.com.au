@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const {createHash} = require('node:crypto');
 const root = path.resolve(__dirname, '..');
 const origin = 'https://www.adelaideroofkind.com.au';
 const localizedResources = ['feed.json','rss.xml','local-services-feed.json','local-services-rss.xml','site.webmanifest','llms.txt'];
@@ -66,6 +67,34 @@ function documents() {
   if (fs.existsSync(privacy)) entries.push({name:'clarity-privacy.html',html:fs.readFileSync(privacy,'utf8')});
   return entries;
 }
+// Conservative manual-review gate: both language branches and API contracts are
+// fingerprinted together. Even non-copy edits require an explicit review, rather
+// than guessing which JavaScript expressions can eventually render user text.
+const dynamicReviewFile=path.join(root,'content','dynamic-i18n-review.json');
+function dynamicFingerprints() {
+  const result={};
+  const hash=value=>createHash('sha256').update(value.replace(/\r\n/g,'\n')).digest('hex');
+  function scan(directory) {
+    for(const entry of fs.readdirSync(path.join(root,directory),{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))) {
+      const relative=directory+'/'+entry.name;
+      if(entry.isDirectory())scan(relative);
+      else if(/\.[cm]?js$/.test(entry.name))result[relative]=hash(fs.readFileSync(path.join(root,relative),'utf8'));
+    }
+  }
+  for(const directory of ['assets/js','api','clarity-assets'])scan(directory);
+  for(const doc of documents()) {
+    const scripts=tokens(doc.html).filter(token=>/^<script\b/i.test(token)&&!/type=["']application\/(?:ld\+)?json["']/i.test(token)).map(token=>token.replace(/^<script\b[^>]*>/i,'').replace(/<\/script\s*>$/i,'').trim()).filter(Boolean);
+    if(scripts.length)result['inline:'+doc.name]=hash(scripts.join('\n'));
+  }
+  return result;
+}
+function validateDynamicReview() {
+  const current=dynamicFingerprints();
+  const reviewed=fs.existsSync(dynamicReviewFile)?JSON.parse(fs.readFileSync(dynamicReviewFile,'utf8')).fingerprints:{};
+  const changed=[...new Set([...Object.keys(current),...Object.keys(reviewed||{})])].filter(key=>current[key]!==reviewed?.[key]);
+  if(changed.length)throw new Error(`Dynamic bilingual review required: ${changed.join(', ')}. Review English/Chinese UI and API message mappings, then run node tools/bilingual.cjs review-dynamic --confirm-reviewed.`);
+  return Object.keys(current).length;
+}
 function canonical(html, name) {
   const found = html.match(/<link\b[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i)?.[1];
   return found ? new URL(found).pathname : name === 'index.html' ? '/' : '/'+name;
@@ -119,7 +148,7 @@ function localizeSchema(value,dictionary,missing,known,parentType) {
   const result={};
   for(const [key,child] of Object.entries(value)) {
     if(textKeys.has(key)&&typeof child==='string')result[key]=translate(child,dictionary,missing);
-    else if((key==='url'||key==='@id')&&typeof child==='string'&&child.startsWith(origin)&&!/#(?:organization|website)$/.test(child)&&!['ProfessionalService','Organization','WebSite'].includes(type)) {
+    else if((key==='url'||key==='@id'||key==='mainEntityOfPage'||(key==='item'&&type==='ListItem'))&&typeof child==='string'&&child.startsWith(origin)&&!/#(?:organization|website)$/.test(child)&&!['ProfessionalService','Organization','WebSite'].includes(type)) {
       const local=localUrl(child,known);result[key]=local.startsWith('/')?origin+local:local;
     }else if(key==='inLanguage')result[key]='zh-Hans';
     else result[key]=typeof child==='object'?localizeSchema(child,dictionary,missing,known,type):child;
@@ -156,6 +185,7 @@ function chinese(html,name,dictionary,known,missing) {
   return output;
 }
 function buildBilingual(output) {
+  validateDynamicReview();
   const translations=dictionary();
   const docs=documents();const known=new Set(docs.map(d=>d.name));const missing=new Set();const generated=[];
   const pending=[];
@@ -203,15 +233,20 @@ function buildBilingual(output) {
   return {generated:[...generated,...localizedResources.map(name=>'zh/'+name),'clarity-privacy.html','clarity-privacy-zh.html'], pages:docs.length, translations:Object.keys(translations).length};
 }
 function validateTranslations() {
+  const reviewedDynamicSources=validateDynamicReview();
   const existing=dictionary();const missing=new Set();
   for(const entry of catalog())translate(entry.example,existing,missing);
   if(missing.size)throw new Error(`Bilingual check failed: ${missing.size} missing/stale Chinese translations. Run npm run i18n:catalog.`);
-  return {status:'pass',sourceStrings:catalog().length,translatedStrings:Object.keys(existing).length};
+  return {status:'pass',sourceStrings:catalog().length,translatedStrings:Object.keys(existing).length,reviewedDynamicSources};
 }
 module.exports={catalog,documents,strings,normalize,needsTranslation,english,chinese,buildBilingual,validateTranslations,zhPath,canonical};
 if(require.main===module) {
   const mode=process.argv[2];
-  if(mode==='catalog'){
+  if(mode==='review-dynamic'){
+    if(process.argv[3]!=='--confirm-reviewed')throw Error('Review both languages and API mappings before passing --confirm-reviewed.');
+    fs.writeFileSync(dynamicReviewFile,JSON.stringify({review:'English/Chinese dynamic UI, API status mappings and privacy interaction reviewed together.',fingerprints:dynamicFingerprints()},null,2)+'\n');
+    console.log('Dynamic bilingual review fingerprints recorded.');
+  }else if(mode==='catalog'){
     const existing=dictionary();
     const entries=catalog();const missing=entries.filter(entry=>!existing[entry.en.toLowerCase()]);
     const destination=path.resolve(process.argv[3]||path.join(root,'..','reports','bilingual-2026-10-16','translation-catalog-current.json'));

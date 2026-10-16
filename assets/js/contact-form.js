@@ -9,11 +9,11 @@
     'Online enquiries are temporarily unavailable. Please call 0434 276 883.': '在线咨询暂不可用，请致电 0434 276 883。',
     'Enquiry is too large.': '咨询内容过长，请精简后重新发送。',
   };
-  const localize = message => chinese() ? (messages[message] || messages['We could not send your enquiry. Please call 0434 276 883.']) : message;
+  const localize = (message, isError = false) => chinese() ? (messages[message] || messages[isError ? 'We could not send your enquiry. Please call 0434 276 883.' : 'Thanks. Your enquiry has been received.']) : message;
   function setStatus(form, message, isError) {
     const status = form.querySelector('[data-contact-status], .form-status');
     if (status) {
-      status.textContent = localize(message);
+      status.textContent = localize(message, isError);
       status.classList.toggle('form-status--error', Boolean(isError));
     }
   }

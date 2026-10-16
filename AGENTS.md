@@ -9,6 +9,7 @@
 - 修改英文文案后运行 `npm run i18n:catalog`，补充或修订对应中文词条；保持 `{areaN}` 地名占位符、数字、价格、联系方式及事实一致。大小写不同的同一词条共用一份翻译。
 - 运行 `npm run i18n:sync` 更新英语页面中的双语导航和语言标记，再运行 `npm run i18n:check` 与 `npm run build`。确认双向切换、中文内链、canonical/hreflang、站点地图和动态界面文字同步。
 - 通用交互文案在 assets/js 中按页面 lang 提供两种语言；服务提交值继续使用 API 接受的原值，标签可以翻译。
+- 动态文案另有保守的人工复核指纹门禁：`assets/js`、`api`、`clarity-assets` 全部 JS 与源页面非 JSON 内联脚本（新增/删除也检查）纳入 `content/dynamic-i18n-review.json`，缺失或变化时 validator/build 均失败。修改后逐项核对中英文状态、校验、搜索、菜单、位置提示、隐私交互以及 API 消息映射，再执行 `node tools/bilingual.cjs review-dynamic --confirm-reviewed`，将确认指纹与改动同批提交。禁止未审查直接刷新指纹；纯逻辑修改也需确认。该门禁检测未复核变更，不自动证明语义正确。
 - 屋顶术语统一：gutter 檐沟、downpipe 落水管、ridge capping 屋脊盖瓦、flashing 泛水板、valley 屋面谷沟、bedding 砂浆座层、repointing 重新勾缝、restoration 屋顶翻新、painting 屋顶喷涂。
 - 新版本验收应覆盖英文和中文手机及桌面，检查标题、按钮、表单、菜单、FAQ、搜索与关键内链。保留原品牌、联系电话和邮箱，不增加未经证实的资质、施工、价格或服务承诺。
 
