@@ -39,12 +39,12 @@ function template(value) {
   return {key,variables};
 }
 const textKeys = new Set(['name','description','headline','text','caption','articleBody','serviceType']);
-function schemaStrings(value, collect) {
-  if (Array.isArray(value)) return value.forEach(v => schemaStrings(v, collect));
+function schemaStrings(value, collect, textProperty=false) {
+  if (Array.isArray(value)) return value.forEach(v => schemaStrings(v, collect, textProperty));
+  if (typeof value === 'string') {if(textProperty)collect(value);return;}
   if (!value || typeof value !== 'object') return;
   for (const [key, child] of Object.entries(value)) {
-    if (textKeys.has(key) && typeof child === 'string') collect(child);
-    else if (typeof child === 'object') schemaStrings(child, collect);
+    schemaStrings(child, collect, textKeys.has(key));
   }
 }
 function strings(html, collect) {
@@ -141,13 +141,14 @@ function localUrl(value,known) {
   if(url.pathname.startsWith('/assets/')||/^\/(?:favicon|apple-touch|site\.webmanifest|feed|rss)/.test(url.pathname))return url.pathname+url.search+url.hash;
   return decode(value);
 }
-function localizeSchema(value,dictionary,missing,known,parentType) {
-  if(Array.isArray(value))return value.map(v=>localizeSchema(v,dictionary,missing,known,parentType));
+function localizeSchema(value,dictionary,missing,known,parentType,textProperty=false) {
+  if(Array.isArray(value))return value.map(v=>localizeSchema(v,dictionary,missing,known,parentType,textProperty));
+  if(typeof value==='string'&&textProperty)return translate(value,dictionary,missing);
   if(!value||typeof value!=='object')return value;
   const type=value['@type']||parentType;
   const result={};
   for(const [key,child] of Object.entries(value)) {
-    if(textKeys.has(key)&&typeof child==='string')result[key]=translate(child,dictionary,missing);
+    if(textKeys.has(key))result[key]=localizeSchema(child,dictionary,missing,known,type,true);
     else if((key==='url'||key==='@id'||key==='mainEntityOfPage'||(key==='item'&&type==='ListItem'))&&typeof child==='string'&&child.startsWith(origin)&&!/#(?:organization|website)$/.test(child)&&!['ProfessionalService','Organization','WebSite'].includes(type)) {
       const local=localUrl(child,known);result[key]=local.startsWith('/')?origin+local:local;
     }else if(key==='inLanguage')result[key]='zh-Hans';

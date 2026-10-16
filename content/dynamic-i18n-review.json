@@ -1,7 +1,7 @@
 {
   "review": "English/Chinese dynamic UI, API status mappings and privacy interaction reviewed together.",
   "fingerprints": {
-    "assets/js/contact-form.js": "7ce8b4245a2de18bcc14536feb72b6fddbc23273b55caeb506c003748e4d14dd",
+    "assets/js/contact-form.js": "dd794a219d8b9f2ac483093a77df77cfcc1e269ead5bf58490e3c54f5ddfc021",
     "assets/js/locality-contact.js": "05cc43f7d21f25f3c37ff03dbeae816890ae849db22aa2df8f9faed142dcf85d",
     "assets/js/main.js": "20ef8517df9a8a80bd2367a5013c379ee629dde9898a281feee240fc03f17d53",
     "assets/js/service-categories.js": "a53f3acd2d58ed2942c12780499ea6f3d41cc95051dd5db47846bb60c7d290d8",

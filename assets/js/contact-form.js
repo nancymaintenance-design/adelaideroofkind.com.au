@@ -54,6 +54,9 @@
 
   function bind(form) {
     if (chinese()) {
+      // Native validation otherwise runs before submit and shows browser-locale
+      // text. The submit handler still enforces validity via reportValidity().
+      form.noValidate = true;
       form.addEventListener('input', event => event.target.setCustomValidity?.(''));
       form.addEventListener('change', event => event.target.setCustomValidity?.(''));
     }
