@@ -24,9 +24,11 @@ test('AI-readable summary links to existing canonical site pages', () => {
     assert.equal(url.origin, origin, href);
     assert.equal(url.search, '', href);
     assert.equal(url.hash, '', href);
-    const file = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
-    assert.ok(existsSync(new URL(file, root)), `${href} resolves to a repository file`);
-    assert.match(read(file), new RegExp(`<link rel="canonical" href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), href);
+    const file = url.pathname.endsWith('/') ? `${url.pathname.slice(1)}index.html` : url.pathname.slice(1);
+    // Chinese pages are generated build artifacts, not duplicate editable source.
+    const location = new URL(url.pathname.startsWith('/zh/') ? `dist/${file}` : file, root);
+    assert.ok(existsSync(location), `${href} resolves to a source or generated public file`);
+    assert.match(readFileSync(location, 'utf8'), new RegExp(`<link rel="canonical" href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), href);
   }
 });
 
