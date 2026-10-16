@@ -27,7 +27,12 @@ Office: 63 Pirie St, Adelaide SA 5000
 - [Roof cleaning](https://www.adelaideroofkind.com.au/roof-cleaning-adelaide.html)
 - [Roof inspections](https://www.adelaideroofkind.com.au/roof-inspection-adelaide.html)
 
-## Practical guides
+## Chinese version
+
+- [中文服务](https://www.adelaideroofkind.com.au/zh/)
+- [Chinese public-page directory](https://www.adelaideroofkind.com.au/zh/llms.txt)
+
+## Practical guides (English)
 
 - [Roof repairs guide](https://www.adelaideroofkind.com.au/roof-repairs-adelaide-guide.html)
 - [Roof leak repairs guide](https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html)

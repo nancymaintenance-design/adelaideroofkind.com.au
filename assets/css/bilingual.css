@@ -1,0 +1,16 @@
+.nav .language-switch{border:1px solid currentColor;border-radius:8px;padding:.6rem .7rem;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+html[lang="zh-Hans"]{--serif:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;--sans:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;--mono:"Microsoft YaHei","PingFang SC",sans-serif}
+html[lang="zh-Hans"] body{line-height:1.8;word-break:normal;line-break:strict}
+html[lang="zh-Hans"] h1,html[lang="zh-Hans"] h2,html[lang="zh-Hans"] h3{letter-spacing:0;line-height:1.25;text-transform:none;overflow-wrap:anywhere;font-size-adjust:none}
+html[lang="zh-Hans"] h1{font-size:clamp(2.1rem,5.5vw,4.6rem)}
+html[lang="zh-Hans"] h2{font-size:clamp(1.55rem,2.5vw,2.8rem)}
+html[lang="zh-Hans"] h3{font-size:clamp(1.2rem,1.7vw,1.7rem)}
+html[lang="zh-Hans"] .home-hero h1{font-size:clamp(2.5rem,5.4vw,4.8rem);line-height:1.2;font-size-adjust:none}
+html[lang="zh-Hans"] .quote-panel h2{font-size:1.7rem}
+html[lang="zh-Hans"] .button,html[lang="zh-Hans"] .nav a,html[lang="zh-Hans"] .eyebrow,html[lang="zh-Hans"] .crumb{letter-spacing:.02em;text-transform:none}
+html[lang="zh-Hans"] .prose p,html[lang="zh-Hans"] .prose li{line-height:1.85}
+html[lang="zh-Hans"] .brand span{font-family:Manrope,Arial,sans-serif;line-height:1.1}
+html[lang="zh-Hans"] .brand small{font-family:var(--sans);line-height:1.5}
+html[lang="zh-Hans"] .home-hero__workflow{font-size:.85rem}
+html[lang="zh-Hans"] .faq-category-nav a{white-space:nowrap}
+@media(max-width:850px){html[lang="zh-Hans"] .home-hero h1{font-size:clamp(2.5rem,9vw,4rem)}html[lang="zh-Hans"] .home-hero .hero-actions{gap:.65rem}html[lang="zh-Hans"] .home-hero .hero-actions .button{letter-spacing:0;padding-inline:.8rem}}

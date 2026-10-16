@@ -1,17 +1,17 @@
 (function localityContact(globalScope) {
-  function getLocationContext(search, defaultArea) {
+  function getLocationContext(search, defaultArea, language = 'en-AU') {
     const params = new URLSearchParams(search || '');
     const area = params.get('area') || defaultArea || '';
     const street = params.get('street') || '';
     return {
       area,
       street,
-      message: street ? `Property location: ${street}${area ? `, ${area}` : ''}.` : '',
+      message: street ? (language.startsWith('zh') ? `房产位置：${street}${area ? `，${area}` : ''}。` : `Property location: ${street}${area ? `, ${area}` : ''}.`) : '',
     };
   }
 
   function applyLocationContext(form) {
-    const context = getLocationContext(globalScope.location.search, form.dataset.area);
+    const context = getLocationContext(globalScope.location.search, form.dataset.area, document.documentElement.lang);
     const suburb = form.elements.suburb;
     const message = form.elements.message;
     if (suburb && context.area) suburb.value = context.area;

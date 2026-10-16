@@ -85,6 +85,9 @@ function buildStatic() {
   const output = path.join(source,'dist');
   validateBuildPaths(source,output);
   const files = collectPublicFiles(source);
+  const bilingual = require('./bilingual.cjs');
+  // Fail on untranslated changes before removing a previously working preview.
+  bilingual.validateTranslations();
   // Recheck the exact validated generated target immediately before cleaning.
   validateBuildPaths(source,output);
   if (fs.existsSync(output)) fs.rmSync(output,{recursive:true});
@@ -94,8 +97,10 @@ function buildStatic() {
     fs.mkdirSync(path.dirname(target),{recursive:true});
     fs.copyFileSync(path.join(source,relative),target);
   }
-  console.log(`Built ${files.length} public files into ${output}`);
-  return files;
+  const localized=bilingual.buildBilingual(output);
+  const allFiles=[...new Set([...files,...localized.generated])].sort();
+  console.log(`Built ${allFiles.length} public files into ${output}; English/Chinese source strings synchronized.`);
+  return allFiles;
 }
 
 module.exports = { validateBuildPaths, collectPublicFiles, buildStatic };

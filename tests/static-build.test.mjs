@@ -30,9 +30,12 @@ test('source build emits only current public files, removes stale output and reb
   build();
   const html = readdirSync(root).filter(file => file.endsWith('.html')).sort();
   assert.equal(html.length, 51, '50 existing pages plus branded 404');
-  const expected = [...html, ...resources, ...files(resolve(root,'assets')).map(file => relative(root,file).replaceAll('\\','/'))].sort();
+  const localized=[...html.map(file=>'zh/'+file),'zh/clarity-privacy.html','clarity-privacy.html','clarity-privacy-zh.html',...['feed.json','rss.xml','local-services-feed.json','local-services-rss.xml','site.webmanifest','llms.txt'].map(file=>'zh/'+file)];
+  const expected = [...html, ...resources, ...files(resolve(root,'assets')).map(file => relative(root,file).replaceAll('\\','/')), ...localized].sort();
   assert.deepEqual(snapshot().map(([file])=>file), expected);
-  for (const file of expected) assert.deepEqual(readFileSync(resolve(dist,file)), readFileSync(resolve(root,file)), `${file} is current source`);
+  for (const file of expected.filter(file=>!localized.includes(file)&&file!=='sitemap.xml')) assert.deepEqual(readFileSync(resolve(dist,file)), readFileSync(resolve(root,file)), `${file} is current source`);
+  assert.equal([...readFileSync(resolve(dist,'sitemap.xml'),'utf8').matchAll(/<loc>/g)].length,76,'37 existing page pairs plus the privacy page pair');
+  for(const file of html) assert.ok(existsSync(resolve(dist,'zh',file)),`${file} has a generated Chinese counterpart`);
   for (const file of ['api/contact.js','package.json','package-lock.json','vercel.json','ellis-services-group-site.zip','.git/config','tests/static-build.test.mjs','tools/build-static.cjs']) assert.equal(existsSync(resolve(dist,file)), false, file);
   assert.ok(existsSync(resolve(root,'api/contact.js')), 'native function remains in source');
   assert.ok(existsSync(resolve(root,'ellis-services-group-site.zip')), 'recovery archive remains in source');

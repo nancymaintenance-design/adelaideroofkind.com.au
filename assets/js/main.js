@@ -1,10 +1,21 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const primaryNav = document.querySelector('.nav');
+const chinesePage = document.documentElement.lang.toLowerCase().startsWith('zh');
+const languageSwitch = document.querySelector('[data-language-switch]');
+function syncLanguageLocation() {
+  if (!languageSwitch) return;
+  const target = new URL(languageSwitch.getAttribute('href'), window.location.href);
+  target.search = window.location.search;
+  target.hash = window.location.hash;
+  languageSwitch.href = target.pathname + target.search + target.hash;
+}
+syncLanguageLocation();
+window.addEventListener('hashchange', syncLanguageLocation);
 function setMenuOpen(open) {
   if (!menuToggle || !primaryNav) return;
   primaryNav.classList.toggle('open', open);
   menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  menuToggle.setAttribute('aria-label', chinesePage ? (open ? '关闭菜单' : '打开菜单') : (open ? 'Close menu' : 'Open menu'));
 }
 menuToggle?.addEventListener('click', () => setMenuOpen(!primaryNav.classList.contains('open')));
 document.addEventListener('keydown', event => {
@@ -27,8 +38,8 @@ if (industrySearchInput) {
   const clear = document.createElement('button');
   clear.type = 'button';
   clear.className = 'industry-search__clear';
-  clear.setAttribute('aria-label', 'Clear article search');
-  clear.textContent = 'Clear ×';
+  clear.setAttribute('aria-label', chinesePage ? '清除文章搜索' : 'Clear article search');
+  clear.textContent = chinesePage ? '清除 ×' : 'Clear ×';
   clear.hidden = true;
   industrySearchInput.insertAdjacentElement('afterend', clear);
   function applySearch() {
@@ -42,7 +53,9 @@ if (industrySearchInput) {
     clear.hidden = !industrySearchInput.value;
     if (status) {
       status.setAttribute('aria-live', 'polite');
-      status.textContent = query
+      status.textContent = chinesePage
+        ? (query ? `找到 ${count} 篇与“${industrySearchInput.value.trim()}”相关的指南。${count === 0 ? '请尝试搜索漏水、瓦片或檐沟。' : ''}` : '搜索本页的屋顶维护指南。')
+        : query
         ? `${count} article${count === 1 ? '' : 's'} found for “${industrySearchInput.value.trim()}”.${count === 0 ? ' Try roof leaks, tiles or gutters.' : ''}`
         : 'Search this page for roofing advice.';
     }

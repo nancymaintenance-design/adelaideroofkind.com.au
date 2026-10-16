@@ -7,10 +7,10 @@
     "adelaideroofkind.com.au"
   ],
   "storageKey": "mel-one.clarity-consent.v1",
-  "excludedPaths": ["/contact.html"],
+  "excludedPaths": ["/contact.html", "/zh/contact.html"],
   "privacyPaths": {
     "en": "/clarity-privacy.html",
-    "zh": "/clarity-privacy-zh.html"
+    "zh": "/zh/clarity-privacy.html"
   },
-  "zhLanguage": "zh-Hant"
+  "zhLanguage": "zh-Hans"
 }

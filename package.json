@@ -4,7 +4,11 @@
   "scripts": {
     "build": "node tests/verify-gutter-page.cjs && node tools/build-static.cjs && node clarity-install.mjs dist clarity-site.json clarity-assets",
     "test": "node --test --test-concurrency=1 tests/*.test.mjs",
-    "test:ui": "node --test --test-concurrency=1 tests/ui-seo-local.test.mjs tests/images-local.test.mjs"
+    "test:ui": "node --test --test-concurrency=1 tests/ui-seo-local.test.mjs tests/images-local.test.mjs",
+    "i18n:catalog": "node tools/bilingual.cjs catalog",
+    "i18n:sync": "node tools/bilingual.cjs sync-en",
+    "i18n:check": "node tools/bilingual.cjs check",
+    "preview": "node tools/preview-local.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
