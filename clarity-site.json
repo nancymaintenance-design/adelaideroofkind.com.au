@@ -1,0 +1,16 @@
+{
+  "projectId": "yy15u4fmm6",
+  "hostname": "www.adelaideroofkind.com.au",
+  "siteKind": "business",
+  "cookieDomains": [
+    "www.adelaideroofkind.com.au",
+    "adelaideroofkind.com.au"
+  ],
+  "storageKey": "mel-one.clarity-consent.v1",
+  "excludedPaths": ["/contact.html"],
+  "privacyPaths": {
+    "en": "/clarity-privacy.html",
+    "zh": "/clarity-privacy-zh.html"
+  },
+  "zhLanguage": "zh-Hant"
+}
