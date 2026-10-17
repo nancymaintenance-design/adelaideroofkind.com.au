@@ -59,8 +59,7 @@ test('service entry links are prominent keyboard-accessible buttons and update b
         assert.notEqual(link.background,'rgba(0, 0, 0, 0)','primary entry has a filled button surface');
         assert.equal(link.tab,0);assert.match(link.href,/\.html$/);
       }
-      const local=await page.locator('.service-card__locations a').evaluateAll(es=>es.map(e=>({height:e.getBoundingClientRect().height,font:parseFloat(getComputedStyle(e).fontSize)})));
-      for(const link of local){assert.ok(link.height>=44);assert.ok(link.font>=14);}
+      assert.equal(await page.locator('.services-page-grid .service-card__locations').count(),0,'service cards do not include suburb chips');
       await page.locator('.services-page-grid .service-card>a').first().focus();
       assert.equal(await page.evaluate(()=>getComputedStyle(document.activeElement).outlineStyle),'solid');
       await page.keyboard.press('Enter');

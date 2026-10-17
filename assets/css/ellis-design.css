@@ -29,7 +29,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .about-story-visual,.visual-split,.evidence-photos figure,.office-location__map{border-radius:var(--card-radius);overflow:hidden}
 .related-paths a,.locality-road-list a,.area-list a,.industry-jump-links a,.footer-instagram,.industry-search__clear,.evidence-photos figcaption{border-radius:var(--card-radius-small)}
 .button{border-radius:var(--card-radius-small)}
-.services-page-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.services-page-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;align-items:stretch}
 .services-page-grid .service-card{padding:1.4rem}
 .services-page-grid .service-card h3{font-size:1.8rem;line-height:1.05;margin:.8rem 0}
 .services-page-grid .service-card p a,.industry-articles p a{font:inherit;font-weight:800;text-transform:none;letter-spacing:normal;text-decoration:underline;text-underline-offset:.2em}
@@ -130,6 +130,7 @@ main>.office-location{padding-top:0}
 /* Distinguish service-entry actions from contextual prose references. */
 .service-card>a,.locality-service-grid article>a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;max-width:100%;padding:.7rem 1rem;margin-top:.8rem;border:1px solid var(--ink);border-radius:var(--card-radius-small);background:var(--ink);color:var(--chalk);font:800 .9rem/1.4 var(--sans);letter-spacing:.02em;text-align:center;text-decoration:none}
 .service-card>a:hover,.service-card>a:focus-visible,.locality-service-grid article>a:hover,.locality-service-grid article>a:focus-visible{background:var(--slate);color:var(--chalk);border-color:var(--slate)}
+.services-page-grid .service-card>a{margin-top:auto}
 .service-card__locations{width:100%;gap:.5rem;margin-top:1rem}
 .service-card__locations a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.5rem .7rem;margin:0;border:1px solid var(--line);border-radius:var(--card-radius-small);background:var(--sand);color:var(--ink);font:700 .875rem/1.4 var(--sans);letter-spacing:0;text-transform:none}
 .service-card__locations a:hover,.service-card__locations a:focus-visible{background:var(--ink);color:var(--chalk);border-color:var(--ink)}
