@@ -8,9 +8,16 @@
     "i18n:catalog": "node tools/bilingual.cjs catalog",
     "i18n:sync": "node tools/bilingual.cjs sync-en",
     "i18n:check": "node tools/bilingual.cjs check",
-    "preview": "node tools/preview-local.cjs"
+    "preview": "node tools/preview-local.cjs",
+    "editor:typecheck": "tsc --project tsconfig.editor.json",
+    "editor:dev": "node tools/editor/launch-local.cjs --no-open",
+    "editor:test": "node --test --test-concurrency=1 tests/local-editor*.test.mjs",
+    "editor:changes": "node tools/editor/export-changes.mts"
   },
   "devDependencies": {
-    "playwright": "1.62.1"
+    "@types/node": "24.10.0",
+    "cheerio": "1.0.0",
+    "playwright": "1.62.1",
+    "typescript": "5.9.3"
   }
 }

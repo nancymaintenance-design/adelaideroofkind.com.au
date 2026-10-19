@@ -1,0 +1,11 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": ["ui"],
+  "locale": "zh-Hans",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": ["Select/Listbox", "Form", "Scrollbar", "Toast", "CRUD"],
+  "ownership": {"Select/Listbox": "native"},
+  "requiredCommands": ["typecheck", "unit", "e2e"],
+  "commands": {"typecheck": "npm run editor:typecheck", "unit": "npm run editor:test", "e2e": "npm run editor:test"},
+  "evidence": {"crudFullFlow": "../tests/local-editor-browser.test.mjs", "failurePaths": "../tests/local-editor.test.mjs"}
+}

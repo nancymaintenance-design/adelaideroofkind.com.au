@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Adelaide Roof Kind 本地后台</title><link rel="stylesheet" href="/__editor/field-design.css"><link rel="stylesheet" href="/__editor/editor.css"></head>
+<body class="editor-app">
+<header class="editor-header"><div><p class="editor-kicker">ELLIS SERVICES GROUP · ADELAIDE ROOF KIND</p><h1>屋顶网站 · 中文草稿编辑器</h1></div><span class="local-badge">仅本地 · 未发布</span></header>
+<main class="editor-main">
+ <section class="editor-toolbar" aria-label="页面选择"><div>
+  <label for="page-search">筛选页面</label><div class="search-row"><input id="page-search" type="search" placeholder="页面名称或文件名"><button id="clear-search" type="button" hidden disabled>清除筛选</button></div>
+  <label for="page">选择页面</label><select id="page" disabled><option>正在读取页面…</option></select><p id="page-count" role="status"></p>
+ </div><p id="coverage">从当前源码中文开始编辑正文、FAQ、按钮及 SEO。保存仅写入本机；改完在聊天通知助手同步英文。共享导航、完整页尾及业务事实保持锁定；图片和内链目标由助手按需调整。</p></section>
+ <div class="editor-workspace">
+  <section class="preview-panel" aria-label="原版式预览"><div class="preview-heading"><h2>中文草稿预览</h2><span>点选文字即可编辑 · 页面操作已禁用</span></div><iframe id="preview" title="原版式中文草稿预览" sandbox="allow-scripts allow-same-origin"></iframe></section>
+  <section class="edit-panel" aria-labelledby="edit-title">
+   <p class="editor-kicker">CONTENT EDITOR</p><h2 id="edit-title">编辑中文文案</h2>
+   <div class="preview-options"><div><label for="preview-language">预览语言</label><select id="preview-language"><option value="zh-Hans">中文草稿</option><option value="en-AU">英文对照（只读）</option></select></div><div><label for="preview-size">预览宽度</label><select id="preview-size"><option value="desktop">桌面</option><option value="mobile">手机</option></select></div></div>
+   <label for="field">文字位置</label><select id="field" disabled><option>请稍候…</option></select><h3>英文原文（只读）</h3><p id="original" class="original">选择左侧文字，或从上方列表选择。</p>
+   <form id="edit-form" novalidate>
+    <label for="translation">中文草稿</label><textarea id="translation" rows="10" aria-describedby="field-help" style="resize:none" disabled></textarea>
+    <p id="field-help">这里只保存中文文字，不更改英文或版式。电话、邮箱、价格等业务事实已锁定。</p>
+    <div class="actions"><button id="save" type="submit" disabled>保存中文草稿</button><button id="reload" type="button" disabled>重新载入</button></div>
+    <p id="status" role="status" aria-live="polite">正在连接本地服务…</p><p id="revision" class="revision"></p>
+   </form>
+   <details id="workflow"><summary>本地修改对照</summary><p id="workflow-state" role="status"></p><div id="change-list"></div><button hidden id="approve" type="button" disabled>确认英文与中文候选</button><p class="revision">修改后请在聊天通知助手同步英文；上线另行授权。</p></details>
+   <details><summary>已保存历史</summary><label for="history">最近20次修订（北京时间）</label><select id="history"><option value="">暂无历史</option></select><button id="restore" type="button" disabled>恢复选中修订</button></details>
+  </section>
+ </div>
+</main>
+<section class="editor-main" aria-label="旧版草稿备查"><div id="legacy-review"></div></section>
+<dialog id="unsaved" aria-labelledby="unsaved-title"><h2 id="unsaved-title">当前中文草稿尚未保存</h2><p>切换页面或重新载入将丢弃本次未保存的编辑。已经保存的草稿不受影响。</p><div class="actions"><button id="keep" type="button" autofocus disabled>继续编辑</button><button id="discard" type="button" class="secondary" disabled>丢弃本次编辑</button></div></dialog>
+<dialog id="confirm-action" aria-labelledby="confirm-title" aria-describedby="confirm-description"><h2 id="confirm-title"></h2><p id="confirm-description"></p><div class="actions"><button id="cancel-action" type="button" autofocus disabled>取消</button><button id="commit-action" type="button" disabled></button></div></dialog>
+<script type="module" src="/__editor/client.js"></script>
+</body></html>
