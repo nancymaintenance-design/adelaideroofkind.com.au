@@ -3,6 +3,30 @@
   "outputDirectory": "dist",
   "headers": [
     {
+      "source": "/feed.json",
+      "headers": [{"key": "Content-Type", "value": "application/feed+json; charset=utf-8"}]
+    },
+    {
+      "source": "/local-services-feed.json",
+      "headers": [{"key": "Content-Type", "value": "application/feed+json; charset=utf-8"}]
+    },
+    {
+      "source": "/services-feed.json",
+      "headers": [{"key": "Content-Type", "value": "application/feed+json; charset=utf-8"}]
+    },
+    {
+      "source": "/zh/feed.json",
+      "headers": [{"key": "Content-Type", "value": "application/feed+json; charset=utf-8"}]
+    },
+    {
+      "source": "/zh/local-services-feed.json",
+      "headers": [{"key": "Content-Type", "value": "application/feed+json; charset=utf-8"}]
+    },
+    {
+      "source": "/zh/services-feed.json",
+      "headers": [{"key": "Content-Type", "value": "application/feed+json; charset=utf-8"}]
+    },
+    {
       "source": "/(.*)\\.(png|jpg|jpeg|webp|gif|svg|ico|woff|woff2)",
       "headers": [
         {

@@ -5,7 +5,7 @@ const publicResources = [
   'apple-touch-icon.png', 'favicon-192.png', 'favicon-32.png', 'favicon-48.png',
   'favicon-512.png', 'favicon-ellis-services.png', 'favicon.ico', 'feed.json',
   'llms.txt', 'local-services-feed.json', 'local-services-rss.xml', 'robots.txt',
-  'rss.xml', 'site.webmanifest', 'sitemap.xml',
+  'rss.xml', 'services-feed.json', 'site.webmanifest', 'sitemap.xml',
 ];
 const assetTypes = {
   brand: new Set(['.svg','.png','.jpg','.webp']),

@@ -54,7 +54,7 @@ test('translation failures leave an existing local artifact intact',()=>{
     writeFileSync(path.join(fixture,'dist','keep.txt'),'previous working preview');
     writeFileSync(path.join(fixture,'tools','build-static.cjs'),readFileSync(path.join(root,'tools','build-static.cjs')));
     writeFileSync(path.join(fixture,'tools','bilingual.cjs'),"module.exports={validateTranslations(){throw Error('Bilingual check failed: missing translation')}};");
-    for(const name of ['index.html','404.html','apple-touch-icon.png','favicon-192.png','favicon-32.png','favicon-48.png','favicon-512.png','favicon-ellis-services.png','favicon.ico','feed.json','llms.txt','local-services-feed.json','local-services-rss.xml','robots.txt','rss.xml','site.webmanifest','sitemap.xml'])writeFileSync(path.join(fixture,name),'fixture');
+    for(const name of ['index.html','404.html','apple-touch-icon.png','favicon-192.png','favicon-32.png','favicon-48.png','favicon-512.png','favicon-ellis-services.png','favicon.ico','feed.json','llms.txt','local-services-feed.json','local-services-rss.xml','robots.txt','rss.xml','services-feed.json','site.webmanifest','sitemap.xml'])writeFileSync(path.join(fixture,name),'fixture');
     const run=spawnSync(process.execPath,[path.join(fixture,'tools','build-static.cjs')],{encoding:'utf8'});
     assert.equal(run.status,1);assert.match(run.stderr,/Bilingual check failed/);
     assert.equal(readFileSync(path.join(fixture,'dist','keep.txt'),'utf8'),'previous working preview');

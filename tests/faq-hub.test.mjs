@@ -54,7 +54,7 @@ test('thirteen existing questions retain eleven answers and the two corrected as
 <p>Written warranty information sets out coverage, duration and exclusions for the repair work.</p>
 </div>
 </div>`;
-  assert.ok(current.includes(protectedMarkup),'protected entry markup remains unchanged');
+  assert.ok(current.replace(/\r\n/g,'\n').includes(protectedMarkup),'protected entry markup remains unchanged');
 });
 
 test('seven category anchors resolve to useful direct answers and matching complete schema', async () => {

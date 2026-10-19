@@ -2,7 +2,9 @@
   "name": "adelaide-roof-kind-static-tests",
   "private": true,
   "scripts": {
-    "build": "node tests/verify-gutter-page.cjs && node tools/build-static.cjs && node clarity-install.mjs dist clarity-site.json clarity-assets",
+    "schema:sync": "node tools/structured-index.cjs --write",
+    "schema:check": "node tools/structured-index.cjs",
+    "build": "node tests/verify-gutter-page.cjs && node tools/structured-index.cjs && node tools/build-static.cjs && node clarity-install.mjs dist clarity-site.json clarity-assets",
     "test": "node --test --test-concurrency=1 tests/*.test.mjs",
     "test:ui": "node --test --test-concurrency=1 tests/ui-seo-local.test.mjs tests/images-local.test.mjs",
     "i18n:catalog": "node tools/bilingual.cjs catalog",

@@ -13,7 +13,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const dist = resolve(root, 'dist');
 const builder = resolve(root, 'tools/build-static.cjs');
 const reports = resolve(process.env.STATIC_BUILD_TEST_REPORTS || resolve(root, '../reports/site-refinement-2026-10-15'));
-const resources = ['apple-touch-icon.png','favicon-192.png','favicon-32.png','favicon-48.png','favicon-512.png','favicon-ellis-services.png','favicon.ico','feed.json','llms.txt','local-services-feed.json','local-services-rss.xml','robots.txt','rss.xml','site.webmanifest','sitemap.xml'];
+const resources = ['apple-touch-icon.png','favicon-192.png','favicon-32.png','favicon-48.png','favicon-512.png','favicon-ellis-services.png','favicon.ico','feed.json','llms.txt','local-services-feed.json','local-services-rss.xml','robots.txt','rss.xml','services-feed.json','site.webmanifest','sitemap.xml'];
 const files = directory => readdirSync(directory).sort().flatMap(name => {
   const target = resolve(directory, name);
   return lstatSync(target).isDirectory() ? files(target) : [target];
@@ -30,7 +30,7 @@ test('source build emits only current public files, removes stale output and reb
   build();
   const html = readdirSync(root).filter(file => file.endsWith('.html')).sort();
   assert.equal(html.length, 51, '50 existing pages plus branded 404');
-  const localized=[...html.map(file=>'zh/'+file),'zh/clarity-privacy.html','clarity-privacy.html','clarity-privacy-zh.html',...['feed.json','rss.xml','local-services-feed.json','local-services-rss.xml','site.webmanifest','llms.txt'].map(file=>'zh/'+file)];
+  const localized=[...html.map(file=>'zh/'+file),'zh/clarity-privacy.html','clarity-privacy.html','clarity-privacy-zh.html',...['feed.json','rss.xml','local-services-feed.json','local-services-rss.xml','services-feed.json','site.webmanifest','llms.txt'].map(file=>'zh/'+file)];
   const expected = [...html, ...resources, ...files(resolve(root,'assets')).map(file => relative(root,file).replaceAll('\\','/')), ...localized].sort();
   assert.deepEqual(snapshot().map(([file])=>file), expected);
   for (const file of expected.filter(file=>!localized.includes(file)&&file!=='sitemap.xml')) assert.deepEqual(readFileSync(resolve(dist,file)), readFileSync(resolve(root,file)), `${file} is current source`);

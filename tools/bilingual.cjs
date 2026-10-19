@@ -3,7 +3,7 @@ const path = require('node:path');
 const {createHash} = require('node:crypto');
 const root = path.resolve(__dirname, '..');
 const origin = 'https://www.adelaideroofkind.com.au';
-const localizedResources = ['feed.json','rss.xml','local-services-feed.json','local-services-rss.xml','site.webmanifest','llms.txt'];
+const localizedResources = ['feed.json','rss.xml','local-services-feed.json','local-services-rss.xml','services-feed.json','site.webmanifest','llms.txt'];
 const dictionaryDirectory = path.join(root, 'content', 'zh-Hans');
 function dictionary() {
   const result={};
@@ -38,7 +38,7 @@ function template(value) {
   const key=normalize(value).replace(new RegExp('\\b('+areas.join('|')+')\\b','gi'),area=>{let i=variables.indexOf(area);if(i<0){i=variables.length;variables.push(area);}return `{area${i}}`;});
   return {key,variables};
 }
-const textKeys = new Set(['name','description','headline','text','caption','articleBody','serviceType']);
+const textKeys = new Set(['name','description','headline','text','caption','articleBody','serviceType','keywords','category']);
 function schemaStrings(value, collect, textProperty=false) {
   if (Array.isArray(value)) return value.forEach(v => schemaStrings(v, collect, textProperty));
   if (typeof value === 'string') {if(textProperty)collect(value);return;}
@@ -149,9 +149,10 @@ function localizeSchema(value,dictionary,missing,known,parentType,textProperty=f
   const result={};
   for(const [key,child] of Object.entries(value)) {
     if(textKeys.has(key))result[key]=localizeSchema(child,dictionary,missing,known,type,true);
+    else if(key==='knowsAbout')result[key]=localizeSchema(child,dictionary,missing,known,'Service');
     else if((key==='url'||key==='@id'||key==='mainEntityOfPage'||(key==='item'&&type==='ListItem'))&&typeof child==='string'&&child.startsWith(origin)&&!/#(?:organization|website)$/.test(child)&&!['ProfessionalService','Organization','WebSite'].includes(type)) {
       const local=localUrl(child,known);result[key]=local.startsWith('/')?origin+local:local;
-    }else if(key==='inLanguage')result[key]='zh-Hans';
+    }else if(key==='inLanguage')result[key]=type==='WebSite'?child:'zh-Hans';
     else result[key]=typeof child==='object'?localizeSchema(child,dictionary,missing,known,type):child;
   }
   if(['WebPage','ContactPage','AboutPage','FAQPage','Article'].includes(type))result.inLanguage='zh-Hans';
@@ -200,21 +201,22 @@ function buildBilingual(output) {
   }
   if(missing.size)throw new Error(`Bilingual build blocked: ${missing.size} missing/stale Chinese translations. Run npm run i18n:catalog. First: ${[...missing].slice(0,3).join(' | ')}`);
   for(const entry of pending){fs.mkdirSync(path.dirname(entry.file),{recursive:true});fs.writeFileSync(entry.file,entry.html);}
-  for(const feedName of ['feed.json','local-services-feed.json']) {
+  for(const feedName of ['feed.json','local-services-feed.json','services-feed.json']) {
     const source=JSON.parse(fs.readFileSync(path.join(root,feedName),'utf8'));
     const advice=feedName==='feed.json';
-    const localized={...source,title:advice?'Ellis Services Group 屋顶维护指南':'Ellis Services Group 本地屋顶服务',description:advice?'Ellis Services Group 屋顶维修与维护指南。':'Ellis Services Group 各地区屋顶维修服务。',language:'zh-Hans',home_page_url:origin+localUrl(source.home_page_url,known),feed_url:origin+'/zh/'+feedName};
+    const service=feedName==='services-feed.json';
+    const localized={...source,title:advice?'Ellis Services Group 屋顶维护指南':service?'Ellis Services Group 企业与屋顶服务':'Ellis Services Group 本地屋顶服务',description:advice?'Ellis Services Group 屋顶维修与维护指南。':service?'来自对应公开页面的企业介绍与屋顶服务摘要。':'Ellis Services Group 各地区屋顶维修服务。',language:'zh-Hans',home_page_url:origin+localUrl(source.home_page_url,known),feed_url:origin+'/zh/'+feedName};
     localized.items=source.items.map(item=>{
       const route=localUrl(item.url,known);const filename=new URL(item.url).pathname.slice(1)||'index.html';
       const document=pending.find(p=>p.file===path.join(output,'zh',filename))?.html;
       if(!document)throw new Error(`Feed has no Chinese page: ${item.url}`);
-      const title=decode(document.match(/<title>([^<]+)<\/title>/)?.[1]||'');
-      const summary=decode(document.match(/<meta\b[^>]*name="description"[^>]*content="([^"]+)"/)?.[1]||'');
-      return {...item,id:origin+route,url:origin+route,title,summary};
+      const record=require('./structured-index.cjs').pageRecord(document);
+      return {...item,id:origin+route,url:origin+route,title:record.heading,summary:record.summary,content_text:record.summary,tags:record.topics};
     });
     fs.writeFileSync(path.join(output,'zh',feedName),JSON.stringify(localized,null,2)+'\n');
+    if(service)continue;
     const rssName=advice?'rss.xml':'local-services-rss.xml';
-    const rss=`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>${escape(localized.title)}</title><link>${escape(localized.home_page_url)}</link><description>${escape(localized.description)}</description><language>zh-Hans</language>${localized.items.map(item=>`<item><title>${escape(item.title)}</title><link>${escape(item.url)}</link><guid isPermaLink="true">${escape(item.id)}</guid>${item.date_published?`<pubDate>${new Date(item.date_published).toUTCString()}</pubDate>`:''}<description>${escape(item.summary)}</description></item>`).join('')}</channel></rss>\n`;
+    const rss=`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>${escape(localized.title)}</title><link>${escape(localized.home_page_url)}</link><description>${escape(localized.description)}</description><language>zh-Hans</language>${localized.items.map(item=>`<item><title>${escape(item.title)}</title><link>${escape(item.url)}</link><guid isPermaLink="true">${escape(item.id)}</guid>${item.date_published?`<pubDate>${new Date(item.date_published).toUTCString()}</pubDate>`:''}<description>${escape(item.summary)}</description>${item.tags.map(tag=>`<category>${escape(tag)}</category>`).join('')}</item>`).join('')}</channel></rss>\n`;
     fs.writeFileSync(path.join(output,'zh',rssName),rss);
   }
   const manifest=JSON.parse(fs.readFileSync(path.join(root,'site.webmanifest'),'utf8'));
