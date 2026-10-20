@@ -98,6 +98,8 @@ function buildStatic() {
     fs.copyFileSync(path.join(source,relative),target);
   }
   const localized=bilingual.buildBilingual(output);
+  // One explicit bilingual map produces both visible navigation and JSON-LD.
+  require('./navigation.cjs').applyNavigation(output);
   const allFiles=[...new Set([...files,...localized.generated])].sort();
   console.log(`Built ${allFiles.length} public files into ${output}; English/Chinese source strings synchronized.`);
   return allFiles;

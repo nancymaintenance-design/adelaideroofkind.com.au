@@ -7,6 +7,28 @@
 .service-hero-actions{margin-top:1.25rem}
 .service-hero-actions .button{min-height:44px}
 @media(max-width:850px){.page-hero:has(.service-hero-actions){padding-top:145px;padding-bottom:2rem}.page-hero:has(.service-hero-actions) h1{font-size:clamp(2.65rem,10.5vw,4rem)}.service-hero-actions{gap:.6rem}.service-hero-actions .button{padding:.85rem 1rem;letter-spacing:.06em}}
+/* Compact, shared hierarchy and service paths; never reserve viewport-height panels. */
+.breadcrumbs{margin:0 0 .8rem;font:600 .86rem/1.5 var(--sans);text-transform:none;letter-spacing:normal;max-width:100%}
+.breadcrumbs ol{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem 0;list-style:none;padding:0;margin:0}
+.breadcrumbs li{display:flex;align-items:center;min-width:0;max-width:100%;overflow-wrap:anywhere}
+.breadcrumbs li+li::before{content:"";width:.4rem;height:.4rem;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg);margin:0 .65rem;flex:none}
+.breadcrumbs a{display:inline-flex;align-items:center;min-height:36px;color:inherit;text-decoration:underline;text-underline-offset:.22em;text-decoration-thickness:1px;cursor:pointer}
+.breadcrumbs a:hover{color:var(--accent-light,#efb98d);text-decoration-thickness:2px}
+.breadcrumbs [aria-current]{opacity:.9}
+.district-list--cards .district h3 .district-service-link{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-decoration:underline;text-underline-offset:.18em;text-decoration-thickness:1px;font:inherit;max-width:100%;overflow-wrap:anywhere}
+.district-list--cards .district h3 .district-service-link:hover{color:var(--accent-text);text-decoration-thickness:2px}
+.guide-service-entry{max-width:850px;margin:.8rem 0 1rem}
+.guide-service-entry p{margin:0 0 .65rem!important;font-size:1rem!important}
+.guide-service-entry .hero-actions{margin:.65rem 0 0;gap:.6rem}
+.guide-service-entry .button{min-width:0;white-space:normal;max-width:100%;line-height:1.4}
+.service-resources{padding-block:1.25rem;border-block:1px solid var(--line);margin-block:0 1.5rem}
+.service-resources h2{font:700 clamp(1.25rem,2.2vw,1.65rem)/1.25 var(--sans);margin:0 0 .75rem;text-transform:none;letter-spacing:normal}
+.service-resources__links{display:flex;flex-wrap:wrap;gap:.65rem}
+.service-resources__links a{display:inline-flex;align-items:center;justify-content:space-between;gap:.5rem;min-height:44px;max-width:100%;padding:.65rem .85rem;background:var(--ink);color:white;border-radius:var(--card-radius-small);font-weight:700;font-size:.86rem;line-height:1.4;overflow-wrap:anywhere}
+.service-resources__links a:hover{background:var(--mineral);color:white}
+.service-resources p{margin:.75rem 0 0;font-size:.9rem}.service-resources p a{font-weight:800;text-decoration:underline;text-underline-offset:.2em}
+.locality-service-grid .locality-service-link{margin:.65rem 0 0;min-height:44px;max-width:100%;white-space:normal;letter-spacing:.02em;font-size:.8rem;line-height:1.4}
+@media(max-width:650px){.breadcrumbs{font-size:.82rem}.breadcrumbs li+li::before{margin-inline:.5rem}.guide-service-entry .hero-actions{align-items:stretch}.guide-service-entry .button{flex:1 1 100%;justify-content:center;padding:.7rem .85rem}.service-resources__links{display:grid;grid-template-columns:1fr}.service-resources__links a{width:100%}}
 html{scroll-padding-top:6rem;scrollbar-color:#817b70 var(--sand);scrollbar-width:thin}
 ::-webkit-scrollbar{width:12px;height:12px}::-webkit-scrollbar-track{background:var(--sand)}::-webkit-scrollbar-thumb{background:#817b70;border:3px solid var(--sand);border-radius:8px}
 body{overflow-wrap:break-word}a,button{touch-action:manipulation}

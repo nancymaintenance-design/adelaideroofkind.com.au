@@ -12,6 +12,8 @@ const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const ref=id=>({'@id':id});
 function pageRecord(html){
   const $=cheerio.load(html);
+  // Navigation is visible UI, not the article/service summary or topic list.
+  $('[data-breadcrumb],.service-resources,.guide-service-entry').remove();
   const headingNode=$('main h1').first().clone();
   headingNode.children().after(' ');
   const heading=clean(headingNode.text());
