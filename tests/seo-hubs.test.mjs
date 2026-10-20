@@ -47,9 +47,9 @@ for (const [heading, destination] of [
   ['Inner South', 'roof-repairs-unley-adelaide.html'],
   ['West/Coastal', 'roof-repairs-henley-beach-adelaide.html'],
 ]) {
-  test(`Service Areas ${heading} group leads to an existing locality page`, () => {
-    const group = h2Groups(main('service-areas.html')).find((item) => item.heading === heading);
-    assert.ok(group, `${heading} H2 section exists`);
+  test(`Service Areas ${heading} destination remains in a compact district card`, () => {
+    const group = [...main('service-areas.html').matchAll(/<section class="district">([\s\S]*?)<\/section>/g)].map(([,content])=>({content})).find(item=>localLinks(item.content).some(link=>link.href===destination));
+    assert.ok(group, `${heading} locality card exists`);
     assert.ok(localLinks(group.content).some(({ href, label }) =>
       href === destination && /^Roof repairs in /.test(label)),
     `${heading} has a descriptive locality link`);

@@ -33,7 +33,13 @@ test('source build emits only current public files, removes stale output and reb
   const localized=[...html.map(file=>'zh/'+file),'zh/clarity-privacy.html','clarity-privacy.html','clarity-privacy-zh.html',...['feed.json','rss.xml','local-services-feed.json','local-services-rss.xml','services-feed.json','site.webmanifest','llms.txt'].map(file=>'zh/'+file)];
   const expected = [...html, ...resources, ...files(resolve(root,'assets')).map(file => relative(root,file).replaceAll('\\','/')), ...localized].sort();
   assert.deepEqual(snapshot().map(([file])=>file), expected);
-  for (const file of expected.filter(file=>!localized.includes(file)&&file!=='sitemap.xml')) assert.deepEqual(readFileSync(resolve(dist,file)), readFileSync(resolve(root,file)), `${file} is current source`);
+  const navigation=createRequire(import.meta.url)(resolve(root,'tools/navigation.cjs'));
+  for (const file of expected.filter(file=>!localized.includes(file)&&file!=='sitemap.xml')) {
+    const record=navigation.records.find(r=>r.locale==='en-AU'&&navigation.filename(r)===file);
+    const source=readFileSync(resolve(root,file));
+    const current=record?Buffer.from(navigation.renderPage(source.toString('utf8'),record)):source;
+    assert.deepEqual(readFileSync(resolve(dist,file)),current,`${file} is current source with only its explicit navigation transform`);
+  }
   assert.equal([...readFileSync(resolve(dist,'sitemap.xml'),'utf8').matchAll(/<loc>/g)].length,76,'37 existing page pairs plus the privacy page pair');
   for(const file of html) assert.ok(existsSync(resolve(dist,'zh',file)),`${file} has a generated Chinese counterpart`);
   for (const file of ['api/contact.js','package.json','package-lock.json','vercel.json','ellis-services-group-site.zip','.git/config','tests/static-build.test.mjs','tools/build-static.cjs']) assert.equal(existsSync(resolve(dist,file)), false, file);
