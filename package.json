@@ -2,6 +2,8 @@
   "name": "adelaide-roof-kind-static-tests",
   "private": true,
   "scripts": {
+    "llms:check": "node tools/llms-audit.cjs",
+    "llms:live": "node tools/llms-audit.cjs --live",
     "schema:sync": "node tools/structured-index.cjs --write",
     "schema:check": "node tools/structured-index.cjs",
     "build": "node tests/verify-gutter-page.cjs && node tools/structured-index.cjs && node tools/build-static.cjs && node clarity-install.mjs dist clarity-site.json clarity-assets",
