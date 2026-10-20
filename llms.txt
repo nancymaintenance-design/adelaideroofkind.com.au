@@ -1,42 +1,61 @@
 # Ellis Services Group
 
-> Adelaide roof repair and maintenance services. This file is a short guide to public pages on the Ellis Services Group website.
-
-Updated: 2026-10-13
+> Ellis Services Group provides roof repairs and maintenance in Adelaide. This directory links to existing English and Simplified Chinese pages about services, inspections, enquiries and published project photographs.
+> Ellis Services Group 为阿德莱德住宅提供屋顶维修与维护。以下精选链接分别指向现有英文、简体中文服务说明、检查与咨询入口，以及已公开的项目照片和指南。
 
 Contact: 0434 276 883 · ellisservicesgroup9@outlook.com
-Office: 63 Pirie St, Adelaide SA 5000
 
-## Core pages
+## English services
 
-- [Home](https://www.adelaideroofkind.com.au/)
-- [Services](https://www.adelaideroofkind.com.au/services.html)
-- [Service areas](https://www.adelaideroofkind.com.au/service-areas.html)
-- [About Ellis Services Group](https://www.adelaideroofkind.com.au/about.html)
-- [Contact](https://www.adelaideroofkind.com.au/contact.html)
+- [Roofing services](https://www.adelaideroofkind.com.au/services.html): Compare the existing repair, cleaning, painting and inspection services before arranging an assessment.
+- [Roof leak detection and repairs](https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide.html): Water-entry paths, on-site leak assessment and repair scope; ceiling stains may be away from the source.
+- [Roof tile, ridge capping and flashing repairs](https://www.adelaideroofkind.com.au/roof-repairs-adelaide.html): Targeted repairs to damaged tiles, ridge details, flashing and valleys, confirmed by inspection.
+- [Gutter and downpipe repairs](https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide.html): Assessment of leaking joints, damaged drainage components and overflow; cleaning and component repairs are separate scopes.
+- [Gutter cleaning](https://www.adelaideroofkind.com.au/gutter-cleaning-adelaide.html): Debris removal and accessible outlet checks, with drainage faults identified for separate repair assessment.
+- [Roof restoration](https://www.adelaideroofkind.com.au/roof-restoration-adelaide.html): Condition checks and a defined scope for repairs, preparation and suitable protective finishing.
+- [Metal and Colorbond roof repairs](https://www.adelaideroofkind.com.au/metal-roof-repairs-adelaide.html): Assessment of sheets, fixings and junctions, with photographs of a Magill inspection and maintenance project.
+- [Roof maintenance and painting](https://www.adelaideroofkind.com.au/roof-painting-adelaide.html): Material suitability, preparation and agreed repairs before painting, with Foothills project photographs.
+- [Roof cleaning](https://www.adelaideroofkind.com.au/roof-cleaning-adelaide.html): Surface-cleaning scope, material and access considerations; the gallery shows pre-cleaning conditions, not completed cleaning.
+- [Roof inspections](https://www.adelaideroofkind.com.au/roof-inspection-adelaide.html): Separately bookable condition inspections; agree accessible areas and documentation before booking, with repairs quoted separately.
 
-## Roofing services
+## 中文服务
 
-- [Roof repairs](https://www.adelaideroofkind.com.au/roof-repairs-adelaide.html)
-- [Roof leak repairs](https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide.html)
-- [Roof restoration](https://www.adelaideroofkind.com.au/roof-restoration-adelaide.html)
-- [Gutter and downpipe repairs](https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide.html)
-- [Gutter cleaning](https://www.adelaideroofkind.com.au/gutter-cleaning-adelaide.html)
-- [Metal and Colorbond roof repairs](https://www.adelaideroofkind.com.au/metal-roof-repairs-adelaide.html)
-- [Roof painting](https://www.adelaideroofkind.com.au/roof-painting-adelaide.html)
-- [Roof cleaning](https://www.adelaideroofkind.com.au/roof-cleaning-adelaide.html)
-- [Roof inspections](https://www.adelaideroofkind.com.au/roof-inspection-adelaide.html)
+- [屋顶服务项目](https://www.adelaideroofkind.com.au/zh/services.html): 比较现有屋顶维修、清理、清洗、喷涂和检查项目，再安排现场评估。
+- [屋顶漏水检测与维修](https://www.adelaideroofkind.com.au/zh/roof-leak-repairs-adelaide.html): 说明进水路径、现场漏水评估及维修范围；天花板水渍可能远离实际进水点。
+- [瓦片、屋脊盖瓦与泛水板维修](https://www.adelaideroofkind.com.au/zh/roof-repairs-adelaide.html): 针对受损瓦片、屋脊、泛水板及屋面谷沟开展评估，再确认局部维修范围。
+- [檐沟与落水管维修](https://www.adelaideroofkind.com.au/zh/gutter-downpipe-repairs-adelaide.html): 评估接缝漏水、排水构件损坏及溢水；清理杂物与维修构件分别确定范围。
+- [檐沟清理](https://www.adelaideroofkind.com.au/zh/gutter-cleaning-adelaide.html): 清除杂物并检查可到达的出水口；发现的排水故障另行评估维修。
+- [屋顶翻新](https://www.adelaideroofkind.com.au/zh/roof-restoration-adelaide.html): 根据屋顶状况，明确维修、准备工作和适用保护面层的施工范围。
+- [金属与 Colorbond 屋顶维修](https://www.adelaideroofkind.com.au/zh/metal-roof-repairs-adelaide.html): 评估板材、紧固件及交接处，并提供 Magill 屋顶检查与保养项目照片。
+- [屋顶保养与喷涂](https://www.adelaideroofkind.com.au/zh/roof-painting-adelaide.html): 喷涂前确认材料适用性、准备工作及约定维修，附 Foothills 项目照片。
+- [屋面清洗](https://www.adelaideroofkind.com.au/zh/roof-cleaning-adelaide.html): 说明表面清洗范围、材料与通行条件；图库展示清洗前状况，不是清洗完成效果。
+- [屋顶检查](https://www.adelaideroofkind.com.au/zh/roof-inspection-adelaide.html): 可单独预约屋顶状况检查；预订前确认可到达区域与资料要求，维修另行报价。
 
-## Chinese version
+## Site, company and contact / 网站、公司与联系
 
-- [中文服务](https://www.adelaideroofkind.com.au/zh/)
-- [Chinese public-page directory](https://www.adelaideroofkind.com.au/zh/llms.txt)
+- [Ellis roof repairs homepage](https://www.adelaideroofkind.com.au/): Overview of roof defects, service choices, an existing valley repair sequence and the quote request form.
+- [Ellis 屋顶维修首页](https://www.adelaideroofkind.com.au/zh/): 屋顶问题、服务选择、已有屋面谷沟维修照片序列与报价咨询表单的中文总览。
+- [About Ellis Services Group](https://www.adelaideroofkind.com.au/about.html): Business background, inspection and written-quote process, public contact details and the linked ABR record.
+- [关于 Ellis Services Group](https://www.adelaideroofkind.com.au/zh/about.html): 企业背景、检查与书面报价流程、公开联系方式，以及 ABR 企业记录链接。
+- [Roof repair service areas](https://www.adelaideroofkind.com.au/service-areas.html): Regional directory of existing local service pages; suburb, access and service needs are confirmed before an appointment.
+- [屋顶维修服务区域](https://www.adelaideroofkind.com.au/zh/service-areas.html): 按区域整理现有本地服务页面；预约前需确认所在城区、通行条件和服务需求。
+- [Contact and request a quote](https://www.adelaideroofkind.com.au/contact.html): Call, email or use the form to arrange an on-site assessment; include the suburb, roof issue and access information.
+- [联系与报价咨询](https://www.adelaideroofkind.com.au/zh/contact.html): 通过电话、邮件或表单安排现场评估，并说明所在城区、屋顶问题及通行信息。
 
-## Practical guides (English)
+## Published repair photographs / 已公开维修照片
 
-- [Roof repairs guide](https://www.adelaideroofkind.com.au/roof-repairs-adelaide-guide.html)
-- [Roof leak repairs guide](https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html)
-- [Tile roof repairs guide](https://www.adelaideroofkind.com.au/tile-roof-repairs-adelaide-guide.html)
-- [Ridge capping and repointing guide](https://www.adelaideroofkind.com.au/roof-repointing-ridge-capping-adelaide-guide.html)
-- [Gutter and downpipe repairs guide](https://www.adelaideroofkind.com.au/gutter-downpipe-repairs-adelaide-guide.html)
-- [Roof restoration guide](https://www.adelaideroofkind.com.au/roof-restoration-adelaide-guide.html)
+- [Ridge capping repair photographs](https://www.adelaideroofkind.com.au/roof-repairs-adelaide.html#ridge-repair-project): Existing before, during, finished-detail and overview photographs of ridge repair.
+- [屋脊盖瓦维修照片](https://www.adelaideroofkind.com.au/zh/roof-repairs-adelaide.html#ridge-repair-project): 已公开的屋脊维修前、施工中、完成细节及整体照片。
+- [Roof valley and roof-edge repair photographs](https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide.html#roof-leak-project): Existing project photographs show the initial valley condition, work in progress and completed roof-edge detail.
+- [屋面谷沟及屋顶边缘维修照片](https://www.adelaideroofkind.com.au/zh/roof-leak-repairs-adelaide.html#roof-leak-project): 已有项目照片展示谷沟初始状况、维修过程及完成后的屋顶边缘细节。
+
+## Selected guides and answers / 精选指南与问答
+
+- [Tracing a roof leak](https://www.adelaideroofkind.com.au/roof-leak-repairs-adelaide-guide.html): Record leak timing, weather and safe observations; distinguish ceiling symptoms from the water-entry path.
+- [屋顶漏水路径指南](https://www.adelaideroofkind.com.au/zh/roof-leak-repairs-adelaide-guide.html): 记录漏水时间、天气及安全观察信息，区分天花板症状与实际进水路径。
+- [Ridge bedding and repointing](https://www.adelaideroofkind.com.au/roof-repointing-ridge-capping-adelaide-guide.html): Distinguish supporting bedding from protective pointing and compare inspection-based repair scopes.
+- [屋脊砂浆座层与重新勾缝](https://www.adelaideroofkind.com.au/zh/roof-repointing-ridge-capping-adelaide-guide.html): 区分支撑盖瓦的砂浆座层与外层勾缝材料，比较经检查确定的维修范围。
+- [Repair, restoration and replacement](https://www.adelaideroofkind.com.au/roof-restoration-adelaide-guide.html): Compare a defined defect repair, broader restoration and replacement assessment by condition, materials and quote inclusions.
+- [维修、翻新与更换比较](https://www.adelaideroofkind.com.au/zh/roof-restoration-adelaide-guide.html): 根据屋顶状况、材料和报价内容，比较局部缺陷维修、较大范围翻新及更换评估。
+- [Roof repair FAQ](https://www.adelaideroofkind.com.au/faq.html): Categorised answers about leaks, roof materials, cleaning, drainage, restoration and inspection enquiries.
+- [屋顶维修常见问题](https://www.adelaideroofkind.com.au/zh/faq.html): 分类解答漏水、屋顶材料、清洗、排水、翻新及检查咨询问题。

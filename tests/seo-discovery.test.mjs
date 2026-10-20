@@ -11,7 +11,7 @@ test('AI-readable summary identifies the business and current public contact det
   assert.match(summary, /Ellis Services Group/);
   assert.match(summary, /0434 276 883/);
   assert.match(summary, /ellisservicesgroup9@outlook\.com/);
-  assert.match(summary, /Updated: 2026-10-13/);
+  assert.match(summary, /## 中文服务/);
 });
 
 test('AI-readable summary links to existing canonical site pages', () => {
@@ -23,19 +23,14 @@ test('AI-readable summary links to existing canonical site pages', () => {
     const url = new URL(href);
     assert.equal(url.origin, origin, href);
     assert.equal(url.search, '', href);
-    assert.equal(url.hash, '', href);
     const file = url.pathname.endsWith('/') ? `${url.pathname.slice(1)}index.html` : url.pathname.slice(1);
     // Chinese pages are generated build artifacts, not duplicate editable source.
     const location = new URL(url.pathname.startsWith('/zh/') ? `dist/${file}` : file, root);
     assert.ok(existsSync(location), `${href} resolves to a source or generated public file`);
     const content = readFileSync(location, 'utf8');
-    if (url.pathname === '/zh/llms.txt') {
-      assert.match(content, /^# Ellis Services Group/m);
-      assert.match(content, /屋顶维修/);
-      assert.ok([...content.matchAll(/\]\((https?:\/\/[^)]+)\)/g)].length >= 37, 'Chinese directory lists the full canonical page set');
-    } else {
-      assert.match(content, new RegExp(`<link rel="canonical" href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), href);
-    }
+    const canonical=href.split('#')[0];
+    assert.match(content, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), href);
+    if(url.hash)assert.ok(content.includes(`id="${url.hash.slice(1)}"`),'project anchor exists');
   }
 });
 

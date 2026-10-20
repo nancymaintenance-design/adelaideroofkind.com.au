@@ -221,11 +221,8 @@ function buildBilingual(output) {
   }
   const manifest=JSON.parse(fs.readFileSync(path.join(root,'site.webmanifest'),'utf8'));
   fs.writeFileSync(path.join(output,'zh','site.webmanifest'),JSON.stringify({...manifest,name:'Ellis Services Group 屋顶服务',short_name:'Ellis 屋顶服务',lang:'zh-Hans',start_url:'/zh/'},null,2)+'\n');
-  const links=docs.filter(doc=>doc.name!=='404.html'&&canonical(doc.html,doc.name)===(doc.name==='index.html'?'/':'/'+doc.name)).map(doc=>{
-    const rendered=pending.find(p=>p.file===path.join(output,'zh',doc.name)).html;
-    return `- [${decode(rendered.match(/<title>([^<]+)<\/title>/)?.[1]||'')} ](${origin}${zhPath(canonical(doc.html,doc.name))})`;
-  });
-  fs.writeFileSync(path.join(output,'zh','llms.txt'),'# Ellis Services Group\n\n> 阿德莱德屋顶维修与维护服务。\n\n'+links.join('\n')+'\n');
+  // Preserve the existing Chinese path, but curate only one bilingual directory.
+  fs.copyFileSync(path.join(root,'llms.txt'),path.join(output,'zh','llms.txt'));
   const oldPrivacy=path.join(output,'clarity-privacy-zh.html');
   fs.writeFileSync(oldPrivacy,'<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=/zh/clarity-privacy.html"><title>Microsoft Clarity 隐私偏好</title></head><body><a href="/zh/clarity-privacy.html">Microsoft Clarity 隐私偏好</a></body></html>');
   const sitemapFile=path.join(output,'sitemap.xml');const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
