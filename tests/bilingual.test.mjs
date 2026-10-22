@@ -89,7 +89,7 @@ test('Chinese FAQ and other structured answers match their complete visible ques
     const prosePairs=[...html.matchAll(/<h3[^>]*>((?:(?!<\/h3>)[\s\S])*?)<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/g)].map(m=>[text(m[1]),text(m[2])]);
     const buttonPairs=[...html.matchAll(/<button class="faq-question"[^>]*>([\s\S]*?)<span>[\s\S]*?<div class="faq-answer">\s*<div>\s*<p>([\s\S]*?)<\/p>/g)].map(m=>[text(m[1]),text(m[2])]);
     for(const entry of faq.mainEntity)assert.ok([...visible,...prosePairs,...buttonPairs].some(([q,a])=>q===text(entry.name)&&a===text(entry.acceptedAnswer.text)),`${route}: ${entry.name}`);
-    if(route==='/faq.html')assert.equal(faq.mainEntity.length,42);
+    if(route==='/faq.html')assert.equal(faq.mainEntity.length,49);
   }
 });
 

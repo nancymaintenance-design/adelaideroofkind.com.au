@@ -41,7 +41,7 @@ test('new real-page schema array label blocks actual validator and build before 
 
 test('generated Burnside serviceType array is fully Chinese',()=>{
   const service=schema(read('dist/zh/roof-repairs-burnside-adelaide.html')).find(node=>node['@type']==='Service');
-  assert.deepEqual(service.serviceType,['屋顶维修','屋顶翻新','屋顶漏水调查','檐沟清洁']);
+  assert.deepEqual(service.serviceType,['屋顶维修','屋顶翻新','屋顶漏水调查','檐沟清理']);
   let arrayPages=0;
   for(const file of readdirSync(path.join(root,'dist/zh')).filter(file=>file.endsWith('.html')))for(const node of schema(read('dist/zh/'+file))) {
     if(!Array.isArray(node.serviceType))continue;

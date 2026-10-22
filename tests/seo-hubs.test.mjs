@@ -68,7 +68,7 @@ test('FAQ topics group the existing questions and retain their FAQPage schema an
     .flatMap(([, json]) => JSON.parse(json)['@graph'] ?? []);
   const faq = jsonLd.find((node) => node['@type'] === 'FAQPage');
   assert.ok(faq, 'FAQPage structured data remains present');
-  assert.equal(faq.mainEntity.length, 42);
+  assert.equal(faq.mainEntity.length, 49);
   const visibleQuestions = [...main('faq.html').matchAll(/<summary>([\s\S]*?)<\/summary>|<button class="faq-question"[^>]*>([\s\S]*?)<span>/g)]
     .map(([, summary, button]) => textContent(summary ?? button));
   for (const question of faq.mainEntity) {

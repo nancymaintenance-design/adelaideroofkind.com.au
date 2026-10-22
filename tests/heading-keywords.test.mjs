@@ -14,7 +14,8 @@ test('About identifies roof repair work, inspection and quote process in semanti
 });
 // Catches service sections losing the actual components and problem being addressed.
 test('service headings describe tile, metal and drainage repair problems', () => {
-  assert.ok(headings('roof-repairs-adelaide.html').some(h => /cracked.*slipped.*tile repairs/i.test(h)));
+  assert.ok(headings('roof-repairs-adelaide.html').some(h => /tile.*ridge.*flashing.*valley.*repair checks/i.test(h)));
+  assert.match(main('roof-repairs-adelaide.html'), /Cracked, slipped or missing roof tiles/i);
   assert.ok(headings('metal-roof-repairs-adelaide.html').some(h => /metal roof leak repairs.*screws.*washers.*flashing/i.test(h)));
   assert.ok(headings('gutter-cleaning-adelaide.html').some(h => /blocked gutter cleaning.*outlet clearing/i.test(h)));
   assert.ok(headings('roof-cleaning-adelaide.html').some(h => /roof moss.*lichen removal/i.test(h)));

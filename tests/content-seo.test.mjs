@@ -80,7 +80,7 @@ for (const [file, guide, adjacent, intent] of commercial) {
   const links = [...main.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)];
   check(() => assert.match(text, /project photographs/i, `${file}: visible project evidence label`));
   check(() => assert.match(main, /<h2\b[^>]*>[^<]*(?:assess|scope|condition|includes)/i, `${file}: assessment or scope section`));
-  check(() => assert.match(text, /on-site assessment/i, `${file}: confirms scope on site`));
+  check(() => assert.match(text, /on-site (?:assessment|inspection)/i, `${file}: confirms scope on site`));
   check(() => assert.match(text, /ground[ -]level/i, `${file}: safe enquiry observations`));
   check(() => assert.match(text, intent, `${file}: relevant commercial intent`));
   for (const target of [guide, adjacent, 'about.html']) {

@@ -14,7 +14,7 @@ test('real GET and bilingual browser paths preserve readable pages, wrapping, fo
   fs.mkdirSync(path.join(directory,'screenshots'),{recursive:true});
   const server=createPreviewServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const base='http://127.0.0.1:'+server.address().port;
-  const browser=await chromium.launch();const results=[];
+  const browser=await chromium.launch();const results=[];let context;
   try{
     // All mapped pages are checked as responses, not merely files or HEAD requests.
     for(const record of records){
@@ -27,7 +27,7 @@ test('real GET and bilingual browser paths preserve readable pages, wrapping, fo
       assert.ok(body.includes('<h1>')||body.includes('<h1 '),route);assert.ok(!/captcha|cf-chl-|Just a moment/i.test(body));
       assert.ok(body.includes('hreflang="zh-Hans"'));assert.ok(!/name="robots" content="(?:noindex|none)/.test(body));
     }
-    const context=await browser.newContext({reducedMotion:'reduce'});
+    context=await browser.newContext({reducedMotion:'reduce'});
     await context.route('**/*',async route=>{
       const url=new URL(route.request().url());
       if(url.origin===base)return route.continue();
@@ -75,5 +75,9 @@ test('real GET and bilingual browser paths preserve readable pages, wrapping, fo
     await page.locator('[data-language-switch]').click();await page.waitForURL('**/roof-leak-repairs-adelaide.html');
     assert.equal(new URL(page.url()).pathname,'/roof-leak-repairs-adelaide.html');
     fs.writeFileSync(path.join(directory,'browser-results.json'),JSON.stringify({checkedAt:new Date().toISOString(),rawGetPages:records.length,viewports:[360,390,768,1440],results,network:'loopback only; external requests blocked',submit:'not submitted',analytics:'no live analytics loaded or events claimed'},null,2)+'\n');
-  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
+  }finally{
+    // Finish local asset proxy callbacks before disposing their request context.
+    if(context){await context.unrouteAll({behavior:'wait'});await context.close();}
+    await browser.close();await new Promise(resolve=>server.close(resolve));
+  }
 });

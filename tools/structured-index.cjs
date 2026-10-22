@@ -98,10 +98,15 @@ function enrichFeed(feed,readPage){
 function companyFeed(){
   return {version:'https://jsonfeed.org/version/1.1',title:'Ellis Services Group Roofing Services',home_page_url:origin+'/services.html',feed_url:origin+'/services-feed.json',description:'Company information and roofing service summaries from the linked public pages.',language:'en-AU',items:['about.html',...serviceFiles].map(file=>({id:origin+'/'+file,url:origin+'/'+file}))};
 }
-function refreshRss(xml,feed){
+function refreshRss(xml,feed,selfUrl){
   const $=cheerio.load(xml,{xmlMode:true});
   // Omit optional channel timestamp instead of pretending each build is a new publication.
   $('channel > lastBuildDate').remove();
+  if(selfUrl){
+    $('rss').attr('xmlns:atom','http://www.w3.org/2005/Atom');
+    $('channel > atom\\:link[rel="self"]').remove();
+    $('channel').prepend($('<atom:link/>').attr({rel:'self',type:'application/rss+xml',href:selfUrl}));
+  }
   $('item').each((i,e)=>{
     const item=feed.items.find(n=>n.url===$(e).find('link').text());
     if(!item)throw Error('RSS entry has no JSON Feed counterpart');
@@ -120,7 +125,7 @@ function synchronize(write=false){
   for(const file of fs.readdirSync(root).filter(f=>f.endsWith('.html')))emit(file,enrichHtml(read(file),file));
   for(const [json,rss] of [['feed.json','rss.xml'],['local-services-feed.json','local-services-rss.xml']]){
     const feed=enrichFeed(JSON.parse(read(json)),read);
-    emit(json,JSON.stringify(feed,null,2)+'\n');emit(rss,refreshRss(read(rss),feed));
+    emit(json,JSON.stringify(feed,null,2)+'\n');emit(rss,refreshRss(read(rss),feed,rss==='rss.xml'?origin+'/rss.xml':undefined));
   }
   emit('services-feed.json',JSON.stringify(enrichFeed(companyFeed(),read),null,2)+'\n');
   if(stale.length&&!write)throw Error('Structured index is stale: '+stale.join(', ')+'. Run npm run schema:sync, then verify both languages.');

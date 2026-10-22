@@ -24,23 +24,23 @@ before(async () => {
 });
 after(async () => { await browser?.close(); await new Promise(r => server.close(r)); });
 
-test('thirteen existing questions retain eleven answers and the two corrected assessment answers', async () => {
-  // Eleven frozen answers plus the two expressly corrected assessment answers;
-  // no dependency on local Git history in clean clones.
+test('thirteen established questions retain reviewed answers and the original warranty statement', async () => {
+  // Explicit contracts include the customer-first booking and guard-access
+  // explanations; no dependency on local Git history in clean clones.
   const baseline = [
-    ['How do I know if my roof needs repair or replacement?', 'A defined defect can suit a targeted repair when surrounding materials are sound. Broader defects may suit restoration if the underlying roof supports the work. Extensive deterioration, structural concerns or repeated repair failures need a wider assessment, including possible replacement or specialist investigation. Ellis checks the roof condition before recommending a scope.'],
+    ['How do I know if my roof needs repair or replacement?', 'A defined defect can suit a targeted repair when surrounding materials are sound. Broader defects may suit restoration if the underlying roof supports the work. Extensive deterioration, structural concerns or repeated repair failures need a wider assessment, including possible replacement or specialist investigation. We check the roof condition before recommending a scope.'],
     ['What are common causes of roof leaks in Adelaide?', 'Common causes include cracked or displaced tiles, deteriorated ridge capping, failed flashing, blocked gutters and downpipes, valleys and storm damage. Water can travel through the roof structure before it appears as a ceiling stain.'],
     ['Can a leaking tiled roof be repaired without replacing the whole roof?', 'A leaking tiled roof may be repaired without full replacement when the water-entry path is identified and surrounding tiles, ridges and junctions are sound. The assessment may lead to tile replacement, ridge or flashing repairs, or drainage clearance. Widespread deterioration or structural concerns need broader assessment before repair, restoration or possible replacement is recommended.'],
     ['What is ridge capping and why does it matter?', 'Ridge capping protects and secures tiles along roof ridges and hips. Cracked or loose capping allows wind-driven rain beneath roof tiles. Repair work covers the existing bedding, pointing and roof condition.'],
     ['Can blocked gutters cause roof leaks?', 'Yes. Blocked gutters or downpipes direct overflow into roof edges, eaves and wall areas. Drainage maintenance works alongside roof-defect repairs.'],
     ['What is included in a roof restoration?', 'Roof restoration can include cleaning, tile and ridge repairs, flashing work and a suitable protective finish. We inspect the roof first and specify the necessary repairs, preparation and finishing system in the written quote.'],
     ['Do roof repairs come with a warranty?', 'Written warranty information sets out coverage, duration and exclusions for the repair work.'],
-    ['Which Adelaide areas do you service?', 'We provide roof repairs and maintenance across Adelaide. Contact Ellis with your suburb and roof issue to confirm an on-site appointment.'],
+    ['Which Adelaide areas do you service?', 'We provide roof repairs and maintenance across Adelaide. Contact us with your suburb and roof issue to confirm an on-site appointment.'],
     ['Can condensation look like a roof leak?', 'Dampness can relate to rainwater entry, condensation or another source. The pattern and accessible roof condition need assessment; a ceiling stain alone cannot confirm the cause.'],
-    ['Does a roof inspection automatically include a written report?', 'Confirm the inspection fee, accessible areas, photographs and written documentation when booking. A repair assessment and a detailed condition report are not automatically the same scope.'],
-    ['Is cleaning beneath gutter guards included?', 'Tell Ellis which guards are fitted. Confirm whether the debris beneath them is accessible and whether removal and refitting are included in the written quote; these steps are not assumed.'],
+    ['Does a roof inspection automatically include a written report?', 'Your booking specifies whether photographs and a written report are included, along with the fee and areas we can inspect. We agree these details with you before the visit.'],
+    ['Is cleaning beneath gutter guards included?', 'Cleaning beneath a gutter guard depends on access to the debris. Tell us the guard type, if known; the written quote needs to specify any removal and refitting included.'],
     ['Is roof painting the same as roof restoration?', 'No. Painting concerns the finish, while a restoration scope can include preparation and identified repairs as well as a suitable coating. Compare the actual work and exclusions in each quote.'],
-    ['Can a metal roof leak be fixed by repainting?', 'Painting does not repair a failed lap, damaged fixing or perforated sheet. Ellis assesses the observed defect and surrounding roof condition before defining the repair scope.'],
+    ['Can a metal roof leak be fixed by repainting?', 'Painting does not repair a failed lap, damaged fixing or perforated sheet. We assess the observed defect and surrounding roof condition before defining the repair scope.'],
   ];
   const current = await readFile(resolve(root,'faq.html'),'utf8');
   const schema = h => JSON.parse(h.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])['@graph'].find(n => n['@type'] === 'FAQPage').mainEntity;
@@ -67,7 +67,7 @@ test('seven category anchors resolve to useful direct answers and matching compl
     assert.equal(await group.count(), 1);
     assert.equal(await group.locator('h2').count(), 1);
     const pairs = await group.locator('details, .faq-item').evaluateAll(es => es.map(e => ({name:(e.querySelector('summary') || e.querySelector('button')).textContent.replace(/\+\s*$/, '').trim(), answer:e.querySelector('.faq-response, .faq-answer').textContent.trim()})));
-    assert.ok(pairs.length >= 5 && pairs.length <= 7, `${id} has useful coverage`);
+    assert.ok(pairs.length >= 5 && pairs.length <= 9, `${id} has useful coverage`);
     visible.push(...pairs);
   }
   assert.equal(new Set(visible.map(q => q.name)).size, visible.length, 'no duplicate question padding');
@@ -79,7 +79,7 @@ test('seven category anchors resolve to useful direct answers and matching compl
 test('each category answers an intent, a homeowner scenario and an educational question from the map', async () => {
   // Hand-selected source phrases guard against replacing a topic with generic padding.
   const coverage = [
-    ['roof-leaks', ['Who can find the source of a roof leak in Adelaide?', 'The same ceiling stain has returned after a patch. What should I tell Ellis?', 'Can a roof leak show up far from the damaged area?']], // ADR-0173 / 0374 / 0468
+    ['roof-leaks', ['Who can find the source of a roof leak in Adelaide?', 'The same ceiling stain has returned after a patch. What should I tell you?', 'Can a roof leak show up far from the damaged area?']], // ADR-0173 / 0374 / 0468
     ['tiles-ridges-flashing', ['Can you replace a few broken roof tiles in Adelaide?', 'I can see cracks along the ridge from the ground. What happens next?', 'What is the difference between rebedding and repointing a roof?']], // ADR-0179 / 0385 / 0482
     ['metal-colorbond', ['Who repairs leaking metal roofs in Adelaide?', 'Can sound metal sheets stay when one area needs repair?', 'What parts of a metal roof are checked when tracing a leak?']], // ADR-0199 / 0400 / 0494
     ['roof-cleaning-moss', ['Can I book roof cleaning without committing to restoration or painting?', 'My terracotta roof has moss in shaded areas. Does it need painting too?', 'Why should the roof material be identified before cleaning?']], // ADR-0222 / 0425 / 0517

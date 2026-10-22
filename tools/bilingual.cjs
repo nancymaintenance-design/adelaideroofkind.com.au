@@ -216,7 +216,9 @@ function buildBilingual(output) {
     fs.writeFileSync(path.join(output,'zh',feedName),JSON.stringify(localized,null,2)+'\n');
     if(service)continue;
     const rssName=advice?'rss.xml':'local-services-rss.xml';
-    const rss=`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>${escape(localized.title)}</title><link>${escape(localized.home_page_url)}</link><description>${escape(localized.description)}</description><language>zh-Hans</language>${localized.items.map(item=>`<item><title>${escape(item.title)}</title><link>${escape(item.url)}</link><guid isPermaLink="true">${escape(item.id)}</guid>${item.date_published?`<pubDate>${new Date(item.date_published).toUTCString()}</pubDate>`:''}<description>${escape(item.summary)}</description>${item.tags.map(tag=>`<category>${escape(tag)}</category>`).join('')}</item>`).join('')}</channel></rss>\n`;
+    const atomNamespace=advice?' xmlns:atom="http://www.w3.org/2005/Atom"':'';
+    const atomSelf=advice?`<atom:link rel="self" type="application/rss+xml" href="${origin}/zh/rss.xml"/>`:'';
+    const rss=`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"${atomNamespace}><channel>${atomSelf}<title>${escape(localized.title)}</title><link>${escape(localized.home_page_url)}</link><description>${escape(localized.description)}</description><language>zh-Hans</language>${localized.items.map(item=>`<item><title>${escape(item.title)}</title><link>${escape(item.url)}</link><guid isPermaLink="true">${escape(item.id)}</guid>${item.date_published?`<pubDate>${new Date(item.date_published).toUTCString()}</pubDate>`:''}<description>${escape(item.summary)}</description>${item.tags.map(tag=>`<category>${escape(tag)}</category>`).join('')}</item>`).join('')}</channel></rss>\n`;
     fs.writeFileSync(path.join(output,'zh',rssName),rss);
   }
   const manifest=JSON.parse(fs.readFileSync(path.join(root,'site.webmanifest'),'utf8'));
