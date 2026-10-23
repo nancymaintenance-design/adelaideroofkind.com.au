@@ -13,6 +13,7 @@ const assetTypes = {
   fonts: new Set(['.woff2','.woff','.txt']),
   images: new Set(['.svg','.png','.jpg','.jpeg','.webp','.gif','.ico']),
   js: new Set(['.js']),
+  videos: new Set(['.mp4']),
 };
 
 function checkRealPath(target) {
