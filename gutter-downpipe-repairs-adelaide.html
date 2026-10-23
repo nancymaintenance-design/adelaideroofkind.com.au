@@ -123,14 +123,14 @@
 </article>
 <aside class="aside-card service-contact-card" aria-labelledby="service-contact-title">
 <h3 id="service-contact-title">Plan a drainage assessment</h3>
-<p class="service-contact-card__intro">Tell us about your property. Our team will contact you to arrange an inspection.</p>
+<p class="service-contact-card__intro">Tell us where water escapes: a joint, gutter edge, outlet or downpipe connection. We inspect the drainage before confirming cleaning or component repairs.</p>
 <form data-contact-form class="service-contact-form" action="/api/contact" method="post" novalidate>
 <input type="hidden" name="service" value="Gutter and downpipe repairs">
 <label>Name<input required name="name" autocomplete="name" maxlength="120"></label>
 <label>Email<input required name="email" type="email" autocomplete="email" maxlength="254"></label>
 <label>Phone<input required name="phone" type="tel" autocomplete="tel" maxlength="80"></label>
 <label>Suburb<input required name="suburb" autocomplete="address-level2" maxlength="160"></label>
-<label>What have you noticed?<textarea required name="message" rows="3" maxlength="5000" placeholder="Briefly describe the problem."></textarea></label>
+<label>What have you noticed?<textarea required name="message" rows="3" maxlength="5000" placeholder="Where water escapes and whether it occurs during rain."></textarea></label>
 <label class="service-contact-form__trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
 <button class="button button--dark" type="submit">Request a quote</button>
 <p class="form-status" data-contact-status role="status" aria-live="polite"></p>
